@@ -11,7 +11,7 @@ export function MailPreview({ mail }) {
 	}
 
 	return (
-		<tr className="mail-preview">
+		<tr className={`mail-preview ${mail.isRead ? 'read' : ''}`}>
 			<td>
 				<img
 					className="icon"
@@ -33,10 +33,10 @@ export function MailPreview({ mail }) {
 					alt="label-icon"
 				/>
 			</td>
-			<td>{mail.from}</td>
-			<td>{mail.subject}</td>
-			<td>{mail.body}</td>
-			<td>{getSentTime(mail.sentAt)}</td>
+			<td className="from">{mail.from}</td>
+			<td className="subject">{mail.subject}</td>
+			<td className="mail-body">{mail.body}</td>
+			<td className="sent-at">{getSentTime(mail.sentAt)}</td>
 		</tr>
 	)
 }

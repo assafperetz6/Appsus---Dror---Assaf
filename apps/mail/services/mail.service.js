@@ -2,10 +2,16 @@ import { utilService } from '../../../services/util.service.js'
 import { storageService } from '../../../services/async-storage.service.js'
 import { demoEmails } from './demo-data.js'
 
+const loggedinUser = {
+    email: 'user@appsus.com',
+    fullname: 'Mahatma Appsus'
+}
+
 const MAIL_KEY = 'mailDB'
 _createMails()
 
 export const mailService = {
+    loggedinUser,
     query,
     get,
     remove,

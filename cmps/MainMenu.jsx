@@ -1,17 +1,68 @@
-
-
 export function MainMenu() {
-    return (
-        <ul className="main-menu clean-list">
-            <li><img src="../assets/img/icons/edit.png" alt="" /></li>
-            <li><img src="../assets/img/icons/inbox.png" alt="" /></li>
-            <li><img src="../assets/img/icons/star.png" alt="" /></li>
-            <li><img src="../assets/img/icons/schedule.png" alt="" /></li>
-            <li><img src="../assets/img/icons/label-important.png" alt="" /></li>
-            <li><img src="../assets/img/icons/send.png" alt="" /></li>
-            <li><img src="../assets/img/icons/draft.png" alt="" /></li>
-            <li><img src="../assets/img/icons/label.png" alt="" /></li>
-            <li><img src="../assets/img/icons/arrow-down.png" alt="" /></li>
-        </ul>
-    )
+	return (
+		<ul className="main-menu clean-list">
+			<li>
+				<button className="compose">
+					<span className="material-symbols-outlined">edit</span>
+					<span>Compose</span>
+				</button>
+			</li>
+			<li>
+				<button>
+					<span className="material-symbols-outlined">inbox</span>
+					<span>Inbox</span>
+                    <span>23</span>
+				</button>
+			</li>
+			<li>
+				<button>
+					<span className="material-symbols-outlined">star</span>
+					<span>Starred</span>
+                    <span>23</span>
+				</button>
+			</li>
+			<li>
+				<button>
+					<span className="material-symbols-outlined">schedule</span>
+					<span>Snoozed</span>
+                    <span>23</span>
+				</button>
+			</li>
+			<li>
+				<button>
+					<span className="material-symbols-outlined">label_important</span>
+					<span>Important</span>
+                    <span>23</span>
+				</button>
+			</li>
+			<li>
+				<button>
+					<span className="material-symbols-outlined">send</span>
+					<span>Sent</span>
+                    <span>23</span>
+				</button>
+			</li>
+			<li>
+				<button>
+					<span className="material-symbols-outlined">draft</span>
+					<span>Drafts</span>
+                    <span>23</span>
+				</button>
+			</li>
+			<li>
+				<button>
+					<span className="material-symbols-outlined">label</span>
+					<span>Categories</span>
+                    <span>23</span>
+				</button>
+			</li>
+			<li>
+				<button>
+					<span className="material-symbols-outlined">chevron_right</span>
+					<span>More</span>
+                    <span>23</span>
+				</button>
+			</li>
+		</ul>
+	)
 }

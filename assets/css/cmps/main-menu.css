@@ -1,23 +1,82 @@
 .main-menu {
+    --checked-button-color: #c2e7ff;
+    
     grid-column: 1 / 2;
     grid-row: 2 / -1;
 
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 56px auto;
     
     height: 100%;
-    width: 72px;
+    width: 100%;
 
-    padding: 0 10px;
+    padding: 0;
     margin-block-start: 0;
 
     background-color: var(--main-bg-color);
 
-    img {
-        height: 20px;
-        width: 20px;
+    > * {
+        grid-column: 1 / -1;
+    }
 
-        padding-inline-start: 12px;
+    li:has(.compose) {
+        height: 56px;
+
+        justify-self: start;
+
+        padding-inline-start: 8px;
+        margin-block: 8px 16px;
+    }
+
+    li:not(:first-child) {
+        place-self: center;
+
+        display: grid;
+        grid-template-columns: 1fr 3fr 20px;
+
+        align-items: center;
+
+        height: 32px;
+        width: 240px;
+
+        margin-inline: 26px 0;
+
+        > * {
+            grid-column: 1 / -1;
+
+            padding: 6px;
+        }
+    }
+
+    button {
+        display: flex;
+        align-items: center;
+
+        width: 100%;
+
+        padding-inline: 26px 12px;
+        border-radius: 12px;
+
+        span:first-child {
+            margin-inline-end: 16px;
+        }
+    }
+}
+
+.material-symbols-outlined {
+    font-size: 20px;
+}
+
+button.compose {
+    height: 100%;
+
+    padding-inline: 0 24px;
+
+    background-color: var(--checked-button-color);
+
+    span {
+        height: 20px;
+        width: 56px;
     }
 }

@@ -35,7 +35,7 @@ table {
 
 .app {
     display: grid;
-    grid-template-columns: 92px repeat(3, 2fr) 1fr;
+    grid-template-columns: minmax(92px, 256px) repeat(3, 2fr) 1fr;
     grid-template-rows: 64px auto;
 
     height: 100vh;

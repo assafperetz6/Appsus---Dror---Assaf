@@ -2,3 +2,6 @@
 assets/.DS_Store
 assets/fonts/.DS_Store
 assets/fonts/product-sans/.DS_Store
+Helpers/CarFilter.jsx
+Helpers/CarIndex.jsx
+Helpers/util.service.js

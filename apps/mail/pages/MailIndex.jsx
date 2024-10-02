@@ -1,15 +1,20 @@
 const { useState, useEffect } = React
+const { useSearchParams } = ReactRouterDOM
 
 import { mailService } from '../services/mail.service.js'
 import { MailList } from '../cmps/MailList.jsx'
 import { Loader } from '../../../cmps/Loader.jsx'
+import { utilService } from '../../../services/util.service.js'
 
 export function MailIndex() {
     const [mails, setMails] = useState(null)
+    const [searchPrms, setSearchPrms] = useSearchParams()
+    const [filterBy, setFilterBy] = useState(mailService.getFilterFromSearchParams(searchPrms))
 
     useEffect(() => {
-        loadMails()
-    }, [])
+        loadMails(filterBy)
+        setSearchPrms(utilService.getTruthyValues(filterBy))
+    }, [filterBy])
     
     function loadMails() {
         mailService.query()

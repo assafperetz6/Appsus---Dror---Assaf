@@ -27,9 +27,31 @@
     text-wrap: nowrap;
     overflow: hidden;
     text-overflow: clip;
+
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 600;
 }
 
 td:last-child {
     place-self: end;
     padding-inline-end: 16px;
+}
+
+.from, .subject {
+    color: var(--grey-2);
+}
+
+td.mail-body {
+    color: var(--grey-0);
+    font-weight: 200;
+}
+
+.mail-preview.read {
+    background-color: var(--read-mail-bg);
+
+    color: var(--grey-0);
+
+    > * {
+        font-weight: 200;
+    }
 }

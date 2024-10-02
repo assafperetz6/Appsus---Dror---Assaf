@@ -1,7 +1,23 @@
+const { useState, useEffect } = React
+
+import { mailService } from '../services/mail.service.js'
 import { MailList } from '../cmps/MailList.jsx'
+import { Loader } from '../../../cmps/Loader.jsx'
 
 export function MailIndex() {
+    const [mails, setMails] = useState(null)
 
+    useEffect(() => {
+        loadMails()
+    }, [])
+    
+    function loadMails() {
+        mailService.query()
+            .then(setMails)
+            .catch(err => console.log('error: ', err))
+    }
+
+    if (!mails) return <Loader />
     return (
         <section className="mail-container">
             <section className="actions-pagination">
@@ -42,9 +58,8 @@ export function MailIndex() {
                 <button>Social</button>
                 <button>Updates</button>
             </section>
-            
-            <section></section>
-            <MailList />
+
+            <MailList mails={mails}/>
         </section>
     )
 }

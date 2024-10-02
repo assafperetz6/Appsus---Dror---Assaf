@@ -1,4 +1,4 @@
-export function MailPreview() {
+export function MailPreview({ mail }) {
 	return (
 		<tr className="mail-preview">
 			<td>
@@ -10,9 +10,9 @@ export function MailPreview() {
 			<td>
 				<img className="icon" src="../../assets/img/icons/label-marked.png" alt="label-icon" />
 			</td>
-			<td>Sender name</td>
-			<td>Subject</td>
-			<td>content preview</td>
+			<td>{mail.sender}</td>
+			<td>{mail.subject}</td>
+			<td>{mail.content}</td>
 			<td>Time sent/recieved</td>
 		</tr>
 	)

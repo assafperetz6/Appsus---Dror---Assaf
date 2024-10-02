@@ -1,15 +1,12 @@
 import { MailPreview } from './MailPreview.jsx'
 
-export function MailList() {
+export function MailList({ mails }) {
 	return (
 		<table>
 			<tbody className="mail-list full">
-                < MailPreview />
-                < MailPreview />
-                < MailPreview />
-                < MailPreview />
-                < MailPreview />
-                < MailPreview />
+                {mails.map(mail => (
+                    <MailPreview mail={mail} key={mail.id} />
+                ))}
             </tbody>
 		</table>
 	)

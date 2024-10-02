@@ -1,5 +1,6 @@
 import { utilService } from '../../../services/util.service.js'
 import { storageService } from '../../../services/async-storage.service.js'
+import { demoEmails } from './demo-data.js'
 
 const MAIL_KEY = 'mailDB'
 _createMails()
@@ -61,12 +62,7 @@ function getDefaultFilter() {
 function _createMails() {
     let mails = utilService.loadFromStorage(MAIL_KEY)
     if (!mails || !mails.length) {
-        mails = [
-            _createMail('audu', 'Hi there!'),
-            _createMail('fiak', 'Advertisment'),
-            _createMail('subali', 'NewsLetter'),
-            _createMail('mitsu', 'Blog')
-        ]
+        mails = demoEmails
         utilService.saveToStorage(MAIL_KEY, mails)
     }
 }
@@ -76,7 +72,6 @@ function _createMail(sender, subject = 250) {
     mail.id = utilService.makeId()
     return mail
 }
-
 
 
 function getFilterFromSearchParams(searchParams) {

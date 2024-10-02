@@ -3,7 +3,12 @@
     grid-template-columns: repeat(3, 30px) 1fr 1fr minmax(0, 1fr) 1fr ;
 
     width: 100%;
-    padding: 12px;
+    
+    padding-block: 12px;
+
+    > * {
+        padding-inline: 12px;
+    }
 }
 
 .mail-list > tr {

@@ -1,5 +1,4 @@
 export function MailPreview({ mail }) {
-
 	function getSentTime(timeStamp) {
 		var h = new Date(timeStamp).getHours()
 		var m = new Date(timeStamp).getMinutes()
@@ -13,25 +12,13 @@ export function MailPreview({ mail }) {
 	return (
 		<tr className={`mail-preview ${mail.isRead ? 'read' : ''}`}>
 			<td>
-				<img
-					className="icon"
-					src="../../assets/img/icons/check-box.png"
-					alt="check-box-icon"
-				/>
+				<span class="material-symbols-outlined">check_box_outline_blank</span>
 			</td>
 			<td>
-				<img
-					className="icon"
-					src="../../assets/img/icons/star.png"
-					alt="star-icon"
-				/>
+				<span class="material-symbols-outlined">star</span>
 			</td>
 			<td>
-				<img
-					className="icon"
-					src="../../assets/img/icons/label-marked.png"
-					alt="label-icon"
-				/>
+				<span class="material-symbols-outlined">label_important</span>
 			</td>
 			<td className="from">{mail.from}</td>
 			<td className="subject">{mail.subject}</td>

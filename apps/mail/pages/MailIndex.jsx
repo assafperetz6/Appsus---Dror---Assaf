@@ -28,28 +28,28 @@ export function MailIndex() {
             <section className="actions-pagination">
                 <section className="select-options flex">
                     <button>
-                        <span class="material-symbols-outlined">check_box_outline_blank</span>
+                        <span className="material-symbols-outlined">check_box_outline_blank</span>
                     </button>
                     <button>
                         <span className="material-symbols-outlined">keyboard_arrow_down</span>
                     </button>
 
                     <button>
-                        <span class="material-symbols-outlined">refresh</span>
+                        <span className="material-symbols-outlined">refresh</span>
                     </button>
 
                     <button>
-                        <span class="material-symbols-outlined">more_vert</span>
+                        <span className="material-symbols-outlined">more_vert</span>
                     </button>
                 </section>
 
                 <section className="info-pagination flex">
                     <div className="shown-mails">1-50 of 2,000</div>
                     <button>
-                        <span class="material-symbols-outlined">chevron_left</span>
+                        <span className="material-symbols-outlined">chevron_left</span>
                     </button>
                     <button>
-                        <span class="material-symbols-outlined">chevron_right</span>
+                        <span className="material-symbols-outlined">chevron_right</span>
                     </button>
                 </section>
 
@@ -59,17 +59,17 @@ export function MailIndex() {
 
             <section className="filter-tabs">
                 <button>
-                    <span class="material-symbols-outlined">inbox</span>
+                    <span className="material-symbols-outlined">inbox</span>
                     Primary</button>
                 <button>
-                    <span class="material-symbols-outlined">sell</span>
+                    <span className="material-symbols-outlined">sell</span>
                     Promotions
                 </button>
                 <button>
-                    <span class="material-symbols-outlined">group</span>
+                    <span className="material-symbols-outlined">group</span>
                     Social</button>
                 <button>
-                    <span class="material-symbols-outlined">info</span>
+                    <span className="material-symbols-outlined">info</span>
                     Updates</button>
             </section>
 

@@ -43,7 +43,6 @@ table {
     font-family: Product-sans, Arial, Helvetica, sans-serif;
 }
 
-.icon {
-    height: 20px;
-    width: 20px;
+.material-symbols-outlined {
+    font-size: 20px;
 }

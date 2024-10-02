@@ -38,10 +38,17 @@
     color: var(--text-base);
 
     > button {
+        display: flex;
+        align-items: center;
+
         height: 56px;
         flex-grow: 1;
         border-radius: unset;
 
         color: var(--text-base);
+
+        span {
+            margin-inline: 16px;
+        }
     }
 }

@@ -28,28 +28,28 @@ export function MailIndex() {
             <section className="actions-pagination">
                 <section className="select-options flex">
                     <button>
-                        <img className="icon" src="../../assets/img/icons/check-box.png" alt="check-box-icon" />
+                        <span class="material-symbols-outlined">check_box_outline_blank</span>
                     </button>
                     <button>
-                        <img className="icon" src="../../assets/img/icons/arrow-down.png" alt="arrow-down-icon" />
-                    </button>
-
-                    <button>
-                        <img className="icon" src="../../assets/img/icons/refresh.png" alt="refresh-icon" />
+                        <span className="material-symbols-outlined">keyboard_arrow_down</span>
                     </button>
 
                     <button>
-                        <img className="icon" src="../../assets/img/icons/more.png" alt="more-icon" />
+                        <span class="material-symbols-outlined">refresh</span>
+                    </button>
+
+                    <button>
+                        <span class="material-symbols-outlined">more_vert</span>
                     </button>
                 </section>
 
                 <section className="info-pagination flex">
                     <div className="shown-mails">1-50 of 2,000</div>
                     <button>
-                        <img className="icon" src="../../assets/img/icons/arrow-left.png" alt="arrow-left-icon" />
+                        <span class="material-symbols-outlined">chevron_left</span>
                     </button>
                     <button>
-                        <img className="icon" src="../../assets/img/icons/arrow-right.png" alt="arrow-right-icon" />
+                        <span class="material-symbols-outlined">chevron_right</span>
                     </button>
                 </section>
 
@@ -58,10 +58,19 @@ export function MailIndex() {
             </section>
 
             <section className="filter-tabs">
-                <button>Primary</button>
-                <button>Promotions</button>
-                <button>Social</button>
-                <button>Updates</button>
+                <button>
+                    <span class="material-symbols-outlined">inbox</span>
+                    Primary</button>
+                <button>
+                    <span class="material-symbols-outlined">sell</span>
+                    Promotions
+                </button>
+                <button>
+                    <span class="material-symbols-outlined">group</span>
+                    Social</button>
+                <button>
+                    <span class="material-symbols-outlined">info</span>
+                    Updates</button>
             </section>
 
             <MailList mails={mails}/>

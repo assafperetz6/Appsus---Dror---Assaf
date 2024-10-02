@@ -1,3 +1,9 @@
 :root {
-    --main-bg-color: lightblue;
+    --main-bg-color: #f6f8fc;
+    --read-mail-bg: #f2f6fc;
+    --search-bar: #e9f1fc;
+    --btn-hover: #dde2ec;
+    
+    --text-base: #3e4046;
+    --text-bold: #484a4e;
 }

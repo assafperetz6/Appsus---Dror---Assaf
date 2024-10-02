@@ -3,6 +3,7 @@ const Router = ReactRouterDOM.HashRouter
 
 import { AppHeader } from "./cmps/AppHeader.jsx"
 import { MainMenu } from "./cmps/MainMenu.jsx"
+import { NotFound } from "./cmps/NotFound.jsx"
 import { About } from "./pages/About.jsx"
 import { Home } from "./pages/Home.jsx"
 import { MailIndex } from "./apps/mail/pages/MailIndex.jsx"
@@ -20,6 +21,7 @@ export function App() {
                 <Route path="/about" element={<About />} />
                 <Route path="/mail" element={<MailIndex />} />
                 <Route path="/note" element={<NoteIndex />} />
+                <Route path="/*" element={<NotFound />} />
             </Routes>
 
             <UserMsg />

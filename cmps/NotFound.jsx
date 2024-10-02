@@ -6,7 +6,7 @@ export function NotFound() {
 
             <section className="not-found">
                 <h1>Oh NO!</h1>
-                <h2>Cannot found route!</h2>
+                <h2>Cannot find route!</h2>
             </section>
             <Link to="/">Back</Link>
         </section>

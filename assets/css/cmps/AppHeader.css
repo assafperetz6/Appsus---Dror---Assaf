@@ -1,12 +1,18 @@
 header {
-    background: lightcyan;
+    --padding: 8px;
+
     border-bottom: 2px solid white;
+
+    background: lightcyan;
+
+    font-family: Product-sans, Arial, Helvetica, sans-serif;
 }
 
 .app-header {
     display: flex;
     justify-content: space-between;
-    padding: 20px 0;
+
+    padding: var(--padding);
 }
 
 nav a {
@@ -21,4 +27,33 @@ nav a.active {
     color: darkblue;
     font-weight: bold;
     text-decoration: overline;
+}
+
+.main-search-container {
+    display: grid;
+    grid-template-columns: 46px 1fr 46px;
+    align-items: center;
+
+    height: 46px;
+    border-radius: 24px;
+
+    background-color: var(--search-bar);
+
+    > * {
+        border: unset;
+        background-color: unset;
+    }
+
+    input {
+        margin-inline: 20px;
+    }
+
+    button {
+        padding: var(--padding);
+        border-radius: 50%;
+    }
+
+    button:hover {
+        background: #dde2ec;
+    }
 }

@@ -1,1 +1,15 @@
- /* mail list */
+.mail-list {
+    display: grid;
+}
+
+.mail-list > tr {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.mail-list > tr > * {
+    align-items: center;
+    height: 20px;
+    padding-block: 10px;
+}

@@ -1,3 +1,16 @@
+import { MailPreview } from './MailPreview.jsx'
+
 export function MailList() {
-    return <div>Mail list</div>
+	return (
+		<table>
+			<tbody className="mail-list">
+                < MailPreview />
+                < MailPreview />
+                < MailPreview />
+                < MailPreview />
+                < MailPreview />
+                < MailPreview />
+            </tbody>
+		</table>
+	)
 }

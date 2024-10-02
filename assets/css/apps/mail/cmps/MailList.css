@@ -1,5 +1,7 @@
 .mail-list {
     display: grid;
+
+    margin-inline-start: 72px;
 }
 
 .mail-list > tr {

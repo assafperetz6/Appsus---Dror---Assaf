@@ -21,3 +21,11 @@
 .grid {
     display: grid;
 }
+
+.full {
+    grid-column: 1 / -1;
+}
+
+.clean-list {
+    list-style: none;
+}

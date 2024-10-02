@@ -1,19 +1,19 @@
 header {
     --padding: 8px;
 
-    border-bottom: 2px solid white;
-
     background: lightcyan;
 
     font-family: Product-sans, Arial, Helvetica, sans-serif;
 }
 
 .app-header {
+    grid-row: 1 / 2;
     display: flex;
     justify-content: space-between;
 
     padding: var(--padding);
 
+    background-color: var(--main-bg-color);
     input, button {
         border: unset;
         background-color: unset;
@@ -43,7 +43,7 @@ button:hover {
     background: #dde2ec;
 }
 
-.main-menu {
+.main-menu-btn {
     height: 48px;
     width: 48px;
 

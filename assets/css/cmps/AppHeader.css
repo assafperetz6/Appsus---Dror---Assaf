@@ -13,6 +13,11 @@ header {
     justify-content: space-between;
 
     padding: var(--padding);
+
+    input, button {
+        border: unset;
+        background-color: unset;
+    }
 }
 
 nav a {
@@ -29,6 +34,27 @@ nav a.active {
     text-decoration: overline;
 }
 
+button {
+    padding: var(--padding);
+    border-radius: 50%;
+}
+
+button:hover {
+    background: #dde2ec;
+}
+
+.main-menu {
+    height: 48px;
+    width: 48px;
+
+    padding: 12px;
+}
+
+.logo {
+    height: 40px;
+    width: 109px;
+}
+
 .main-search-container {
     display: grid;
     grid-template-columns: 46px 1fr 46px;
@@ -39,21 +65,7 @@ nav a.active {
 
     background-color: var(--search-bar);
 
-    > * {
-        border: unset;
-        background-color: unset;
-    }
-
     input {
         margin-inline: 20px;
-    }
-
-    button {
-        padding: var(--padding);
-        border-radius: 50%;
-    }
-
-    button:hover {
-        background: #dde2ec;
     }
 }

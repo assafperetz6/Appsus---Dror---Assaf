@@ -5,9 +5,15 @@ import { Input } from './Inputs.jsx'
 export function AppHeader() {
 
     return <header className="app-header">
-        <Link className="flex align-center" to="/">
-            <h3>LOGO!</h3>
-        </Link>
+
+        <section className="logo-menu-container flex">
+            <button className="main-menu">
+                <svg width="24" height="24" viewBox="0 0 24 24"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"></path></svg>
+            </button>
+            <Link className="flex align-center" to="/">
+                <img className="logo" src="../assets/img/gmail-logo.png" alt="gmail-logo" />
+            </Link>
+        </section>
 
         <div className="main-search-container">
             <button className="advanced-search">

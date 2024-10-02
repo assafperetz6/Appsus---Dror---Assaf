@@ -1,13 +1,21 @@
 .mail-list {
     display: grid;
+    grid-template-columns: repeat(3, 30px) 2fr 2fr minmax(0, 1fr) 1fr ;
 
-    margin-inline-start: 72px;
+    width: 100%;
+    padding: 12px;
 }
 
 .mail-list > tr {
-    display: flex;
+    grid-column: 1 / -1;
+
+    display: grid;
+    grid-template-columns: subgrid;
+
     align-items: center;
     justify-content: space-between;
+
+    border-block-end: 1px solid rgba(211, 211, 211, 0.641);
 }
 
 .mail-list > tr > * {

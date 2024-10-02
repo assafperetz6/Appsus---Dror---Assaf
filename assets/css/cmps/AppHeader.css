@@ -14,7 +14,7 @@ header {
     padding: var(--padding);
 
     background-color: var(--main-bg-color);
-    input, button {
+    input {
         border: unset;
         background-color: unset;
     }

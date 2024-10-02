@@ -1,0 +1,27 @@
+/* lato */
+@font-face {
+    font-family: Lato;
+    src: url(../../fonts/Lato/Lato-Light.ttf);
+  }
+
+@font-face {
+    font-family: Lato-bold;
+    src: url(../../fonts/Lato/Lato-Bold.ttf);
+  }
+
+  /* Product-sans */
+  @font-face {
+    font-family: Product-sans;
+    src: url(../../fonts/product-sans/Product\ Sans\ Regular.ttf);
+  }
+
+  @font-face {
+    font-family: Product-sans-bold;
+    src: url(../../fonts/product-sans/Product\ Sans\ Bold.ttf);
+  }
+
+  /* Font Awesome */
+  @font-face {
+    font-family: fa;
+    src: url(../../fonts/fa/fa-brands-400.ttf);
+  }

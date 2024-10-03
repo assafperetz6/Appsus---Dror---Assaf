@@ -53,8 +53,9 @@
         grid-template-columns: 1fr 3fr 1fr;
         align-items: center;
 
-        padding: 8px;
+        padding: 4px;
         border-radius: 0 100px 100px 0;
+        margin-block: 4px;
 
         text-align: start;
         span {
@@ -64,10 +65,16 @@
     }
 }
 
+button.marked {
+    background-color: var(--checked-button-color);
+
+    font-weight: 700;
+}
+
 button.compose {
     height: 100%;
     width: 142px;
-    
+
     padding-inline: 0 24px;
     border-radius: 16px;
 

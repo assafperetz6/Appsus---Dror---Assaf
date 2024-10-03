@@ -1,8 +1,16 @@
 const { useSearchParams } = ReactRouterDOM
 
+// import { mailService } from "../apps/mail/services/mail.service.js"
+
 export function MainMenu() {
 	const [searchPrms, setSearchPrms] = useSearchParams()
 	
+	function setMarkedFolder(folderName) {
+		const currFolder = searchPrms.get('status')
+
+		if (currFolder === folderName) return 'marked'
+	}
+
 	return (
 		<ul className="main-menu clean-list">
 			<li>
@@ -11,37 +19,37 @@ export function MainMenu() {
 				</button>
 			</li>
 			<li>
-				<button className="inbox" onClick={() => setSearchPrms({status: 'inbox'})}>
+				<button className={`inbox ${setMarkedFolder('inbox')}`} onClick={() => setSearchPrms({status: 'inbox'})}>
 					Inbox
                     <span className="mail-counter">23</span>
 				</button>
 			</li>
 			<li>
-				<button className="starred" onClick={() => setSearchPrms({status: 'starred'})}>
+				<button className={`starred ${setMarkedFolder('starred')}`} onClick={() => setSearchPrms({status: 'starred'})}>
 					Starred
                     <span className="mail-counter">23</span>
 				</button>
 			</li>
 			<li>
-				<button className="snoozed" onClick={() => setSearchPrms({status: 'snoozed'})}>
+				<button className={`snoozed ${setMarkedFolder('snoozed')}`} onClick={() => setSearchPrms({status: 'snoozed'})}>
 					Snoozed
                     <span className="mail-counter">23</span>
 				</button>
 			</li>
 			<li>
-				<button className="important" onClick={() => setSearchPrms({status: 'important'})}>
+				<button className={`important ${setMarkedFolder('important')}`} onClick={() => setSearchPrms({status: 'important'})}>
 					Important
                     <span className="mail-counter">23</span>
 				</button>
 			</li>
 			<li>
-				<button className="sent" onClick={() => setSearchPrms({status: 'sent'})}>
+				<button className={`sent ${setMarkedFolder('sent')}`} onClick={() => setSearchPrms({status: 'sent'})}>
 					Sent
                     <span className="mail-counter">23</span>
 				</button>
 			</li>
 			<li>
-				<button className="drafts" onClick={() => setSearchPrms({status: 'drafts'})}>
+				<button className={`drafts ${setMarkedFolder('drafts')}`} onClick={() => setSearchPrms({status: 'drafts'})}>
 					Drafts
                     <span className="mail-counter">23</span>
 				</button>

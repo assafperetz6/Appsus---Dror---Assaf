@@ -2,7 +2,6 @@ const { useState, useEffect } = React
 const { useSearchParams } = ReactRouterDOM
 
 import { mailService } from '../services/mail.service.js'
-import { MainMenu } from '../../../cmps/MainMenu.jsx'
 import { MailList } from '../cmps/MailList.jsx'
 import { Loader } from '../../../cmps/Loader.jsx'
 import { utilService } from '../../../services/util.service.js'

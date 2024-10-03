@@ -17,7 +17,6 @@ export const mailService = {
 	remove,
 	save,
 	getEmptyMail,
-	// getDefaultFilter,
 	getFilterFromSearchParams,
 	debounce,
 }
@@ -94,7 +93,7 @@ function getFilterFromSearchParams(searchParams) {
 		txt: txt,
 		isRead: isRead,
 		isStarred: isStarred,
-		// lables: ['important', 'romantic'], // has any of the labels
+		lables: ['important', 'romantic']
 	}
 }
 

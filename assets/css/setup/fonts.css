@@ -25,3 +25,8 @@
     font-family: fa;
     src: url(../../fonts/fa/fa-brands-400.ttf);
   }
+
+  @font-face {
+    font-family: Material Icons;
+    src: url(../../fonts/Material\ Icons/MaterialSymbolsOutlined-light.ttf);
+  }

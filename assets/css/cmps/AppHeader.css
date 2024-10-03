@@ -53,6 +53,7 @@ button:hover {
 
 .logo-menu-container {
     display: flex;
+    gap: 4px;
     align-items: center;
     padding: 4px;
 }
@@ -61,7 +62,7 @@ button:hover {
     height: 40px;
     width: 109px;
 
-    margin-block-end: 4px;
+    margin-block: 4px;
 }
 
 .main-search-container {

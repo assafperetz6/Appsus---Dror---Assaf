@@ -31,9 +31,7 @@ export function MailIndex() {
             .catch(err => console.log('error: ', err))
     }
 
-    // setTimeout(() => {
-    //     debugger
-    // }, 2000)
+    
     
     if (!mails) return <Loader />
     return (

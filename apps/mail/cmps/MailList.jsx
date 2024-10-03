@@ -10,7 +10,7 @@ export function MailList({ mails, filterBy, loggedUser }) {
 		mailsToShow = mails.filter((mail) => mail.from === loggedUser.mail)
 
 	if (filterBy.status === 'starred')
-		mailsToShow = mails.filter((mail) => mail.from === loggedUser.mail)
+		mailsToShow = mails.filter(mail => mail.isStarred)
 
 	return (
 		<table>

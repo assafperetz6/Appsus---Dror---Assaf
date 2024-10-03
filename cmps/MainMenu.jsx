@@ -1,4 +1,8 @@
+const { useSearchParams } = ReactRouterDOM
+
 export function MainMenu() {
+	const [searchPrms, setSearchPrms] = useSearchParams()
+	
 	return (
 		<ul className="main-menu clean-list">
 			<li>
@@ -8,7 +12,7 @@ export function MainMenu() {
 				</button>
 			</li>
 			<li>
-				<button>
+				<button onClick={() => setSearchPrms({status: 'inbox'})}>
 					<div className="flex space-between align-center">
                         <span className="material-symbols-outlined">inbox</span>
                         <span>Inbox</span>
@@ -17,7 +21,7 @@ export function MainMenu() {
 				</button>
 			</li>
 			<li>
-				<button>
+				<button onClick={() => setSearchPrms({status: 'starred'})}>
 					<div className="flex space-between align-center">
                         <span className="material-symbols-outlined">star</span>
                         <span>Starred</span>
@@ -26,7 +30,7 @@ export function MainMenu() {
 				</button>
 			</li>
 			<li>
-				<button>
+				<button onClick={() => setSearchPrms({status: 'snoozed'})}>
 					<div className="flex space-between align-center">
                         <span className="material-symbols-outlined">schedule</span>
                         <span>Snoozed</span>
@@ -35,7 +39,7 @@ export function MainMenu() {
 				</button>
 			</li>
 			<li>
-				<button>
+				<button onClick={() => setSearchPrms({status: 'important'})}>
 					<div className="flex space-between align-center">
                         <span className="material-symbols-outlined">label_important</span>
                         <span>Important</span>
@@ -44,7 +48,7 @@ export function MainMenu() {
 				</button>
 			</li>
 			<li>
-				<button>
+				<button onClick={() => setSearchPrms({status: 'sent'})}>
 					<div className="flex space-between align-center">
                         <span className="material-symbols-outlined">send</span>
                         <span>Sent</span>
@@ -53,7 +57,7 @@ export function MainMenu() {
 				</button>
 			</li>
 			<li>
-				<button>
+				<button onClick={() => setSearchPrms({status: 'drafts'})}>
 					<div className="flex space-between align-center">
                         <span className="material-symbols-outlined">draft</span>
                         <span>Drafts</span>

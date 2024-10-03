@@ -2,6 +2,7 @@ const { useState, useEffect } = React
 const { useSearchParams } = ReactRouterDOM
 
 import { mailService } from '../services/mail.service.js'
+import { MainMenu } from '../../../cmps/MainMenu.jsx'
 import { MailList } from '../cmps/MailList.jsx'
 import { Loader } from '../../../cmps/Loader.jsx'
 import { utilService } from '../../../services/util.service.js'
@@ -14,14 +15,27 @@ export function MailIndex() {
     useEffect(() => {
         loadMails(filterBy)
         setSearchPrms(utilService.getTruthyValues(filterBy))
-    }, [filterBy])
+    }, [])
     
+    useEffect(() => {
+        const newFilter = mailService.getFilterFromSearchParams(searchPrms);
+        setFilterBy(newFilter)
+    }, [searchPrms])
+
+    useEffect(() => {
+        loadMails(filterBy)
+    }, [filterBy])
+
     function loadMails() {
         mailService.query()
             .then(setMails)
             .catch(err => console.log('error: ', err))
     }
 
+    // setTimeout(() => {
+    //     debugger
+    // }, 2000)
+    
     if (!mails) return <Loader />
     return (
         <section className="mail-container">
@@ -73,7 +87,7 @@ export function MailIndex() {
                     Updates</button>
             </section>
 
-            <MailList mails={mails}/>
+            <MailList mails={mails} filterBy={filterBy} loggedUser={mailService.loggedinUser}/>
         </section>
     )
 }

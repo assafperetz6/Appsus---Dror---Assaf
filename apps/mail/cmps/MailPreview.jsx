@@ -12,13 +12,13 @@ export function MailPreview({ mail }) {
 	return (
 		<tr className={`mail-preview ${mail.isRead ? 'read' : ''}`}>
 			<td>
-				<span class="material-symbols-outlined">check_box_outline_blank</span>
+				<span className="material-symbols-outlined">check_box_outline_blank</span>
 			</td>
 			<td>
-				<span class="material-symbols-outlined">star</span>
+				<span className="material-symbols-outlined">star</span>
 			</td>
 			<td>
-				<span class="material-symbols-outlined">label_important</span>
+				<span className="material-symbols-outlined">label_important</span>
 			</td>
 			<td className="from">{mail.from}</td>
 			<td className="subject">{mail.subject}</td>

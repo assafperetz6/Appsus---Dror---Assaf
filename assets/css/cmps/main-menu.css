@@ -96,6 +96,8 @@ button.compose {
 
 *:not(.compose)::before {
     margin-inline-start: 8px;
+
+    font-weight: 300;
 }
 
 .inbox::before {

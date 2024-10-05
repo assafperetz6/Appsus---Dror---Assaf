@@ -6,7 +6,9 @@ import { Input } from './Inputs.jsx'
 
 export function AppHeader() {
 	const [searchPrms, setSearchPrms] = useSearchParams()
-	const [filterBy, setFilterBy] = useState(mailService.getFilterFromSearchParams(searchPrms))
+	const [filterBy, setFilterBy] = useState(
+		mailService.getFilterFromSearchParams(searchPrms)
+	)
 
 	// useEffect(() => {
 
@@ -21,11 +23,35 @@ export function AppHeader() {
 					</svg>
 				</button>
 				<Link className="flex align-center" to="/">
-					<img
-						className="logo"
-						src="../assets/img/gmail-logo.png"
-						alt="gmail-logo"
-					/>
+					<svg
+						width="200"
+						height="200"
+						viewBox="0 0 200 200"
+						fill="none"
+						xmlns="http://www.w3.org/2000/svg"
+					>
+						<path d="M40 0L80 100L40 200L0 100L40 0Z" fill="#4185f4" />
+						<text
+							x="75"
+							y="115"
+							stroke="#fbbc04"
+							fill="#35aa54"
+							fontFamily="Product-sans-bold"
+							fontSize="36"
+						>
+							Mail
+						</text>
+						<text
+							x="25"
+							y="115"
+							stroke="#fbbc04"
+							fill="#c5211e"
+							fontFamily="Product-sans-bold"
+							fontSize="36"
+						>
+							Me
+						</text>
+					</svg>
 				</Link>
 			</section>
 
@@ -34,8 +60,13 @@ export function AppHeader() {
 					<span className="material-symbols-outlined">search</span>
 				</button>
 
-				<Input value={filterBy.txt} onChange={value => setFilterBy(preFilter => ({ ...preFilter, value }))} />
-                
+				<Input
+					value={filterBy.txt}
+					onChange={(value) =>
+						setFilterBy((preFilter) => ({ ...preFilter, value }))
+					}
+				/>
+
 				<button className="advanced-search">
 					<span className="material-symbols-outlined">tune</span>
 				</button>

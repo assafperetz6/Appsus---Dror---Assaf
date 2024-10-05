@@ -10,7 +10,6 @@ export function MainMenu() {
 
 		if (currFolder === folderName) return 'marked'
 	}
-
 	return (
 		<ul className="main-menu clean-list">
 			<li>

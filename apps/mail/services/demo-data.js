@@ -47,6 +47,7 @@ export const demoEmails = Array.from({ length: 50 }, (_, index) => {
         body: `This is the body of email ${index + 1}`,
         isRead: Math.random() > 0.5,
         isStarred: Math.random() > 0.5,
+        labels: [],
         sentAt: Date.now() - Math.floor(Math.random() * 10000000000),
         removedAt: null,
         from: isUserSender ? 'user@appsus.com' : `sender${index + 1}@example.com`,

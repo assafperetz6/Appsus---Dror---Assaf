@@ -2,7 +2,33 @@
     --checked-button-color: #c2e7ff;
 }
 
-.main-menu > ul {
+button.compose {
+    height: 56px;
+    width: 142px;
+
+    padding-inline: 0 24px;
+    border-radius: 16px;
+    margin: 8px 0 12px 8px;
+
+    background-color: var(--checked-button-color);
+
+    justify-self: start;
+}
+
+.compose::before {
+    content: 'edit';
+    font-family: 'Material Icons';
+    font-size: 24px;
+    vertical-align: middle;
+
+    margin-inline: 14px;
+}
+
+.compose:hover {
+    box-shadow: 0 1px 3px 0 #3c40434d,0 4px 8px 3px rgba(60,64,67,.15);
+}
+
+.main-menu ul {
     
     grid-column: 1 / 2;
     grid-row: 2 / -1;
@@ -25,7 +51,7 @@
         grid-column: 1 / -1;
     }
 
-    li:not(:first-child) {
+    li {
         align-self: center;
         justify-self: self-start;
 
@@ -51,103 +77,101 @@
         border-radius: 0 100px 100px 0;
         margin-block: 4px;
 
+        font-family: Product-sans;
+        font-weight: 200;
+        letter-spacing: .05rem;
+        
         text-align: start;
+
         span {
             justify-self: end;
             margin-inline-end: 4px;
         }
     }
+
+    .marked {
+        background-color: var(--checked-button-color);
+        font-weight: 700;
+    }
 }
 
-button.marked {
-    background-color: var(--checked-button-color);
-
-    font-weight: 700;
+.filter-folders {
+    margin-block-end: 28px;
 }
 
-button.compose {
-    height: 56px;
-    width: 142px;
+.label-container {
+    grid-template-rows: 32px auto;
 
-    padding-inline: 0 24px;
-    border-radius: 16px;
-    margin: 8px 0 16px 8px;
+    div {
+        padding: 0 8px 0 26px;
+        margin-block-end: 8px;
 
-    background-color: var(--checked-button-color);
+        h3 {
+            font-weight: 300;
+        }
+        > button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
 
-    justify-self: start;
-}
+            height: 20px;
+            width: 20px;
 
-.compose::before {
-    content: 'edit';
-    font-family: 'Material Icons';
-    font-size: 24px;
-    vertical-align: middle;
-
-    margin-inline: 14px;
-}
-
-.compose:hover {
-    box-shadow: 0 1px 3px 0 #3c40434d,0 4px 8px 3px rgba(60,64,67,.15);
+            padding: 16px;
+            margin-inline-end: 8px;
+            font-size: 1.5em;
+        }
+    }
+    
 }
 
 *:not(.compose)::before {
-    margin-inline-start: 8px;
-
+    margin-inline: 22px 20px;
+    
+    font-family: 'Material Icons';
+    font-size: 20px;
     font-weight: 300;
+
+    vertical-align: middle;
+}
+
+.marked::before {
+    font-variation-settings: 'FILL' 1;
+    fill: #041e49;
+}
+
+.label-list button:before {
+    font-variation-settings: 'FILL' 1;
+    color: #505253;
 }
 
 .inbox::before {
     content: 'inbox';
-    font-family: 'Material Icons';
-    font-size: 20px;
-    vertical-align: middle;
 }
 
 .starred::before {
     content: 'star';
-    font-family: 'Material Icons';
-    font-size: 20px;
-    vertical-align: middle;
 }
 
 .snoozed::before {
     content: 'schedule';
-    font-family: 'Material Icons';
-    font-size: 20px;
-    vertical-align: middle;
 }
 
 .important::before {
     content: 'label_important';
-    font-family: 'Material Icons';
-    font-size: 20px;
-    vertical-align: middle;
 }
 .sent::before {
     content: 'send';
-    font-family: 'Material Icons';
-    font-size: 20px;
-    vertical-align: middle;
 }
 
 .drafts::before {
     content: 'draft';
-    font-family: 'Material Icons';
-    font-size: 20px;
-    vertical-align: middle;
 }
 
 .categories::before {
     content: 'label';
-    font-family: 'Material Icons';
-    font-size: 20px;
-    vertical-align: middle;
 }
 
 .see-more::before {
     content: 'keyboard_arrow_down';
-    font-family: 'Material Icons';
-    font-size: 20px;
-    vertical-align: middle;
 }

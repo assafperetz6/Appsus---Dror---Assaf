@@ -12,12 +12,26 @@
   /* Product-sans */
   @font-face {
     font-family: Product-sans;
-    src: url(../../fonts/product-sans/Product\ Sans\ Regular.ttf);
+    src: url(../../fonts/product-sans/ProductSans-Thin.woff);
+    font-weight: 100;
   }
 
   @font-face {
-    font-family: Product-sans-bold;
-    src: url(../../fonts/product-sans/Product\ Sans\ Bold.ttf);
+    font-family: Product-sans;
+    src: url(../../fonts/product-sans/ProductSans-Light.woff);
+    font-weight: 200;
+  }
+
+  @font-face {
+    font-family: Product-sans;
+    src: url(../../fonts/product-sans/ProductSans-Regular.woff);
+    font-weight: 400;
+  }
+
+  @font-face {
+    font-family: Product-sans;
+    src: url(../../fonts/product-sans/ProductSans-Bold.woff);
+    font-weight: 700;
   }
 
   /* Font Awesome */

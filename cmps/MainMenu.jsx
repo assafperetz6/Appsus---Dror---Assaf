@@ -14,7 +14,7 @@ export function MainMenu() {
 		<section className="main-menu">
 			<button className="compose">Compose</button>
 			
-			<ul className="clean-list">
+			<ul className="filter-folders clean-list">
 				<li>
 					<button className={`inbox ${setMarkedFolder('inbox')}`} onClick={() => setSearchPrms({status: 'inbox'})}>
 						Inbox
@@ -66,11 +66,33 @@ export function MainMenu() {
 			</ul>
 
 			<section className="label-container">
-				<h3>Labels</h3>
-				<button onClick={() => console.log('New label added')}>+</button>
+				<div className="flex space-between">
+					<h3>Labels</h3>
+					<button className="add-label" onClick={() => console.log('New label added')}>+</button>
+				</div>
 
-				<ul className="clean-list">
-
+				<ul className="label-list clean-list">
+				<li>
+					<button className="categories">Critical</button>
+				</li>
+				<li>
+					<button className="categories">Family</button>
+				</li>
+				<li>
+					<button className="categories">Work</button>
+				</li>
+				<li>
+					<button className="categories">Friends</button>
+				</li>
+				<li>
+					<button className="categories">Spam</button>
+				</li>
+				<li>
+					<button className="categories">Memories</button>
+				</li>
+				<li>
+					<button className="categories">Romantic</button>
+				</li>
 				</ul>
 			</section>
 		</section>

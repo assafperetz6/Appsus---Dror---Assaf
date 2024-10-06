@@ -1,6 +1,6 @@
 import { MailPreview } from './MailPreview.jsx'
 
-export function MailList({ mails, filterBy, loggedUser }) {
+export function MailList({ mails, filterBy, loggedUser, onContextMenu }) {
 	let mailsToShow = mails
 
 	if (filterBy.status === 'labels') {
@@ -21,12 +21,15 @@ export function MailList({ mails, filterBy, loggedUser }) {
 		mailsToShow = mails.filter(mail => mail.isStarred)
 
 	return (
-		<table>
-			<tbody className="mail-list full">
-				{mailsToShow.map((mail) => (
-					<MailPreview mail={mail} currLabel={filterBy.label} key={mail.id} />
-				))}
-			</tbody>
-		</table>
+		<section>
+			
+				<table>
+					<tbody className="mail-list full">
+						{mailsToShow.map((mail) => (
+							<MailPreview mail={mail} currLabel={filterBy.label} onContextMenu={onContextMenu} key={mail.id} />
+						))}
+					</tbody>
+				</table>
+		</section>
 	)
 }

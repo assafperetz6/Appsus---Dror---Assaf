@@ -9,6 +9,63 @@
     background-color: white;
 }
 
+.context-menu {
+    display: grid;
+    place-items: center;
+
+    position: absolute;
+    height: fit-content;
+    width: fit-content;
+
+    top: 0;
+    left: 0;
+
+
+    padding: 0;
+    border-radius: 4px;
+    margin: 0;
+    
+    box-shadow: 0px 8px 10px 1px rgba(0,0,0,.14),0px 3px 14px 2px rgba(0,0,0,.12),0px 5px 5px -3px rgba(0,0,0,.2);
+    background-color: white;
+
+    > li {
+        width: 100%;
+        border-block-end: .5px solid var(--grey-0);
+    }
+
+    > li:hover {
+        cursor: pointer;
+        background-color: rgb(170, 170, 170);
+    }
+}
+
+.label-list {
+    position: relative;
+}
+
+.second-list {
+    position: absolute;
+    visibility: hidden;
+
+    translate: 100% -100%;
+
+    padding: 10px;
+    border-radius: 4px;
+    margin: 0;
+    
+    box-shadow: 0px 8px 10px 1px rgba(0,0,0,.14),0px 3px 14px 2px rgba(0,0,0,.12),0px 5px 5px -3px rgba(0,0,0,.2);
+    background-color: white;
+
+    button {
+        padding: 5px;
+        border-radius: 4px;
+    }
+}
+
+.label-menu:hover .second-list{
+    visibility: visible;
+}
+
 .actions-pagination {
     display: flex;
     justify-content: space-between;

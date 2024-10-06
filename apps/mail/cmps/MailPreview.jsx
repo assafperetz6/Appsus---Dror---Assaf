@@ -1,4 +1,4 @@
-export function MailPreview({ mail, currLabel }) {
+export function MailPreview({ mail, currLabel, onContextMenu }) {
 	function getSentTime(timeStamp) {
 		var h = new Date(timeStamp).getHours()
 		var m = new Date(timeStamp).getMinutes()
@@ -10,7 +10,7 @@ export function MailPreview({ mail, currLabel }) {
 	}
 
 	return (
-		<tr className={`mail-preview ${mail.isRead ? 'read' : ''}`}>
+		<tr className={`mail-preview ${mail.isRead ? 'read' : ''}`} data-id={mail.id} onContextMenu={onContextMenu}>
 			<td>
 				<span className="material-symbols-outlined">check_box_outline_blank</span>
 			</td>

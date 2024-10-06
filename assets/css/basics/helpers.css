@@ -29,3 +29,7 @@
 .clean-list {
     list-style: none;
 }
+
+.hidden {
+    display: none;
+}

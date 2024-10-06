@@ -3,19 +3,24 @@ const { useSearchParams } = ReactRouterDOM
 
 import { mailService } from '../services/mail.service.js'
 import { MailList } from '../cmps/MailList.jsx'
+import { MailContextMenu } from '../cmps/MailContextMenu.jsx'
 import { Loader } from '../../../cmps/Loader.jsx'
 import { FilterByTabs } from '../../../cmps/FilterByTabs.jsx'
 import { utilService } from '../../../services/util.service.js'
 
 export function MailIndex() {
     const [mails, setMails] = useState(null)
+    const [isContextMenu, setIsContextMenu] = useState(false)
+    const [cursorCoords, setCursorCoords] = useState({top: 0, left: 0})
+    const [selectedMail, setSelectedMail] = useState(null)
+
     const [searchPrms, setSearchPrms] = useSearchParams()
     const [filterBy, setFilterBy] = useState(mailService.getFilterFromSearchParams(searchPrms))
 
     useEffect(() => {
         loadMails(filterBy)
         setSearchPrms(utilService.getTruthyValues(filterBy))
-    }, [])
+    }, [mails])
     
     useEffect(() => {
         const newFilter = mailService.getFilterFromSearchParams(searchPrms)
@@ -33,11 +38,43 @@ export function MailIndex() {
             .catch(err => console.log('error: ', err))
     }
 
-    
+    function onContextMenu(ev) {
+        ev.preventDefault()
+
+        setIsContextMenu(false)
+        
+        const mailId = ev.currentTarget.dataset.id
+
+        setCursorCoords({top: `${ev.clientY}px`, left: `${ev.clientX}px`})
+
+
+        loadContextMenu(mailId)
+        setIsContextMenu(true)
+    }
+
+    function loadContextMenu(mailId) {
+        const mail = mails.find(mail => mail.id === mailId)
+        setSelectedMail(mail)
+    }
+
+    function onLabelAs(selectedMail, label) {
+        if (selectedMail.labels.includes(label)) return
+
+        // setSelectedMail(mail => ({...mail, labels: [...labels, label]})) TODO: CHANGING STATE WITHOUT SETSTATE. IS IT BAD?
+        selectedMail.labels.push(label)
+        setMails(mails => [...mails.filter(mail => mail.id !== selectedMail.id), selectedMail ])
+        setIsContextMenu(false)
+
+
+        mailService.save(selectedMail).then()
+            .catch(err => console.log('Err: ', err)
+            )
+    }
     
     if (!mails) return <Loader />
+    // onClick={() => setIsContextMenu(false)}
     return (
-        <section className="mail-container">
+        <section className="mail-container" >
             <section className="actions-pagination">
                 <section className="select-options flex">
                     <button>
@@ -72,7 +109,8 @@ export function MailIndex() {
 
             {searchPrms.get('status') === 'inbox' && < FilterByTabs />}
 
-            <MailList mails={mails} filterBy={filterBy} loggedUser={mailService.loggedinUser}/>
+            <MailList mails={mails} filterBy={filterBy} loggedUser={mailService.loggedinUser} onContextMenu={onContextMenu}/>
+            {isContextMenu && <MailContextMenu cursorCoords={cursorCoords} selectedMail={selectedMail} onLabelAs={onLabelAs} />}
         </section>
     )
 }

@@ -44,7 +44,7 @@ export const demoEmails = Array.from({ length: 50 }, (_, index) => {
         id: `id${index + 1}`,
         createdAt: Date.now() - Math.floor(Math.random() * 10000000000),
         subject: `Subject ${index + 1}`,
-        body: `This is the sfwerbwrfbwretbwgbwrbqrtbwrtgbwrtbbody of email ${index + 1}`,
+        body: `This is the body of email ${index + 1}`,
         isRead: Math.random() > 0.5,
         isStarred: Math.random() > 0.5,
         labels: ['inbox', 'romantic'],

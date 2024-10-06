@@ -32,6 +32,7 @@ export function AppHeader() {
 						<rect width="109" height="48" fill="#f6f8fb"/>
 						<g transform="translate(54.5, 24)">
 							<path d="M-54.5,-24 L-54.5,24 L54.5,24 L54.5,-24 Z" fill="none" />
+							<path d="M-40, 0 l79, 0 l0, 11 L-40, 11" stroke="#fcbb00" fill="#fcbb00" />
 							<path d="M-40,-12 L-40,12 L-20,0 Z" fill="#EA4335" />
 							<path d="M-20,0 L0,12 L20,0 Z" fill="#FBBC05" />
 							<path d="M20,0 L40,12 L40,-12 Z" fill="#34A853" />

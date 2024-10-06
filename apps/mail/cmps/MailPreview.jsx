@@ -23,7 +23,7 @@ export function MailPreview({ mail, currLabel }) {
 			<td className="from">{mail.from}</td>
 			<td className="labels">
 				{mail.labels.map(label => {
-					if (label !== currLabel) return <span>{label}</span>
+					if (label !== currLabel) return <span key={label}>{label}</span>
 				})}
 			</td>
 			<td className="subject">{mail.subject} -</td>

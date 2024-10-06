@@ -3,6 +3,17 @@ import { MailPreview } from './MailPreview.jsx'
 export function MailList({ mails, filterBy, loggedUser }) {
 	let mailsToShow = mails
 
+	if (filterBy.status === 'label') {
+		// console.log(mails.filter((mail) => mail.labels.some(label => filterBy.labels.includes(label))))
+
+		mailsToShow = mails.filter((mail) => mail.labels.some(label => filterBy.labels.includes(label)))
+	}
+
+	// console.log(filterBy)
+	
+
+	window.mails = mailsToShow
+
 	if (filterBy.status === 'inbox')
 		mailsToShow = mails.filter((mail) => mail.from !== loggedUser.mail)
 

@@ -141,6 +141,7 @@ button.compose {
 }
 
 .label-list button:before {
+    content: 'label';
     font-variation-settings: 'FILL' 1;
     color: #505253;
 }

@@ -73,25 +73,25 @@ export function MainMenu() {
 
 				<ul className="label-list clean-list">
 				<li>
-					<button className="categories">Critical</button>
+					<button className={`label ${setMarkedFolder('critical')}`} onClick={() => setSearchPrms({status: 'label', labels: ['critical']})}>Critical</button>
 				</li>
 				<li>
-					<button className="categories">Family</button>
+					<button className={`label ${setMarkedFolder('family')}`} onClick={() => setSearchPrms({status: 'label', labels: ['family']})}>Family</button>
 				</li>
 				<li>
-					<button className="categories">Work</button>
+					<button className={`label ${setMarkedFolder('work')}`} onClick={() => setSearchPrms({status: 'label', labels: ['work']})}>Work</button>
 				</li>
 				<li>
-					<button className="categories">Friends</button>
+					<button className={`label ${setMarkedFolder('friends')}`} onClick={() => setSearchPrms({status: 'label', labels: ['friends']})}>Friends</button>
 				</li>
 				<li>
-					<button className="categories">Spam</button>
+					<button className={`label ${setMarkedFolder('spam')}`} onClick={() => setSearchPrms({status: 'label', labels: ['spam']})}>Spam</button>
 				</li>
 				<li>
-					<button className="categories">Memories</button>
+					<button className={`label ${setMarkedFolder('memories')}`} onClick={() => setSearchPrms({status: 'label', labels: ['memories']})}>Memories</button>
 				</li>
 				<li>
-					<button className="categories">Romantic</button>
+					<button className={`label ${setMarkedFolder('romantic')}`} onClick={() => setSearchPrms({status: 'label', labels: ['romantic']})}>Romantic</button>
 				</li>
 				</ul>
 			</section>

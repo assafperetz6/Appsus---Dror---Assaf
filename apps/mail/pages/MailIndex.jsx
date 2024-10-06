@@ -17,7 +17,8 @@ export function MailIndex() {
     }, [])
     
     useEffect(() => {
-        const newFilter = mailService.getFilterFromSearchParams(searchPrms);
+        const newFilter = mailService.getFilterFromSearchParams(searchPrms)
+        
         setFilterBy(newFilter)
     }, [searchPrms])
 

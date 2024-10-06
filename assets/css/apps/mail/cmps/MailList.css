@@ -17,6 +17,7 @@
     display: grid;
     grid-template-columns: subgrid;
 
+    justify-items: baseline;
     align-items: center;
     justify-content: space-between;
 
@@ -27,6 +28,7 @@
     display: grid;
     align-items: center;
     height: 20px;
+
     padding-block: 10px;
 
     text-wrap: nowrap;
@@ -44,6 +46,10 @@ td:last-child {
 
 .from, .subject {
     color: var(--grey-2);
+}
+
+.subject {
+    justify-self: end;
 }
 
 td.mail-body {

@@ -4,6 +4,7 @@ const { useSearchParams } = ReactRouterDOM
 import { mailService } from '../services/mail.service.js'
 import { MailList } from '../cmps/MailList.jsx'
 import { Loader } from '../../../cmps/Loader.jsx'
+import { FilterByTabs } from '../../../cmps/FilterByTabs.jsx'
 import { utilService } from '../../../services/util.service.js'
 
 export function MailIndex() {
@@ -69,21 +70,7 @@ export function MailIndex() {
 
             </section>
 
-            <section className="filter-tabs">
-                <button>
-                    <span className="material-symbols-outlined">inbox</span>
-                    Primary</button>
-                <button>
-                    <span className="material-symbols-outlined">sell</span>
-                    Promotions
-                </button>
-                <button>
-                    <span className="material-symbols-outlined">group</span>
-                    Social</button>
-                <button>
-                    <span className="material-symbols-outlined">info</span>
-                    Updates</button>
-            </section>
+            {searchPrms.get('status') === 'inbox' && < FilterByTabs />}
 
             <MailList mails={mails} filterBy={filterBy} loggedUser={mailService.loggedinUser}/>
         </section>

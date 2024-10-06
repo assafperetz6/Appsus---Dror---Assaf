@@ -21,7 +21,7 @@ export function MailPreview({ mail }) {
 				<span className="material-symbols-outlined">label_important</span>
 			</td>
 			<td className="from">{mail.from}</td>
-			<td className="subject">{mail.subject}</td>
+			<td className="subject">{mail.subject} -</td>
 			<td className="mail-body">{mail.body}</td>
 			<td className="sent-at">{getSentTime(mail.sentAt)}</td>
 		</tr>

@@ -3,14 +3,11 @@ import { MailPreview } from './MailPreview.jsx'
 export function MailList({ mails, filterBy, loggedUser }) {
 	let mailsToShow = mails
 
-	if (filterBy.status === 'label') {
-		// console.log(mails.filter((mail) => mail.labels.some(label => filterBy.labels.includes(label))))
+	if (filterBy.status === 'labels') {
+		mailsToShow = mails.filter((mail) => mail.labels.some(label => filterBy.label.includes(label)))
 
-		mailsToShow = mails.filter((mail) => mail.labels.some(label => filterBy.labels.includes(label)))
+		if (!mailsToShow.length) return <div className="flex justify-center">There are no conversations with this label.</div>
 	}
-
-	// console.log(filterBy)
-	
 
 	window.mails = mailsToShow
 

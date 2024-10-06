@@ -86,14 +86,14 @@ function getFilterFromSearchParams(searchParams) {
 	const txt = searchParams.get('txt') || ''
 	const isRead = searchParams.get('isRead') || ''
 	const isStarred = searchParams.get('isStarred') || ''
-	const labels = searchParams.get('labels') || []
+	const label = searchParams.get('label') || []
 
 	return {
-		status: status,
-		txt: txt,
-		isRead: isRead,
-		isStarred: isStarred,
-		labels: labels
+		status,
+		txt,
+		isRead,
+		isStarred,
+		label
 	}
 }
 

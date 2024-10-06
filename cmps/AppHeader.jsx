@@ -30,7 +30,7 @@ export function AppHeader() {
 						fill="none"
 						xmlns="http://www.w3.org/2000/svg"
 					>
-						<path d="M40 0L80 100L40 200L0 100L40 0Z" fill="#4185f4" />
+						<path d="M40 0 L80 100 L40 200 L0 100 L40 0Z" fill="#4185f4" />
 						<text
 							x="75"
 							y="115"

@@ -12,10 +12,16 @@ export function NoteIndex() {
             .then(setNotes)
     }, [])
 
+    function onRemoveNote(noteId){
+        noteService.remove(noteId)
+            .then(() => {setNotes(notes => notes.filter(note => note.id !== noteId))})
+            .catch(err => console.log(err))
+    }
+
     if(!notes) return <h1>Loading...</h1>
     return (
         <section className="note-index">
-            <NoteList notes={notes} />
+            <NoteList notes={notes} onRemoveNote={onRemoveNote} />
         </section>
     )
 }

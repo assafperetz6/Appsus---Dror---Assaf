@@ -16,6 +16,20 @@ export const defaultNotes = [
             fontSize: '16px'
         },
     },
+    {
+        id: utilService.makeId(),
+        createdAt: Date.now(),
+        type: 'NoteTxt',
+        isPinned: false,
+        title: 'This is a text note',
+        info: {
+            txt: 'This is the body of the note'
+        },
+        style: {
+            backgroundColor: '#fff',
+            fontSize: '16px'
+        },
+    },
     // {
     //     id: utilService.makeId(),
     //     createdAt: Date.now(),

@@ -1,11 +1,11 @@
 import { NotePreview } from "./NotePreview.jsx";
 
-export function NoteList({ notes }) {
+export function NoteList({ notes, onRemoveNote }) {
 
     return (
         <ul className="note-list">
             {notes.map(note =>
-                <NotePreview key={note.id} note={note} />
+                <NotePreview onRemoveNote={onRemoveNote} key={note.id} note={note} />
             )}
         </ul>
     )

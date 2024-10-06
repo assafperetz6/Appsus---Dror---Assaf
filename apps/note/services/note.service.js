@@ -1,8 +1,5 @@
 import { utilService } from '../../../services/util.service.js'
 import { storageService } from '../../../services/async-storage.service.js'
-import { defaultNotes } from './dataset.js'
-
-
 
 const NOTE_KEY = 'note'
 _createNotes()
@@ -54,7 +51,7 @@ function getEmptyNote(title = '', type = '') {
 function _createNotes() {
 	let notes = utilService.loadFromStorage(NOTE_KEY)
 	if (!notes || !notes.length) {
-		notes = defaultNotes
+		notes = [getEmptyNote()]
 		utilService.saveToStorage(NOTE_KEY, notes)
 	}
 }

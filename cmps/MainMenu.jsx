@@ -11,60 +11,68 @@ export function MainMenu() {
 		if (currFolder === folderName) return 'marked'
 	}
 	return (
-		<ul className="main-menu clean-list">
-			<li>
-				<button className="compose">
-					Compose
-				</button>
-			</li>
-			<li>
-				<button className={`inbox ${setMarkedFolder('inbox')}`} onClick={() => setSearchPrms({status: 'inbox'})}>
-					Inbox
-                    <span className="mail-counter">23</span>
-				</button>
-			</li>
-			<li>
-				<button className={`starred ${setMarkedFolder('starred')}`} onClick={() => setSearchPrms({status: 'starred'})}>
-					Starred
-                    <span className="mail-counter">23</span>
-				</button>
-			</li>
-			<li>
-				<button className={`snoozed ${setMarkedFolder('snoozed')}`} onClick={() => setSearchPrms({status: 'snoozed'})}>
-					Snoozed
-                    <span className="mail-counter">23</span>
-				</button>
-			</li>
-			<li>
-				<button className={`important ${setMarkedFolder('important')}`} onClick={() => setSearchPrms({status: 'important'})}>
-					Important
-                    <span className="mail-counter">23</span>
-				</button>
-			</li>
-			<li>
-				<button className={`sent ${setMarkedFolder('sent')}`} onClick={() => setSearchPrms({status: 'sent'})}>
-					Sent
-                    <span className="mail-counter">23</span>
-				</button>
-			</li>
-			<li>
-				<button className={`drafts ${setMarkedFolder('drafts')}`} onClick={() => setSearchPrms({status: 'drafts'})}>
-					Drafts
-                    <span className="mail-counter">23</span>
-				</button>
-			</li>
-			<li>
-				<button className="categories">
-					Categories
-                    <span>23</span>
-				</button>
-			</li>
-			<li>
-				<button className="see-more">
-					More
-                    <span>23</span>
-				</button>
-			</li>
-		</ul>
+		<section className="main-menu">
+			<button className="compose">Compose</button>
+			
+			<ul className="clean-list">
+				<li>
+					<button className={`inbox ${setMarkedFolder('inbox')}`} onClick={() => setSearchPrms({status: 'inbox'})}>
+						Inbox
+							<span className="mail-counter">23</span>
+					</button>
+				</li>
+				<li>
+					<button className={`starred ${setMarkedFolder('starred')}`} onClick={() => setSearchPrms({status: 'starred'})}>
+						Starred
+							<span className="mail-counter">23</span>
+					</button>
+				</li>
+				<li>
+					<button className={`snoozed ${setMarkedFolder('snoozed')}`} onClick={() => setSearchPrms({status: 'snoozed'})}>
+						Snoozed
+							<span className="mail-counter">23</span>
+					</button>
+				</li>
+				<li>
+					<button className={`important ${setMarkedFolder('important')}`} onClick={() => setSearchPrms({status: 'important'})}>
+						Important
+							<span className="mail-counter">23</span>
+					</button>
+				</li>
+				<li>
+					<button className={`sent ${setMarkedFolder('sent')}`} onClick={() => setSearchPrms({status: 'sent'})}>
+						Sent
+							<span className="mail-counter">23</span>
+					</button>
+				</li>
+				<li>
+					<button className={`drafts ${setMarkedFolder('drafts')}`} onClick={() => setSearchPrms({status: 'drafts'})}>
+						Drafts
+							<span className="mail-counter">23</span>
+					</button>
+				</li>
+				<li>
+					<button className="categories">
+						Categories
+							<span>23</span>
+					</button>
+				</li>
+				<li>
+					<button className="see-more">
+						More
+							<span>23</span>
+					</button>
+				</li>
+			</ul>
+
+			<section className="label-container">
+				<h3>Labels</h3>
+				<button onClick={() => console.log('New label added')}>+</button>
+
+				<ul className="clean-list">
+
+				</ul>
+			</section>
+		</section>
 	)
 }

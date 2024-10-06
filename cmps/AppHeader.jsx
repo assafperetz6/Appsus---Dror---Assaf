@@ -24,33 +24,29 @@ export function AppHeader() {
 				</button>
 				<Link className="flex align-center" to="/">
 					<svg
-						width="200"
-						height="200"
-						viewBox="0 0 200 200"
-						fill="none"
+						width="109"
+						height="48"
+						viewBox="0 0 109 48"
 						xmlns="http://www.w3.org/2000/svg"
 					>
-						<path d="M40 0 L80 100 L40 200 L0 100 L40 0Z" fill="#4185f4" />
-						<text
-							x="75"
-							y="115"
-							stroke="#fbbc04"
-							fill="#35aa54"
-							fontFamily="Product-sans-bold"
-							fontSize="36"
-						>
-							Mail
-						</text>
-						<text
-							x="25"
-							y="115"
-							stroke="#fbbc04"
-							fill="#c5211e"
-							fontFamily="Product-sans-bold"
-							fontSize="36"
-						>
-							Me
-						</text>
+						<rect width="109" height="48" fill="#f6f8fb"/>
+						<g transform="translate(54.5, 24)">
+							<path d="M-54.5,-24 L-54.5,24 L54.5,24 L54.5,-24 Z" fill="none" />
+							<path d="M-40,-12 L-40,12 L-20,0 Z" fill="#EA4335" />
+							<path d="M-20,0 L0,12 L20,0 Z" fill="#FBBC05" />
+							<path d="M20,0 L40,12 L40,-12 Z" fill="#34A853" />
+							<path d="M-40,-12 L0,12 L40,-12 Z" fill="#4285F4" />
+							<text
+								x="0"
+								y="20"
+								fontFamily="Lato"
+								fontSize="20"
+								fill="#000000"
+								textAnchor="middle"
+							>
+								MeMail
+							</text>
+						</g>
 					</svg>
 				</Link>
 			</section>

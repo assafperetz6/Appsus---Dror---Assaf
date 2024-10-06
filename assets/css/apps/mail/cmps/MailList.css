@@ -1,9 +1,8 @@
 .mail-list {
     display: grid;
-    grid-template-columns: repeat(3, 30px) 1fr 1fr minmax(0, 1fr) 1fr ;
-
+    grid-template-columns: repeat(3, 30px) min-content minmax(0, min-content) max-content minmax(0, 200px) minmax(30px, max-content);
     width: 100%;
-    
+
     padding-block: 12px;
 
     > * {
@@ -26,14 +25,11 @@
 
 .mail-list > tr > * {
     display: grid;
+    justify-content: center;
     align-items: center;
     height: 20px;
 
     padding-block: 10px;
-
-    text-wrap: nowrap;
-    overflow: hidden;
-    text-overflow: clip;
 
     font-family: Arial, Helvetica, sans-serif;
     font-weight: 600;
@@ -48,13 +44,36 @@ td:last-child {
     color: var(--grey-2);
 }
 
+td.labels {
+    display: flex;
+    gap: 5px;
+
+    font-size: 12px;
+    font-weight: 200;
+
+    > * {
+        padding: 2px 4px;
+        border-radius: 4px;
+
+        color: #666;
+        background-color: #d1d1d1;
+    }
+}
+
 .subject {
     justify-self: end;
 }
 
 td.mail-body {
+    max-width: 80%;
+
     color: var(--grey-0);
     font-weight: 200;
+
+    white-space: nowrap;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .mail-preview.read {

@@ -1,6 +1,5 @@
 const { useSearchParams } = ReactRouterDOM
 
-// import { mailService } from "../apps/mail/services/mail.service.js"
 import { FilterByLabel } from './FilterByLabel.jsx'
 
 export function MainMenu() {

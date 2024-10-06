@@ -24,7 +24,7 @@ export function MailList({ mails, filterBy, loggedUser }) {
 		<table>
 			<tbody className="mail-list full">
 				{mailsToShow.map((mail) => (
-					<MailPreview mail={mail} key={mail.id} />
+					<MailPreview mail={mail} currLabel={filterBy.label} key={mail.id} />
 				))}
 			</tbody>
 		</table>

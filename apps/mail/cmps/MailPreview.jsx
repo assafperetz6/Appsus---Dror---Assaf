@@ -1,4 +1,4 @@
-export function MailPreview({ mail }) {
+export function MailPreview({ mail, currLabel }) {
 	function getSentTime(timeStamp) {
 		var h = new Date(timeStamp).getHours()
 		var m = new Date(timeStamp).getMinutes()
@@ -21,6 +21,11 @@ export function MailPreview({ mail }) {
 				<span className="material-symbols-outlined">label_important</span>
 			</td>
 			<td className="from">{mail.from}</td>
+			<td className="labels">
+				{mail.labels.map(label => {
+					if (label !== currLabel) return <span>{label}</span>
+				})}
+			</td>
 			<td className="subject">{mail.subject} -</td>
 			<td className="mail-body">{mail.body}</td>
 			<td className="sent-at">{getSentTime(mail.sentAt)}</td>

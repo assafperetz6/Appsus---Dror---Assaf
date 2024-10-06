@@ -1,12 +1,13 @@
 .mail-list {
     display: grid;
 
-    grid-template-columns: max-content;
+    grid-template-columns: repeat(3, 30px) minmax(0, 1fr) min-content 1fr minmax(0, 1fr) minmax(30px, max-content);
+
     width: 100%;
 
     padding-block: 12px;
 
-    > * {
+    > * {   
         padding-inline: 12px;
     }
 }
@@ -15,14 +16,9 @@
     grid-column: 1 / -1;
 
     display: grid;
-    grid-auto-flow: column;
-    grid-template-columns: repeat(3, 30px) minmax(100px, auto) min-content minmax(20px, calc(max-content / 2)) minmax(30px, max-content);
+    grid-template-columns: subgrid;
 
-    width: 100%;
-
-    justify-items: baseline;
-    align-items: center;
-    justify-content: space-between;
+    justify-items: stretch;
 
     border-block-end: 1px solid rgba(211, 211, 211, 0.641);
 }
@@ -31,12 +27,15 @@
     display: grid;
     justify-content: center;
     align-items: center;
+
     height: 20px;
 
     padding-block: 10px;
 
-    font-family: Arial, Helvetica, sans-serif;
-    font-weight: 600;
+    font-family: Product-sans;
+    font-weight: 400;
+
+    white-space: nowrap;
 }
 
 td:last-child {
@@ -56,7 +55,7 @@ td.labels {
     font-weight: 200;
 
     > * {
-        padding: 2px 4px;
+        padding:4px;
         border-radius: 4px;
 
         color: #666;
@@ -64,42 +63,19 @@ td.labels {
     }
 }
 
-td.mail-content {
-    display: flex;
-    justify-content: flex-start;
-
-    max-width: min-content;
-
-    .subject {
-        width: max-content;
-    }
-
-    .mail-body {
-        width: 50%;
-        flex-shrink: 2;
-
-        white-space: nowrap;
-
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
+.subject {
+    justify-self: end;
 }
 
-/* .subject {
-    justify-self: end;
-} */
-
-/* td.mail-body {
-    max-width: 80%;
+td.mail-body {
+    /* max-width: 80%; */
 
     color: var(--grey-0);
     font-weight: 200;
-
-    white-space: nowrap;
-
+    
     overflow: hidden;
     text-overflow: ellipsis;
-} */
+}
 
 .mail-preview.read {
     background-color: var(--read-mail-bg);

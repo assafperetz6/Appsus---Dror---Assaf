@@ -15,15 +15,6 @@ button.compose {
     justify-self: start;
 }
 
-.compose::before {
-    content: 'edit';
-    font-family: 'Material Icons';
-    font-size: 24px;
-    vertical-align: middle;
-
-    margin-inline: 14px;
-}
-
 .compose:hover {
     box-shadow: 0 1px 3px 0 #3c40434d,0 4px 8px 3px rgba(60,64,67,.15);
 }

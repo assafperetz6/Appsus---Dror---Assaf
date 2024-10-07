@@ -1,11 +1,22 @@
-*:not(.compose)::before {
-    margin-inline: 22px 20px;
-    
+*::before {
     font-family: 'Material Icons';
     font-size: 20px;
+}
+
+.main-menu *:not(.compose)::before {
+    margin-inline: 22px 20px;
+    
     font-weight: 300;
 
     vertical-align: middle;
+}
+
+.compose::before {
+    content: 'edit';
+    font-size: 24px;
+    vertical-align: middle;
+
+    margin-inline: 14px;
 }
 
 .marked::before {
@@ -25,6 +36,11 @@
 
 .starred::before {
     content: 'star';
+}
+
+.marked.starred::before {
+    font-variation-settings: 'FILL' 1;
+    color: #f5c769;
 }
 
 .snoozed::before {

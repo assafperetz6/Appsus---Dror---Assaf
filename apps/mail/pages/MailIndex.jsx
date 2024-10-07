@@ -2,6 +2,7 @@ const { useState, useEffect } = React
 const { useSearchParams } = ReactRouterDOM
 
 import { mailService } from '../services/mail.service.js'
+import { showSuccessMsg, showErrorMsg } from '../../../services/event-bus.service.js'
 import { MailList } from '../cmps/MailList.jsx'
 import { MailContextMenu } from '../cmps/MailContextMenu.jsx'
 import { Loader } from '../../../cmps/Loader.jsx'
@@ -63,6 +64,18 @@ export function MailIndex() {
         setIsContextMenu(false)
     }
 
+    function onRemoveMail(mailId) {
+        mailService.remove(mailId)
+        .then(() => {
+            setMails(mails => mails.filter(mail => mail.id !== mailId))
+            showSuccessMsg(`mail removed successfully!`)
+        })
+        .catch(err => {
+            console.log('Problems removing mail:', err)
+            showErrorMsg(`Problems removing mail (${mailId})`)
+        })
+    }
+
     function onLabelAs(selectedMail, label) {
         if (selectedMail.labels.includes(label)) return
 
@@ -116,7 +129,7 @@ export function MailIndex() {
             {searchPrms.get('status') === 'inbox' && < FilterByTabs />}
 
             <MailList mails={mails} filterBy={filterBy} loggedUser={mailService.loggedinUser} onContextMenu={onContextMenu} />
-            {isContextMenu && <MailContextMenu cursorCoords={cursorCoords} selectedMail={selectedMail} onLabelAs={onLabelAs} />}
+            {isContextMenu && <MailContextMenu cursorCoords={cursorCoords} selectedMail={selectedMail} onLabelAs={onLabelAs} onRemoveMail={onRemoveMail} />}
         </section>
     )
 }

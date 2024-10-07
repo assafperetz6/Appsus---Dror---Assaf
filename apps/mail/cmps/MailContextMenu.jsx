@@ -1,8 +1,8 @@
-export function MailContextMenu({ cursorCoords, selectedMail, onDeleteMail, onLabelAs, onMarkAsRead, onMoveTo }) {
+export function MailContextMenu({ cursorCoords, selectedMail, onRemoveMail, onLabelAs, onMarkAsRead, onMoveTo }) {
 
     return (
         <ul className="context-menu clean-list" style={cursorCoords}>
-            <li onClick={() => console.log('Deleted!', selectedMail.id)}>Delete</li>
+            <li onClick={() => onRemoveMail(selectedMail.id)}>Delete</li>
             <li onClick={() => console.log('Read')}>Mark as read</li>
             <li className="label-menu">Label as
                 <ul className="clean-list second-list">

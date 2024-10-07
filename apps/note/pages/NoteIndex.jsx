@@ -19,7 +19,7 @@ export function NoteIndex() {
         const notesBackup = [...notes]
         setNotes(notes => notes.filter(note => note.id !== noteId))
 
-        noteService.remove(noteId + 5)
+        noteService.remove(noteId)
             .catch(err => {
                 console.log(err)
                 setNotes(notesBackup)

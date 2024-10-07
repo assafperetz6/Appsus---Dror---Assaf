@@ -72,9 +72,9 @@ export function MailIndex() {
     }
     
     if (!mails) return <Loader />
-    // onClick={() => setIsContextMenu(false)}
+
     return (
-        <section className="mail-container" >
+        <section className="mail-container" onClick={() => setIsContextMenu(false)}>
             <section className="actions-pagination">
                 <section className="select-options flex">
                     <button>

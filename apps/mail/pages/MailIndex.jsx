@@ -99,7 +99,7 @@ export function MailIndex() {
 		if (folder === 'starred') mailToUpdate.isStarred = !mailToUpdate.isStarred
 		else if (folder === 'important') mailToUpdate.isImportant = !mailToUpdate.isImportant
 
-		console.log(mailToUpdate.isStarred)
+		console.log(mailToUpdate.isImportant)
 		
 		mailService.save(mailToUpdate)
 			.then(() =>

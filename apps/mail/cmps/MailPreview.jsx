@@ -29,7 +29,7 @@ export function MailPreview({ mail, currFolder, currLabel, onContextMenu, onAddT
 			<td className="mail-actions">
 				<button className="check-box"></button>
 				<button className={`starred ${mail.isStarred ? 'marked' : ''}`} onClick={() => onAddToFolder(mail.id, 'starred')}></button>
-				<button className="important" onClick={() => onAddToFolder(mail.id, 'important')}></button>
+				<button className={`important ${mail.isStarred ? 'marked' : ''}`} onClick={() => onAddToFolder(mail.id, 'important')}></button>
 			</td>
 			<td className="from">{mail.from}</td>
 			<td className="labels">{mail.labels.map(setLabelsToShow)}</td>

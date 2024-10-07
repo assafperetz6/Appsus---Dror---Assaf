@@ -38,7 +38,7 @@
     content: 'star';
 }
 
-.marked.starred::before {
+.marked.starred::before, .marked.important::before {
     font-variation-settings: 'FILL' 1;
     color: #f5c769;
 }

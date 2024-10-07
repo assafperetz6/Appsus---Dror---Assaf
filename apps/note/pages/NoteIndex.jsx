@@ -1,3 +1,4 @@
+import { showErrorMsg } from "../../../services/event-bus.service.js"
 import { NoteList } from "../cmps/NoteList.jsx"
 import { noteService } from "../services/note.service.js"
 const { useState, useEffect } = React
@@ -22,6 +23,7 @@ export function NoteIndex() {
         noteService.remove(noteId)
             .catch(err => {
                 console.log(err)
+                showErrorMsg(`Problem removing note, ID:${noteId}`)
                 setNotes(notesBackup)
             })
     }

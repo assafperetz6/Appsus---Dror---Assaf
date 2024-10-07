@@ -1,4 +1,4 @@
-export function MailPreview({ mail, currFolder, currLabel, onContextMenu }) {
+export function MailPreview({ mail, currFolder, currLabel, onContextMenu, onAddToFolder }) {
 	function getSentTime(timeStamp) {
 		var h = new Date(timeStamp).getHours()
 		var m = new Date(timeStamp).getMinutes()
@@ -27,13 +27,13 @@ export function MailPreview({ mail, currFolder, currLabel, onContextMenu }) {
 			onContextMenu={onContextMenu}
 		>
 			<td>
-				<span className="material-symbols-outlined">check_box_outline_blank</span>
+				<button className="check-box"></button>
 			</td>
 			<td>
-				<span className="material-symbols-outlined">star</span>
+				<button className="starred" onClick={() => onAddToFolder(mail.id, 'Star')}></button>
 			</td>
 			<td>
-				<span className="material-symbols-outlined">label_important</span>
+				<button className="important"></button>
 			</td>
 			<td className="from">{mail.from}</td>
 			<td className="labels">{mail.labels.map(setLabelsToShow)}</td>

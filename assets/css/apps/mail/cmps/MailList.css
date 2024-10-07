@@ -1,15 +1,11 @@
 .mail-list {
     display: grid;
 
-    grid-template-columns: repeat(3, 30px) minmax(0, 1fr) min-content 1fr minmax(0, 1fr) minmax(30px, max-content);
+    grid-template-columns: 120px minmax(0, 1fr) min-content 1fr minmax(0, 1fr) minmax(30px, max-content);
 
     width: 100%;
 
     padding-block: 12px;
-
-    > * {   
-        padding-inline: 12px;
-    }
 }
 
 .mail-list > tr {
@@ -20,7 +16,7 @@
 
     justify-items: stretch;
 
-    border-block-end: 1px solid rgba(211, 211, 211, 0.641);
+    box-shadow: inset 0px -1px 0px 0px #e3e7ef;
 }
 
 .mail-list > tr > * {
@@ -41,6 +37,17 @@
 td:last-child {
     place-self: end;
     padding-inline-end: 16px;
+}
+
+td.mail-actions {
+    display: flex;
+    justify-content: space-evenly;
+
+    > * {
+        height: 40px;
+        width: 40px;
+    }
+
 }
 
 .from, .subject {

@@ -2,7 +2,10 @@ const { useState, useEffect } = React
 const { useSearchParams } = ReactRouterDOM
 
 import { mailService } from '../services/mail.service.js'
-import { showSuccessMsg, showErrorMsg } from '../../../services/event-bus.service.js'
+import {
+	showSuccessMsg,
+	showErrorMsg,
+} from '../../../services/event-bus.service.js'
 import { MailList } from '../cmps/MailList.jsx'
 import { MailContextMenu } from '../cmps/MailContextMenu.jsx'
 import { Loader } from '../../../cmps/Loader.jsx'
@@ -10,127 +13,156 @@ import { FilterByTabs } from '../../../cmps/FilterByTabs.jsx'
 import { utilService } from '../../../services/util.service.js'
 
 export function MailIndex() {
-    const [mails, setMails] = useState(null)
-    const [isContextMenu, setIsContextMenu] = useState(false)
-    const [cursorCoords, setCursorCoords] = useState({top: 0, left: 0})
-    const [selectedMail, setSelectedMail] = useState(null)
+	const [mails, setMails] = useState(null)
+	const [isContextMenu, setIsContextMenu] = useState(false)
+	const [cursorCoords, setCursorCoords] = useState({ top: 0, left: 0 })
+	const [selectedMail, setSelectedMail] = useState(null)
 
-    const [searchPrms, setSearchPrms] = useSearchParams()
-    const [filterBy, setFilterBy] = useState(mailService.getFilterFromSearchParams(searchPrms))
+	const [searchPrms, setSearchPrms] = useSearchParams()
+	const [filterBy, setFilterBy] = useState(
+		mailService.getFilterFromSearchParams(searchPrms)
+	)
 
-    useEffect(() => {
-        loadMails(filterBy)
-        setSearchPrms(utilService.getTruthyValues(filterBy))
-    }, [])
-    
-    useEffect(() => {
-        const newFilter = mailService.getFilterFromSearchParams(searchPrms)
-        
-        setFilterBy(newFilter)
-    }, [searchPrms])
+	useEffect(() => {
+		loadMails(filterBy)
+		setSearchPrms(utilService.getTruthyValues(filterBy))
+	}, [])
 
-    useEffect(() => {
-        loadMails(filterBy)
-    }, [filterBy])
+	useEffect(() => {
+		const newFilter = mailService.getFilterFromSearchParams(searchPrms)
 
-    function loadMails() {
-        mailService.query()
-            .then(setMails)
-            .catch(err => console.log('error: ', err))
-    }
+		setFilterBy(newFilter)
+	}, [searchPrms])
 
-    function onContextMenu(ev) {
-        ev.preventDefault()
+	useEffect(() => {
+		loadMails(filterBy)
+	}, [filterBy])
 
-        setIsContextMenu(false)
-        
-        const mailId = ev.currentTarget.dataset.id
+	function loadMails() {
+		mailService
+			.query()
+			.then(setMails)
+			.catch((err) => console.log('error: ', err))
+	}
 
-        setCursorCoords({top: `${ev.clientY}px`, left: `${ev.clientX}px`})
+	function onContextMenu(ev) {
+		ev.preventDefault()
 
+		setIsContextMenu(false)
 
-        loadContextMenu(mailId)
-        setIsContextMenu(true)
-    }
+		const mailId = ev.currentTarget.dataset.id
 
-    function loadContextMenu(mailId) {
-        const mail = mails.find(mail => mail.id === mailId)
-        setSelectedMail(mail)
-    }
+		setCursorCoords({ top: `${ev.clientY}px`, left: `${ev.clientX}px` })
 
-    function closeContextMenu(ev) {
-        ev.stopPropagation()
+		loadContextMenu(mailId)
+		setIsContextMenu(true)
+	}
 
-        setIsContextMenu(false)
-    }
+	function loadContextMenu(mailId) {
+		const mail = mails.find((mail) => mail.id === mailId)
+		setSelectedMail(mail)
+	}
 
-    function onRemoveMail(mailId) {
-        mailService.remove(mailId)
-        .then(() => {
-            setMails(mails => mails.filter(mail => mail.id !== mailId))
-            showSuccessMsg(`mail removed successfully!`)
-        })
-        .catch(err => {
-            console.log('Problems removing mail:', err)
-            showErrorMsg(`Problems removing mail (${mailId})`)
-        })
-    }
+	function closeContextMenu(ev) {
+		ev.stopPropagation()
 
-    function onLabelAs(selectedMail, label) {
-        if (selectedMail.labels.includes(label)) return
+		setIsContextMenu(false)
+	}
 
-        // setSelectedMail(mail => ({...mail, labels: [...selectedMail.labels, label]})) // TODO: CHANGING STATE WITHOUT SETSTATE. IS IT BAD?
-        selectedMail.labels.push(label)
-        
-        setMails(mails => [...mails.filter(mail => mail.id !== selectedMail.id), selectedMail ])
-        setIsContextMenu(false)
+	function onRemoveMail(mailId) {
+		mailService
+			.remove(mailId)
+			.then(() => {
+				setMails((mails) => mails.filter((mail) => mail.id !== mailId))
+				showSuccessMsg(`mail removed successfully!`)
+			})
+			.catch((err) => {
+				console.log('Problems removing mail:', err)
+				showErrorMsg(`Problems removing mail (${mailId})`)
+			})
+	}
 
+	function onLabelAs(selectedMail, label) {
+		if (selectedMail.labels.includes(label)) return
 
-        mailService.save(selectedMail).then()
-            .catch(err => console.log('Err: ', err)
-            )
-    }
-    
-    if (!mails) return <Loader />
-    return (
-        <section className="mail-container" onClick={closeContextMenu}>
-            <section className="actions-pagination">
-                <section className="select-options flex">
-                    <button>
-                        <span className="material-symbols-outlined">check_box_outline_blank</span>
-                    </button>
-                    <button>
-                        <span className="material-symbols-outlined">keyboard_arrow_down</span>
-                    </button>
+		// setSelectedMail(mail => ({...mail, labels: [...selectedMail.labels, label]})) // TODO: CHANGING STATE WITHOUT SETSTATE. IS IT BAD?
+		selectedMail.labels.push(label)
+		setIsContextMenu(false)
 
-                    <button>
-                        <span className="material-symbols-outlined">refresh</span>
-                    </button>
+		mailService
+			.save(selectedMail)
+			.then(() =>
+				setMails((mails) => [...mails.filter((mail) => mail.id !== selectedMail.id), selectedMail]))
+			.catch((err) => console.log('Err: ', err))
+	}
 
-                    <button>
-                        <span className="material-symbols-outlined">more_vert</span>
-                    </button>
-                </section>
+	function onAddToFolder(mailId, folder) {
+		const mailToUpdate = { ...mails.find(mail => mail.id === mailId) }
 
-                <section className="info-pagination flex">
-                    <div className="shown-mails">1-50 of 2,000</div>
-                    <button>
-                        <span className="material-symbols-outlined">chevron_left</span>
-                    </button>
-                    <button>
-                        <span className="material-symbols-outlined">chevron_right</span>
-                    </button>
-                </section>
+		if (folder === 'starred') mailToUpdate.isStarred = !mailToUpdate.isStarred
+		else if (folder === 'important') mailToUpdate.isImportant = !mailToUpdate.isImportant
 
+		console.log(mailToUpdate.isStarred)
+		
+		mailService.save(mailToUpdate)
+			.then(() =>
+				setMails((mails) => [...mails.filter((mail) => mail.id !== mailToUpdate.id), mailToUpdate]))
+			.catch((err) => console.log('Err: ', err))		
+	}
 
+	if (!mails) return <Loader />
+	return (
+		<section className="mail-container" onClick={closeContextMenu}>
+			<section className="actions-pagination">
+				<section className="select-options flex">
+					<button>
+						<span className="material-symbols-outlined">
+							check_box_outline_blank
+						</span>
+					</button>
+					<button>
+						<span className="material-symbols-outlined">
+							keyboard_arrow_down
+						</span>
+					</button>
 
-            </section>
+					<button>
+						<span className="material-symbols-outlined">refresh</span>
+					</button>
 
-            {searchPrms.get('status') === 'inbox' && < FilterByTabs />}
+					<button>
+						<span className="material-symbols-outlined">more_vert</span>
+					</button>
+				</section>
 
-            <MailList mails={mails} filterBy={filterBy} loggedUser={mailService.loggedinUser} onContextMenu={onContextMenu} />
-            {isContextMenu && <MailContextMenu cursorCoords={cursorCoords} selectedMail={selectedMail} onLabelAs={onLabelAs} onRemoveMail={onRemoveMail} />}
-        </section>
-    )
+				<section className="info-pagination flex">
+					<div className="shown-mails">1-50 of 2,000</div>
+					<button>
+						<span className="material-symbols-outlined">chevron_left</span>
+					</button>
+					<button>
+						<span className="material-symbols-outlined">chevron_right</span>
+					</button>
+				</section>
+			</section>
+
+			{searchPrms.get('status') === 'inbox' && <FilterByTabs />}
+
+			<MailList
+				mails={mails}
+				filterBy={filterBy}
+				loggedUser={mailService.loggedinUser}
+				onContextMenu={onContextMenu}
+				onAddToFolder={onAddToFolder}
+			/>
+			{isContextMenu && (
+				<MailContextMenu
+					cursorCoords={cursorCoords}
+					selectedMail={selectedMail}
+					onLabelAs={onLabelAs}
+					onRemoveMail={onRemoveMail}
+				/>
+			)}
+		</section>
+	)
 }
-

@@ -1,6 +1,6 @@
 import { MailPreview } from './MailPreview.jsx'
 
-export function MailList({ mails, filterBy, loggedUser, onContextMenu }) {
+export function MailList({ mails, filterBy, loggedUser, onContextMenu, onAddToFolder }) {
 	let mailsToShow = mails
 
 	window.mails = mailsToShow
@@ -27,7 +27,7 @@ export function MailList({ mails, filterBy, loggedUser, onContextMenu }) {
 				<table>
 					<tbody className="mail-list full">
 						{mailsToShow.map((mail) => (
-							<MailPreview mail={mail} currFolder={filterBy.status} currLabel={filterBy.label} onContextMenu={onContextMenu} key={mail.id} />
+							<MailPreview mail={mail} currFolder={filterBy.status} currLabel={filterBy.label} onContextMenu={onContextMenu} onAddToFolder={onAddToFolder} key={mail.id} />
 						))}
 					</tbody>
 				</table>

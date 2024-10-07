@@ -7,25 +7,25 @@ export function MailContextMenu({ cursorCoords, selectedMail, onDeleteMail, onLa
             <li className="label-menu">Label as
                 <ul className="clean-list second-list">
                     <li>
-                        <button onClick={() => onLabelAs(selectedMail, 'Critical')}>Critical</button>
+                        <button onClick={() => onLabelAs(selectedMail, 'critical')}>Critical</button>
                     </li>
                     <li>
-                        <button onClick={() => onLabelAs()}>Family</button>
+                        <button onClick={() => onLabelAs(selectedMail, 'family')}>Family</button>
                     </li>
                     <li>
-                        <button onClick={() => onLabelAs()}>Work</button>
+                        <button onClick={() => onLabelAs(selectedMail, 'work')}>Work</button>
                     </li>
                     <li>
-                        <button onClick={() => onLabelAs()}>Friends</button>
+                        <button onClick={() => onLabelAs(selectedMail, 'friends')}>Friends</button>
                     </li>
                     <li>
-                        <button onClick={() => onLabelAs()}>Spam</button>
+                        <button onClick={() => onLabelAs(selectedMail, 'spam')}>Spam</button>
                     </li>
                     <li>
-                        <button onClick={() => onLabelAs()}>Memories</button>
+                        <button onClick={() => onLabelAs(selectedMail, 'memories')}>Memories</button>
                     </li>
                     <li>
-                        <button onClick={() => onLabelAs()}>Romantic</button>
+                        <button onClick={() => onLabelAs(selectedMail, 'romantic')}>Romantic</button>
                     </li>
                 </ul>
             </li>

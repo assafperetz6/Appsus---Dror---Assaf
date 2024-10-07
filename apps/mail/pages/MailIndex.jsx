@@ -20,7 +20,7 @@ export function MailIndex() {
     useEffect(() => {
         loadMails(filterBy)
         setSearchPrms(utilService.getTruthyValues(filterBy))
-    }, [mails])
+    }, [])
     
     useEffect(() => {
         const newFilter = mailService.getFilterFromSearchParams(searchPrms)
@@ -57,11 +57,18 @@ export function MailIndex() {
         setSelectedMail(mail)
     }
 
+    function closeContextMenu(ev) {
+        ev.stopPropagation()
+
+        setIsContextMenu(false)
+    }
+
     function onLabelAs(selectedMail, label) {
         if (selectedMail.labels.includes(label)) return
 
-        // setSelectedMail(mail => ({...mail, labels: [...labels, label]})) TODO: CHANGING STATE WITHOUT SETSTATE. IS IT BAD?
+        // setSelectedMail(mail => ({...mail, labels: [...selectedMail.labels, label]})) // TODO: CHANGING STATE WITHOUT SETSTATE. IS IT BAD?
         selectedMail.labels.push(label)
+        
         setMails(mails => [...mails.filter(mail => mail.id !== selectedMail.id), selectedMail ])
         setIsContextMenu(false)
 
@@ -72,9 +79,8 @@ export function MailIndex() {
     }
     
     if (!mails) return <Loader />
-
     return (
-        <section className="mail-container" onClick={() => setIsContextMenu(false)}>
+        <section className="mail-container" onClick={closeContextMenu}>
             <section className="actions-pagination">
                 <section className="select-options flex">
                     <button>
@@ -109,7 +115,7 @@ export function MailIndex() {
 
             {searchPrms.get('status') === 'inbox' && < FilterByTabs />}
 
-            <MailList mails={mails} filterBy={filterBy} loggedUser={mailService.loggedinUser} onContextMenu={onContextMenu}/>
+            <MailList mails={mails} filterBy={filterBy} loggedUser={mailService.loggedinUser} onContextMenu={onContextMenu} />
             {isContextMenu && <MailContextMenu cursorCoords={cursorCoords} selectedMail={selectedMail} onLabelAs={onLabelAs} />}
         </section>
     )

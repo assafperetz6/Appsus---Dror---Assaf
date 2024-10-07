@@ -3,12 +3,6 @@ import { MailPreview } from './MailPreview.jsx'
 export function MailList({ mails, filterBy, loggedUser, onContextMenu }) {
 	let mailsToShow = mails
 
-	if (filterBy.status === 'labels') {
-		mailsToShow = mails.filter((mail) => mail.labels.some(label => filterBy.label.includes(label)))
-
-		if (!mailsToShow.length) return <div className="flex justify-center">There are no conversations with this label.</div>
-	}
-
 	window.mails = mailsToShow
 
 	if (filterBy.status === 'inbox')
@@ -20,8 +14,13 @@ export function MailList({ mails, filterBy, loggedUser, onContextMenu }) {
 	if (filterBy.status === 'starred')
 		mailsToShow = mails.filter(mail => mail.isStarred)
 
-	console.log('hi');
-	
+	if (filterBy.status === 'labels') {
+
+		mailsToShow = mails.filter((mail) => mail.labels.some(label => filterBy.label.includes(label)))
+
+		if (!mailsToShow.length) return <div className="flex justify-center">There are no conversations with this label.</div>
+	}
+
 	return (
 		<section>
 			

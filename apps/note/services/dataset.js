@@ -12,7 +12,6 @@ export const defaultNotes = [
             txt: 'This is the body of the note'
         },
         style: {
-            backgroundColor: '#fff',
             fontSize: '16px'
         },
     },
@@ -26,7 +25,6 @@ export const defaultNotes = [
             txt: 'This is the body of the note'
         },
         style: {
-            backgroundColor: '#fff',
             fontSize: '16px'
         },
     },

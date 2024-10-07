@@ -14,6 +14,9 @@ export function MailList({ mails, filterBy, loggedUser, onContextMenu, onAddToFo
 	if (filterBy.status === 'starred')
 		mailsToShow = mails.filter(mail => mail.isStarred)
 
+	if (filterBy.status === 'important')
+		mailsToShow = mails.filter(mail => mail.isImportant)
+
 	if (filterBy.status === 'labels') {
 
 		mailsToShow = mails.filter((mail) => mail.labels.some(label => filterBy.label.includes(label)))

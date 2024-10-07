@@ -23,18 +23,14 @@ export function MailIndex() {
 	useEffect(() => {
 		loadMails(filterBy)
 		setSearchPrms(utilService.getTruthyValues(filterBy))
-	}, [])
+	}, [filterBy])
 
 	useEffect(() => {
 		const newFilter = mailService.getFilterFromSearchParams(searchPrms)
 
 		setFilterBy(newFilter)
 	}, [searchPrms])
-
-	useEffect(() => {
-		loadMails(filterBy)
-	}, [filterBy])
-
+	
 	function loadMails() {
 		mailService
 			.query()
@@ -94,17 +90,17 @@ export function MailIndex() {
 	}
 
 	function onAddToFolder(mailId, folder) {
-		const mailToUpdate = { ...mails.find(mail => mail.id === mailId) }
+		const mailToUpdate = mails.find(mail => mail.id === mailId)
 
 		if (folder === 'starred') mailToUpdate.isStarred = !mailToUpdate.isStarred
 		else if (folder === 'important') mailToUpdate.isImportant = !mailToUpdate.isImportant
-
-		console.log(mailToUpdate.isImportant)
 		
+		setMails(mails => [...mails])
 		mailService.save(mailToUpdate)
-			.then(() =>
-				setMails((mails) => [...mails.filter((mail) => mail.id !== mailToUpdate.id), mailToUpdate]))
-			.catch((err) => console.log('Err: ', err))		
+			.catch((err) => {
+				console.log('Err: ', err)
+				showErrorMsg(`Problems adding mail to folder (${mailId})`)
+			})
 	}
 
 	if (!mails) return <Loader />

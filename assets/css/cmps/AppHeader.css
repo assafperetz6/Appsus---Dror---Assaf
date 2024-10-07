@@ -27,11 +27,11 @@ nav a {
 }
 
 nav a:active {
-    color: purple;
+    color: var(--nav-press);
 }
 
 nav a.active {
-    color: darkblue;
+    color: var(--active-nav);
     font-weight: bold;
     text-decoration: overline;
 }
@@ -42,7 +42,7 @@ button {
 }
 
 button:hover {
-    background: #dde2ec;
+    background: var(--btn-hover);
 }
 
 .main-menu-btn {

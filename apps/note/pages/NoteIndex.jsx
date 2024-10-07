@@ -5,11 +5,14 @@ const { useState, useEffect } = React
 
 export function NoteIndex() {
     
+    document.body.classList.add('dark-mode')
+
     const [notes, setNotes] = useState(null)
     
     useEffect(() => {
         noteService.query()
             .then(setNotes)
+        return (() => document.body.classList.remove('dark-mode'))
     }, [])
 
     function onRemoveNote(noteId){

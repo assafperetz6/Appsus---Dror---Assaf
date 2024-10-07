@@ -1,5 +1,5 @@
 .main-menu {
-    --checked-button-color: #c2e7ff;
+    color: var(--text-color);
 }
 
 button.compose {
@@ -10,7 +10,7 @@ button.compose {
     border-radius: 16px;
     margin: 8px 0 12px 8px;
 
-    background-color: var(--checked-button-color);
+    background-color: var(--active-btn);
 
     justify-self: start;
 }
@@ -81,7 +81,7 @@ button.compose {
     }
 
     .marked {
-        background-color: var(--checked-button-color);
+        background-color: var(--active-btn);
         font-weight: 700;
     }
 }
@@ -113,5 +113,4 @@ button.compose {
             font-size: 1.5em;
         }
     }
-    
 }

@@ -45,6 +45,7 @@ export const svgs = {
           fill="#fff"
         />
       </svg>
+      <span className='note-logo-text'>MeKeep</span>
     </React.Fragment>
   ),
   appLogo: (

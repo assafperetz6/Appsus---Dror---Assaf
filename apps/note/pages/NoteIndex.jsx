@@ -13,9 +13,14 @@ export function NoteIndex() {
     }, [])
 
     function onRemoveNote(noteId){
-        noteService.remove(noteId)
-            .then(() => {setNotes(notes => notes.filter(note => note.id !== noteId))})
-            .catch(err => console.log(err))
+        const notesBackup = [...notes]
+        setNotes(notes => notes.filter(note => note.id !== noteId))
+
+        noteService.remove(noteId + 5)
+            .catch(err => {
+                console.log(err)
+                setNotes(notesBackup)
+            })
     }
 
     if(!notes) return <h1>Loading...</h1>

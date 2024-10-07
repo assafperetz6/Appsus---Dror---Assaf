@@ -69,3 +69,16 @@
 .check-box::before {
     content: 'check_box_outline_blank';
 }
+
+.menu::before{
+    content: 'menu'
+}
+
+.note-logo{
+    scale: 0.5;
+    z-index: 200;
+}
+
+.app-logo{
+    rotate: 90deg;
+}

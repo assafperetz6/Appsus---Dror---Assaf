@@ -20,13 +20,15 @@ export function MailList({ mails, filterBy, loggedUser, onContextMenu }) {
 	if (filterBy.status === 'starred')
 		mailsToShow = mails.filter(mail => mail.isStarred)
 
+	console.log('hi');
+	
 	return (
 		<section>
 			
 				<table>
 					<tbody className="mail-list full">
 						{mailsToShow.map((mail) => (
-							<MailPreview mail={mail} currLabel={filterBy.label} onContextMenu={onContextMenu} key={mail.id} />
+							<MailPreview mail={mail} currFolder={filterBy.status} currLabel={filterBy.label} onContextMenu={onContextMenu} key={mail.id} />
 						))}
 					</tbody>
 				</table>

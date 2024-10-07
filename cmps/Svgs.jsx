@@ -45,7 +45,6 @@ export const svgs = {
           fill="#fff"
         />
       </svg>
-      <span>MeKeep</span>
     </React.Fragment>
   ),
   appLogo: (

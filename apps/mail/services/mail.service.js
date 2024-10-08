@@ -93,7 +93,7 @@ function getFilterFromSearchParams(searchParams) {
 		txt,
 		isRead,
 		isStarred,
-		label
+		label,
 	}
 }
 

@@ -1,4 +1,4 @@
-export function MailPreview({ mail, currFolder, currLabel, onContextMenu, onAddToFolder }) {
+export function MailPreview({ mail, onSetIsHover, hoveredMailId, currFolder, currLabel, onContextMenu, onChangeMailStatus }) {
 	function getSentTime(timeStamp) {
 		var h = new Date(timeStamp).getHours()
 		var m = new Date(timeStamp).getMinutes()
@@ -25,17 +25,25 @@ export function MailPreview({ mail, currFolder, currLabel, onContextMenu, onAddT
 			className={`mail-preview ${mail.isRead ? 'read' : ''}`}
 			data-id={mail.id}
 			onContextMenu={onContextMenu}
+			onMouseOver={(ev) => onSetIsHover(true, ev.currentTarget.dataset.id)}
+			onMouseOut={() => onSetIsHover(false)}
 		>
 			<td className="mail-actions">
 				<button className="check-box"></button>
-				<button className={`starred ${mail.isStarred ? 'marked' : ''}`} onClick={() => onAddToFolder(mail.id, 'starred')}></button>
-				<button className={`important ${mail.isImportant ? 'marked' : ''}`} onClick={() => onAddToFolder(mail.id, 'important')}></button>
+				<button className={`starred ${mail.isStarred ? 'marked' : ''}`} onClick={() => onChangeMailStatus(mail.id, 'starred')}></button>
+				<button className={`important ${mail.isImportant ? 'marked' : ''}`} onClick={() => onChangeMailStatus(mail.id, 'important')}></button>
 			</td>
 			<td className="from">{mail.from}</td>
 			<td className="labels">{mail.labels.map(setLabelsToShow)}</td>
 			<td className="subject">{mail.subject} -</td>
 			<td className="mail-body">{mail.body}</td>
-			<td className="sent-at">{getSentTime(mail.sentAt)}</td>
+			
+			{hoveredMailId === mail.id ?
+			<td className="mail-actions">
+				<button className="trash"></button>
+				<button className={`${mail.isRead ? 'mail-read' : 'mail-unread'}`} onClick={() => onChangeMailStatus(mail.id, 'read')}></button>
+			</td>
+			: <td className="sent-at">{getSentTime(mail.sentAt)}</td>}
 		</tr>
 	)
 }

@@ -12,17 +12,18 @@ import { utilService } from '../../../services/util.service.js'
 export function MailIndex() {
 	const [mails, setMails] = useState(null)
 	const [isContextMenu, setIsContextMenu] = useState(false)
-	const [cursorCoords, setCursorCoords] = useState({ top: 0, left: 0 })
+	const [cursorPos, setCursorPos] = useState({ top: 0, left: 0 })
+	const [isHover, setIsHover] = useState(false)
+	const [hoveredMailId, setHoveredMailId] = useState(null)
 	const [selectedMail, setSelectedMail] = useState(null)
 
 	const [searchPrms, setSearchPrms] = useSearchParams()
-	const [filterBy, setFilterBy] = useState(
-		mailService.getFilterFromSearchParams(searchPrms)
-	)
+	const [filterBy, setFilterBy] = useState(mailService.getFilterFromSearchParams(searchPrms))
 
 	useEffect(() => {
 		loadMails(filterBy)
 		setSearchPrms(utilService.getTruthyValues(filterBy))
+
 	}, [filterBy])
 
 	useEffect(() => {
@@ -38,15 +39,20 @@ export function MailIndex() {
 			.catch((err) => console.log('error: ', err))
 	}
 
+	function onSetIsHover(boolian, mailId) {
+		setIsHover(boolian)
+		setHoveredMailId(mailId)
+	}
+
 	function onContextMenu(ev) {
 		ev.preventDefault()
 
-		setIsContextMenu(false)
-
+		
+		// setIsContextMenu(false) WONDER IF NEEDED
+		
 		const mailId = ev.currentTarget.dataset.id
-
-		setCursorCoords({ top: `${ev.clientY}px`, left: `${ev.clientX}px` })
-
+		
+		setCursorPos({ top: ev.clientY, left: ev.clientX })
 		loadContextMenu(mailId)
 		setIsContextMenu(true)
 	}
@@ -89,12 +95,13 @@ export function MailIndex() {
 			.catch((err) => console.log('Err: ', err))
 	}
 
-	function onAddToFolder(mailId, folder) {
+	function onChangeMailStatus(mailId, status) {
 		const mailsBackup = structuredClone(mails)
 		const mailToUpdate = mails.find(mail => mail.id === mailId)
 
-		if (folder === 'starred') mailToUpdate.isStarred = !mailToUpdate.isStarred
-		else if (folder === 'important') mailToUpdate.isImportant = !mailToUpdate.isImportant
+		if (status === 'starred') mailToUpdate.isStarred = !mailToUpdate.isStarred
+		else if (status === 'important') mailToUpdate.isImportant = !mailToUpdate.isImportant
+		else if (status === 'read') mailToUpdate.isRead = !mailToUpdate.isRead
 		
 		setMails(mails => [...mails])
 
@@ -149,11 +156,13 @@ export function MailIndex() {
 				filterBy={filterBy}
 				loggedUser={mailService.loggedinUser}
 				onContextMenu={onContextMenu}
-				onAddToFolder={onAddToFolder}
+				onChangeMailStatus={onChangeMailStatus}
+				onSetIsHover={onSetIsHover}
+				hoveredMailId={hoveredMailId}
 			/>
 			{isContextMenu && (
 				<MailContextMenu
-					cursorCoords={cursorCoords}
+					cursorPos={cursorPos}
 					selectedMail={selectedMail}
 					onLabelAs={onLabelAs}
 					onRemoveMail={onRemoveMail}

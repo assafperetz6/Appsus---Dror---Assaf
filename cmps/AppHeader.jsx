@@ -8,7 +8,7 @@ import { svgs } from './Svgs.jsx'
 export function AppHeader() {
 	const [searchPrms, setSearchPrms] = useSearchParams()
 	const loc = useLocation()
-	console.log(loc)
+
 	const [filterBy, setFilterBy] = useState(
 		mailService.getFilterFromSearchParams(searchPrms)
 	)

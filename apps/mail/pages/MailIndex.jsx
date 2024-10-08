@@ -90,19 +90,22 @@ export function MailIndex() {
 	}
 
 	function onAddToFolder(mailId, folder) {
+		const mailsBackup = structuredClone(mails)
 		const mailToUpdate = mails.find(mail => mail.id === mailId)
 
 		if (folder === 'starred') mailToUpdate.isStarred = !mailToUpdate.isStarred
 		else if (folder === 'important') mailToUpdate.isImportant = !mailToUpdate.isImportant
 		
 		setMails(mails => [...mails])
+
 		mailService.save(mailToUpdate)
 			.catch((err) => {
 				console.log('Err: ', err)
 				showErrorMsg(`Problems adding mail to folder (${mailId})`)
+				setMails(mailsBackup)
 			})
 	}
-
+	
 	if (!mails) return <Loader />
 	return (
 		<section className="mail-container" onClick={closeContextMenu}>

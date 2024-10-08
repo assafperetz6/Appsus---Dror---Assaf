@@ -80,8 +80,11 @@ export function MailMenu({ setMarkedFolder, setSearchPrms }) {
           </button>
         </li>
         <li>
-          <button className="categories">
-            Categories
+          <button
+            className={`trash ${setMarkedFolder("trash")}`}
+            onClick={() => setSearchPrms({ status: "trash" })}
+            >
+            trash
             <span></span>
           </button>
         </li>

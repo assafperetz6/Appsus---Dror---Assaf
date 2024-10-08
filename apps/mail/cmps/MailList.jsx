@@ -6,6 +6,7 @@ export function MailList({
 	loggedUser,
 	onContextMenu,
 	onChangeMailStatus,
+	onRemoveMail,
 	onSetIsHover,
 	hoveredMailId
 }) {
@@ -13,22 +14,27 @@ export function MailList({
 
 	window.mails = mailsToShow
 
+	if (filterBy.status === 'trash')
+		mailsToShow = mailsToShow.filter((mail) => mail.removedAt)
+
+	else mailsToShow = mailsToShow.filter((mail) => !mail.removedAt)
+
 	if (filterBy.status === 'inbox')
-		mailsToShow = mails.filter((mail) => mail.from !== loggedUser.mail)
+		mailsToShow = mailsToShow.filter((mail) => mail.from !== loggedUser.mail)
 
-	if (filterBy.status === 'sent')
-		mailsToShow = mails.filter((mail) => mail.from === loggedUser.mail)
+	else if (filterBy.status === 'starred')
+		mailsToShow = mailsToShow.filter((mail) => mail.isStarred)
 
-	if (filterBy.status === 'starred')
-		mailsToShow = mails.filter((mail) => mail.isStarred)
+	else if (filterBy.status === 'important')
+		mailsToShow = mailsToShow.filter((mail) => mail.isImportant)
 
-	if (filterBy.status === 'important')
-		mailsToShow = mails.filter((mail) => mail.isImportant)
+	else if (filterBy.status === 'sent')
+		mailsToShow = mailsToShow.filter((mail) => mail.from === loggedUser.mail)
 
-	if (filterBy.status === 'labels') {
-		mailsToShow = mails.filter((mail) =>
+	else if (filterBy.status === 'labels') {
+		mailsToShow = mailsToShow.filter((mail) =>
 			mail.labels.some((label) => filterBy.label.includes(label))
-		)
+	)
 
 		if (!mailsToShow.length)
 			return (
@@ -52,6 +58,7 @@ export function MailList({
 							currLabel={filterBy.label}
 							onContextMenu={onContextMenu}
 							onChangeMailStatus={onChangeMailStatus}
+							onRemoveMail={onRemoveMail}
 							key={mail.id}
 						/>
 					))}

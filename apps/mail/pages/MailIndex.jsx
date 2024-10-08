@@ -69,16 +69,35 @@ export function MailIndex() {
 	}
 
 	function onRemoveMail(mailId) {
-		mailService
+		const mailsBackup = structuredClone(mails)
+		const mailToRemove = mails.find(mail => mail.id === mailId)
+
+		if (mailToRemove.removedAt) {
+			setMails(mails.filter(mail => mail.id !== mailToRemove.id))
+
+			mailService
 			.remove(mailId)
 			.then(() => {
-				setMails((mails) => mails.filter((mail) => mail.id !== mailId))
 				showSuccessMsg(`mail removed successfully!`)
 			})
 			.catch((err) => {
 				console.log('Problems removing mail:', err)
 				showErrorMsg(`Problems removing mail (${mailId})`)
+				setMails(mailsBackup)
 			})
+		}
+
+		else {
+				mailToRemove.removedAt = Date.now()
+				setMails(mails => [...mails])
+				
+				mailService.save(mailToRemove)
+				.catch((err) => {
+					console.log('Err: ', err)
+					showErrorMsg(`Problems adding mail to folder (${mailId})`)
+					setMails(mailsBackup)
+				})
+			}
 	}
 
 	function onLabelAs(selectedMail, label) {
@@ -157,6 +176,8 @@ export function MailIndex() {
 				loggedUser={mailService.loggedinUser}
 				onContextMenu={onContextMenu}
 				onChangeMailStatus={onChangeMailStatus}
+				onRemoveMail={onRemoveMail}
+
 				onSetIsHover={onSetIsHover}
 				hoveredMailId={hoveredMailId}
 			/>

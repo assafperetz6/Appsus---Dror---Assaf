@@ -3,7 +3,7 @@ import { noteService } from "../services/note.service.js"
 
 const { useState } = React
 
-export function NoteAdd({ onAddNote }){
+export function NoteEdit({ onAddNote }){
 
     const [note, setNote] = useState(noteService.getEmptyNote)
 

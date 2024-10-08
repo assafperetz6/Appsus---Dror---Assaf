@@ -1,6 +1,6 @@
 import { showErrorMsg } from "../../../services/event-bus.service.js"
 import { utilService } from "../../../services/util.service.js"
-import { NoteAdd } from "../cmps/NoteAdd.jsx"
+import { NoteEdit } from "../cmps/NoteEdit.jsx"
 import { NoteList } from "../cmps/NoteList.jsx"
 import { noteService } from "../services/note.service.js"
 
@@ -44,7 +44,7 @@ export function NoteIndex() {
     if(!notes) return <h1>Loading...</h1>
     return (
         <section className="note-index">
-            <NoteAdd onAddNote={onAddNote} />
+            <NoteEdit onAddNote={onAddNote} />
             <NoteList notes={notes} onRemoveNote={onRemoveNote} />
         </section>
     )

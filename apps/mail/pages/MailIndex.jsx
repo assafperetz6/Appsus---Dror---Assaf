@@ -92,6 +92,7 @@ export function MailIndex() {
 				setMails(mails => [...mails])
 				
 				mailService.save(mailToRemove)
+				.then(() => showSuccessMsg(`mail moved to trash`))
 				.catch((err) => {
 					console.log('Err: ', err)
 					showErrorMsg(`Problems adding mail to folder (${mailId})`)

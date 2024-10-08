@@ -30,7 +30,7 @@ export function NoteIndex() {
             })
     }
 
-    function saveNote(note){
+    function onAddNote(note){
         noteService.save(note)
             .then(note => {
                 setNotes(prevNotes => [note, ...prevNotes])
@@ -44,7 +44,7 @@ export function NoteIndex() {
     if(!notes) return <h1>Loading...</h1>
     return (
         <section className="note-index">
-            <NoteEdit saveNote={saveNote} />
+            <NoteEdit onAddNote={onAddNote} />
             <NoteList notes={notes} onRemoveNote={onRemoveNote} />
         </section>
     )

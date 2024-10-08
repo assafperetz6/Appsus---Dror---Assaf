@@ -3,7 +3,7 @@ import { noteService } from "../services/note.service.js"
 
 const { useState } = React
 
-export function NoteEdit({ saveNote }){
+export function NoteEdit({ onAddNote }){
 
     const [note, setNote] = useState(noteService.getEmptyNote)
 
@@ -13,7 +13,7 @@ export function NoteEdit({ saveNote }){
             showErrorMsg('Cant save empty note')
             return
         }
-        saveNote(note)
+        onAddNote(note)
     }
 
     function handleChange({ target }) {

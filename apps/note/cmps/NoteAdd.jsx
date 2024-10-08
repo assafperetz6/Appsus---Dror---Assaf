@@ -2,12 +2,10 @@ import { showErrorMsg } from "../../../services/event-bus.service.js"
 import { noteService } from "../services/note.service.js"
 
 const { useState } = React
-const { useLocation } = ReactRouterDOM
 
 export function NoteAdd({ onAddNote }){
 
     const [note, setNote] = useState(noteService.getEmptyNote)
-    const loc = useLocation()
 
     function onSaveNote(ev){
         ev.preventDefault()

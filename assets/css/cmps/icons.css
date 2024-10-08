@@ -110,3 +110,17 @@
 .check-box::before {
     content: 'check_box_outline_blank';
 }
+
+/* NEW MAIL ICONS */
+
+.minimize::before {
+    content: 'minimize';
+}
+
+.fullscreen::before {
+    content: 'open_in_full';
+}
+
+.close::before {
+    content: 'close';
+}

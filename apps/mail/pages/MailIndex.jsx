@@ -2,12 +2,14 @@ const { useState, useEffect } = React
 const { useSearchParams } = ReactRouterDOM
 
 import { mailService } from '../services/mail.service.js'
+import { utilService } from '../../../services/util.service.js'
 import { showSuccessMsg, showErrorMsg } from '../../../services/event-bus.service.js'
-import { MailList } from '../cmps/MailList.jsx'
-import { MailContextMenu } from '../cmps/MailContextMenu.jsx'
+
 import { Loader } from '../../../cmps/Loader.jsx'
 import { FilterByTabs } from '../../../cmps/FilterByTabs.jsx'
-import { utilService } from '../../../services/util.service.js'
+import { MailList } from '../cmps/MailList.jsx'
+import { MailContextMenu } from '../cmps/MailContextMenu.jsx'
+import { ComposeForm } from '../cmps/ComposeForm.jsx'
 
 export function MailIndex() {
 	const [mails, setMails] = useState(null)
@@ -186,6 +188,7 @@ export function MailIndex() {
 				onSetIsHover={onSetIsHover}
 				hoveredMailId={hoveredMailId}
 			/>
+			<ComposeForm />
 			{isContextMenu && (
 				<MailContextMenu
 					cursorPos={cursorPos}

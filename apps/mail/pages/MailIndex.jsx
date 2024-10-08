@@ -104,15 +104,19 @@ export function MailIndex() {
 	function onLabelAs(selectedMail, label) {
 		if (selectedMail.labels.includes(label)) return
 
-		// setSelectedMail(mail => ({...mail, labels: [...selectedMail.labels, label]})) // TODO: CHANGING STATE WITHOUT SETSTATE. IS IT BAD?
+		const mailsBackup = structuredClone(mails)
 		selectedMail.labels.push(label)
+
+		setMails(mails => [...mails])
 		setIsContextMenu(false)
 
 		mailService
 			.save(selectedMail)
-			.then(() =>
-				setMails((mails) => [...mails.filter((mail) => mail.id !== selectedMail.id), selectedMail]))
-			.catch((err) => console.log('Err: ', err))
+			.catch((err) => {
+				console.log('Err: ', err)
+				showErrorMsg(`Problems adding label (${mailId})`)
+				setMails(mailsBackup)
+			})
 	}
 
 	function onChangeMailStatus(mailId, status) {

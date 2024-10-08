@@ -9,7 +9,7 @@ export function NotePreview({ note, onRemoveNote }){
         <li style={style} className="note-preview">
             <h2 className={"note-title"}>{note.title}</h2>
             <p>{info.txt}</p>
-            <button onClick={() => onRemoveNote(note.id)}><span className={iconClass}>delete</span></button>
+            <button className="delete" onClick={() => onRemoveNote(note.id)}></button>
         </li>
     )
 }

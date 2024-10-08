@@ -71,7 +71,7 @@ export function NoteAdd({ onAddNote }){
                 onKeyUp={resizeTextArea}
                 placeholder="Take a note...">
             </textarea>
-            <button>Close</button>
+            <button>Save</button>
         </form>
     )
 }

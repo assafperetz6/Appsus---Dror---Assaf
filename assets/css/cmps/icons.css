@@ -85,3 +85,7 @@
 .app-logo{
     rotate: 90deg;
 }
+
+.delete::before{
+    content: 'delete';
+}

@@ -1,3 +1,4 @@
+import { showErrorMsg } from "../../../services/event-bus.service.js"
 import { noteService } from "../services/note.service.js"
 
 const { useState } = React
@@ -10,6 +11,10 @@ export function NoteAdd({ onAddNote }){
 
     function onSaveNote(ev){
         ev.preventDefault()
+        if(!note.info.txt && !note.title) {
+            showErrorMsg('Cant save empty note')
+            return
+        }
         onAddNote(note)
     }
 

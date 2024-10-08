@@ -47,8 +47,15 @@ function save(note) {
 	}
 }
 
-function getEmptyNote(title = '', type = '') {
-	return { title, type }
+function getEmptyNote() {
+	return { 
+			createdAt: Date.now(),
+			title: '', 
+			info: {}, 
+			style: {},
+			isPinned: false,
+			type: 'NoteTxt',
+		}
 }
 
 function _createNotes() {

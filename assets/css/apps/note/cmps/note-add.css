@@ -1,0 +1,24 @@
+.note-add{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    background-color: white;
+    width: max-content;
+    border: 1px solid gray;
+}
+
+.add-input{
+    background-color: var(--main-bg-color);
+    border: none;
+}
+
+.add-input-text{
+    background-color: var(--main-bg-color);
+    height: 23px;
+    border: none;
+
+    resize: none;
+    color: white;
+}
+

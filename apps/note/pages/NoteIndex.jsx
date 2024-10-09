@@ -30,11 +30,11 @@ export function NoteIndex() {
             })
     }
 
-    function onSetColor(noteId, backgroundColor){
+    function onSetStyle(noteId, value, property){
         const notesBackup = structuredClone(notes)
 
         const noteToUpdate = notes.find(note => note.id === noteId)
-        noteToUpdate.style ={...noteToUpdate.style, backgroundColor}
+        noteToUpdate.style ={...noteToUpdate.style, [property]: value}
         setNotes(notes => [...notes])
         
         noteService.save(noteToUpdate)
@@ -60,7 +60,7 @@ export function NoteIndex() {
     return (
         <section className="note-index">
             <NoteEdit saveNote={saveNote} />
-            <NoteList onSetColor={onSetColor} notes={notes} onRemoveNote={onRemoveNote} />
+            <NoteList onSetStyle={onSetStyle} notes={notes} onRemoveNote={onRemoveNote} />
         </section>
     )
 }

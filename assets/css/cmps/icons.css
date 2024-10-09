@@ -93,3 +93,11 @@
 .palette::before{
     content: 'palette';
 }
+
+.font-size-up::before{
+    content: 'text_increase';
+}
+
+.font-size-down::before{
+    content: 'text_decrease';
+}

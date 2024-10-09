@@ -2,17 +2,16 @@
     --header-txt-color: #041e49;
     --form-header-bcg: var(--read-mail-bg);
 
-    position: sticky;
+    position: fixed;
     bottom: 0;
-    translate: 160%;
+    right: 60px;
 
     display: flex;
     flex-wrap: wrap;
 
-    height: 576px;
+    height: max-content;
     width: 450px;
 
-    padding-block-end: 16px;
     border-radius: 8px 8px 0 0;
 
     box-shadow: 0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12),0 5px 5px -3px rgba(0,0,0,.2);
@@ -23,12 +22,11 @@
         padding-inline: 16px;
     }
 
-    h4, .window-actions, input {
+    h4, .window-actions {
         display: inline-flex;
         align-items: center;
 
-        height: 20px;
-        padding-block: 20px;
+        height: 40px;
     }
 
     h4 {
@@ -76,8 +74,15 @@
         outline: none;
     }
 
-    input:not(.mail-body) {
+    input {
+        height: 40px;
         border-block-end: 1px solid var(--light-grey);
+    }
+
+    #mail-body {
+        height: 25vw;
+        
+        resize: none;
     }
 }
 

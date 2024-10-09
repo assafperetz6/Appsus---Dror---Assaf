@@ -19,6 +19,8 @@ export function MailIndex() {
 	const [hoveredMailId, setHoveredMailId] = useState(null)
 	const [selectedMail, setSelectedMail] = useState(null)
 
+	const [isMinimized, setIsMinimized] = useState(null)
+
 	const [searchPrms, setSearchPrms] = useSearchParams()
 	const [filterBy, setFilterBy] = useState(mailService.getFilterFromSearchParams(searchPrms))
 
@@ -138,65 +140,71 @@ export function MailIndex() {
 				setMails(mailsBackup)
 			})
 	}
+
+	function onMinimizeCompose() {
+		setIsMinimized(!isMinimized)
+	}
 	
 	if (!mails) return <Loader />
 	return (
-		<section className="mail-container" onClick={closeContextMenu}>
-			<section className="actions-pagination">
-				<section className="select-options flex">
-					<button>
-						<span className="material-symbols-outlined">
-							check_box_outline_blank
-						</span>
-					</button>
-					<button>
-						<span className="material-symbols-outlined">
-							keyboard_arrow_down
-						</span>
-					</button>
+		<React.Fragment>
+			<section className="mail-container" onClick={closeContextMenu}>
+				<section className="actions-pagination">
+					<section className="select-options flex">
+						<button>
+							<span className="material-symbols-outlined">
+								check_box_outline_blank
+							</span>
+						</button>
+						<button>
+							<span className="material-symbols-outlined">
+								keyboard_arrow_down
+							</span>
+						</button>
 
-					<button>
-						<span className="material-symbols-outlined">refresh</span>
-					</button>
+						<button>
+							<span className="material-symbols-outlined">refresh</span>
+						</button>
 
-					<button>
-						<span className="material-symbols-outlined">more_vert</span>
-					</button>
+						<button>
+							<span className="material-symbols-outlined">more_vert</span>
+						</button>
+					</section>
+
+					<section className="info-pagination flex">
+						<div className="shown-mails">1-50 of 2,000</div>
+						<button>
+							<span className="material-symbols-outlined">chevron_left</span>
+						</button>
+						<button>
+							<span className="material-symbols-outlined">chevron_right</span>
+						</button>
+					</section>
 				</section>
 
-				<section className="info-pagination flex">
-					<div className="shown-mails">1-50 of 2,000</div>
-					<button>
-						<span className="material-symbols-outlined">chevron_left</span>
-					</button>
-					<button>
-						<span className="material-symbols-outlined">chevron_right</span>
-					</button>
-				</section>
-			</section>
+				{searchPrms.get('status') === 'inbox' && <FilterByTabs />}
 
-			{searchPrms.get('status') === 'inbox' && <FilterByTabs />}
-
-			<MailList
-				mails={mails}
-				filterBy={filterBy}
-				loggedUser={mailService.loggedinUser}
-				onContextMenu={onContextMenu}
-				onChangeMailStatus={onChangeMailStatus}
-				onRemoveMail={onRemoveMail}
-
-				onSetIsHover={onSetIsHover}
-				hoveredMailId={hoveredMailId}
-			/>
-			<ComposeForm />
-			{isContextMenu && (
-				<MailContextMenu
-					cursorPos={cursorPos}
-					selectedMail={selectedMail}
-					onLabelAs={onLabelAs}
+				<MailList
+					mails={mails}
+					filterBy={filterBy}
+					loggedUser={mailService.loggedinUser}
+					onContextMenu={onContextMenu}
+					onChangeMailStatus={onChangeMailStatus}
 					onRemoveMail={onRemoveMail}
+
+					onSetIsHover={onSetIsHover}
+					hoveredMailId={hoveredMailId}
 				/>
-			)}
-		</section>
+				{isContextMenu && (
+					<MailContextMenu
+						cursorPos={cursorPos}
+						selectedMail={selectedMail}
+						onLabelAs={onLabelAs}
+						onRemoveMail={onRemoveMail}
+					/>
+				)}
+			</section>
+			<ComposeForm onMinimizeCompose={onMinimizeCompose} isMinimized={isMinimized}/>
+		</React.Fragment>
 	)
 }

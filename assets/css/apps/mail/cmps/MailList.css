@@ -3,7 +3,9 @@
 
     grid-template-columns: 120px 200px minmax(0, min-content) max-content minmax(0, 1fr) max-content;
 
+    height: 100%;
     width: 100%;
+    
     padding-block-end: 12px;
 }
 

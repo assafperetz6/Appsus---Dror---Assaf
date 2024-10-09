@@ -53,8 +53,8 @@ export function MailPreview({
 			</td>
 			<td className="from"><span>{mail.from}</span></td>
 			<td className="labels">{setLabelsToShow(mail.labels)}</td>
-			<td className="subject">{mail.subject} -</td>
-			<td className="mail-body"><p>{mail.body}</p></td>
+			<td className="subject">{mail.subject}</td>
+			<td className="mail-body"><p>- {mail.body}</p></td>
 
 			{hoveredMailId === mail.id ? (
 				<td className="mail-actions">

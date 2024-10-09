@@ -2,7 +2,7 @@ import { Input } from '../../../cmps/Inputs.jsx'
 
 export function ComposeForm() {
     return (
-        <section className="compose-form">
+        <section className="compose-form-container">
             <h4>New Message</h4>
             <section className="window-actions">
                 <button className="minimize"></button>

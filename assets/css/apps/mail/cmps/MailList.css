@@ -31,7 +31,7 @@
 
     height: 20px;
 
-    padding-block: 10px;
+    padding-block: 20px;
 
     font-family: Product-sans;
     font-weight: 400;
@@ -42,8 +42,10 @@
 }
 
 td:last-child {
-    place-self: end;
+    justify-self: end;
     padding-inline-end: 16px;
+
+    line-height: 0;
 }
 
 td.mail-actions {
@@ -84,6 +86,7 @@ td.labels {
 
 .subject {
     justify-self: end;
+    line-height: 0;
 }
 
 td.mail-body p{

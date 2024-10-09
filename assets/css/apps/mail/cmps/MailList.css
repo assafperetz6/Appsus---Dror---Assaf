@@ -1,7 +1,7 @@
 .mail-list {
     display: grid;
 
-    grid-template-columns: 120px minmax(0, 1fr) min-content 1fr minmax(0, 1fr) minmax(30px, max-content);
+    grid-template-columns: 120px minmax(0, 1fr) minmax(0, min-content) minmax(min-content, 1fr) minmax(0, 1fr) 1fr;
 
     width: 100%;
 
@@ -37,6 +37,8 @@
     font-weight: 400;
 
     white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 td:last-child {
@@ -59,6 +61,11 @@ td.mail-actions {
     color: var(--grey-2);
 }
 
+.from span {
+    overflow: inherit;
+    text-overflow: inherit;
+}
+
 td.labels {
     display: flex;
     gap: 5px;
@@ -79,14 +86,14 @@ td.labels {
     justify-self: end;
 }
 
-td.mail-body {
-    /* max-width: 80%; */
+td.mail-body p{
+    margin: 0;
 
     color: var(--grey-0);
     font-weight: 200;
-    
-    overflow: hidden;
-    text-overflow: ellipsis;
+
+    overflow: inherit;
+    text-overflow: inherit;
 }
 
 .mail-preview.read {

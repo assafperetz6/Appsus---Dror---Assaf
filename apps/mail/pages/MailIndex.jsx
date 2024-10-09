@@ -188,7 +188,7 @@ export function MailIndex() {
 				onSetIsHover={onSetIsHover}
 				hoveredMailId={hoveredMailId}
 			/>
-			<ComposeForm />
+			{/* <ComposeForm /> */}
 			{isContextMenu && (
 				<MailContextMenu
 					cursorPos={cursorPos}

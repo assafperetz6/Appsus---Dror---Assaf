@@ -110,3 +110,51 @@
 .check-box::before {
     content: 'check_box_outline_blank';
 }
+
+.menu::before{
+    content: 'menu'
+}
+
+.note-logo{
+    z-index: 200;
+}
+
+.note-logo-text{
+    font-size: 18px;
+}
+
+.app-logo{
+    rotate: 90deg;
+}
+
+.delete::before{
+    content: 'delete';
+}
+
+.palette::before{
+    content: 'palette';
+}
+
+.font-size-up::before{
+    content: 'text_increase';
+}
+
+.font-size-down::before{
+    content: 'text_decrease';
+}
+
+.notes::before{
+    content: 'lightbulb_2';
+}
+
+.text::before{
+    content: 'description';
+}
+
+.image::before{
+    content: 'image';
+}
+
+.todos::before{
+    content: 'check_box';
+}

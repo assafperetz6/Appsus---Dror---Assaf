@@ -17,6 +17,7 @@ export function MainMenu() {
 		}
 
 		if (currFolder === folderName) return 'marked'
+		return ''
 	}
 
 	function onSelectLabel(labelName) {

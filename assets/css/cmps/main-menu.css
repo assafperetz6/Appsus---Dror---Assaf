@@ -114,3 +114,8 @@ button.compose {
         }
     }
 }
+
+.main-menu .menu-title{
+    text-transform: capitalize;
+    font-weight: bold;
+}

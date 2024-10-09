@@ -19,12 +19,8 @@ export const noteService = {
 
 function query(filterBy = {}) {
 	return storageService.query(NOTE_KEY).then((notes) => {
-		if (filterBy.title) {
-			const regExp = new RegExp(filterBy.title, 'i')
-			notes = notes.filter((note) => regExp.test(note.title))
-		}
-		if (filterBy.type) {
-			notes = notes.filter((note) => note.type === filterBy.type)
+		if(filterBy.status){
+			notes = notes.filter(note => note.type === _getTypeFromStatus(filterBy.status))
 		}
 		return notes
 	})
@@ -68,17 +64,10 @@ function _createNotes() {
 
 function getFilterFromSearchParams(searchParams) {
 	const status = searchParams.get('status') || ''
-	const txt = searchParams.get('txt') || ''
-	const isRead = searchParams.get('isRead') || ''
-	const isStarred = searchParams.get('isStarred') || ''
-	const lables = searchParams.get('lables') || ''
+	if(status === 'notes') return {}
 
 	return {
-		status: status,
-		txt: txt,
-		isRead: isRead,
-		isStarred: isStarred,
-		lables: ['important', 'romantic']
+		status,
 	}
 }
 
@@ -103,4 +92,15 @@ function debounce(func, delay) {
 			func(...args)
 		}, delay)
 	}
+}
+
+function _getTypeFromStatus(status){
+	switch (status) {
+		case 'text':
+			return 'NoteTxt'			
+		case 'image':
+			return 'NoteImg'			
+		case 'todos':
+			return 'NoteTodos'			
+		}
 }

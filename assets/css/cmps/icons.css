@@ -101,3 +101,19 @@
 .font-size-down::before{
     content: 'text_decrease';
 }
+
+.notes::before{
+    content: 'lightbulb_2';
+}
+
+.text::before{
+    content: 'description';
+}
+
+.image::before{
+    content: 'image';
+}
+
+.todos::before{
+    content: 'check_box';
+}

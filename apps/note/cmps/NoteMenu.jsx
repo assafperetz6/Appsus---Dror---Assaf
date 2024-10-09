@@ -1,7 +1,13 @@
+import { MenuFilter } from "./MenuFilter.jsx";
 
-
-export function NoteMenu({ setMarkedFolder, setSearchPrms }){
+export function NoteMenu(props){
+    
     return (
-        <h1>menu</h1>
+        <ul>
+            <MenuFilter {...props} path="notes" />
+            <MenuFilter {...props} path="text" />
+            <MenuFilter {...props} path="image" />
+            <MenuFilter {...props} path="todos" />
+        </ul>
     )
 }

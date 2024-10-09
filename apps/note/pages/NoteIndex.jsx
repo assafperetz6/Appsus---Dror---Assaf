@@ -5,15 +5,27 @@ import { NoteList } from "../cmps/NoteList.jsx"
 import { noteService } from "../services/note.service.js"
 
 const { useState, useEffect } = React
+const { useSearchParams } = ReactRouterDOM
 
 export function NoteIndex() {
     
     document.body.classList.add('dark-mode')
 
     const [notes, setNotes] = useState(null)
+    const [searchParams, setSearchParams] = useSearchParams()
+    const [filterBy, setFilterBy] = useState(noteService.getFilterFromSearchParams(searchParams))
     
     useEffect(() => {
-        noteService.query()
+        setFilterBy(noteService.getFilterFromSearchParams(searchParams))
+    }, [searchParams])
+
+    useEffect(() => {
+        noteService.query(filterBy)
+            .then(setNotes)
+    }, [filterBy])
+
+    useEffect(() => {
+        noteService.query(filterBy)
             .then(setNotes)
         return (() => document.body.classList.remove('dark-mode'))
     }, [])

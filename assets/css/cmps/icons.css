@@ -89,3 +89,7 @@
 .delete::before{
     content: 'delete';
 }
+
+.palette::before{
+    content: 'palette';
+}

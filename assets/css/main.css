@@ -12,18 +12,23 @@
 /* Pages */
 @import './pages/home.css';
 @import './apps/note/pages/NoteIndex.css';
+@import './apps/mail/pages/MailIndex.css';
 
 /* @import './apps/note/pages/NoteIndex.css'; */
 
-@import './apps/mail/pages/MailIndex.css';
-@import './apps/mail/cmps/contextMenu.css';
 
 /* Cmps */
 
-@import './cmps/UserMsg.css';
 @import './cmps/AppHeader.css';
+@import './apps/mail/cmps/contextMenu.css';
+@import './cmps/UserMsg.css';
 @import './cmps/loader.css';
 @import './cmps/icons.css';
 @import './cmps/main-menu.css';
-@import './apps/mail/cmps/MailList.css';
+
+/* NOTE CMPS */
 @import './apps/note/cmps/note-list.css';
+
+/* MAIL CMPS */
+@import './apps/mail/cmps/MailList.css';
+@import './apps/mail/cmps/ComposeForm.css';

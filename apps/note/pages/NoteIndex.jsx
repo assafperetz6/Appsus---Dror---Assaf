@@ -30,6 +30,14 @@ export function NoteIndex() {
             })
     }
 
+    function onToggleTodo(ts, idx, noteId, ){
+        const notesBackup = structuredClone(notes)
+        const todoToUpdate = notes.find(note => note.id === noteId).info.todos[idx]
+        if(todoToUpdate.doneAt) todoToUpdate.doneAt = null
+        else todoToUpdate.doneAt = ts
+        setNotes(notes => [...notes])
+    }
+
     function onSetStyle(noteId, value, property){
         const notesBackup = structuredClone(notes)
 
@@ -60,7 +68,12 @@ export function NoteIndex() {
     return (
         <section className="note-index">
             <NoteEdit saveNote={saveNote} />
-            <NoteList onSetStyle={onSetStyle} notes={notes} onRemoveNote={onRemoveNote} />
+            <NoteList 
+                onToggleTodo={onToggleTodo} 
+                onSetStyle={onSetStyle} 
+                notes={notes} 
+                onRemoveNote={onRemoveNote} 
+            />
         </section>
     )
 }

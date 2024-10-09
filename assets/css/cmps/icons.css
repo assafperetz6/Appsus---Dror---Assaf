@@ -124,3 +124,67 @@
 .close::before {
     content: 'close';
 }
+
+.undo::before {
+    content: 'undo';
+}
+
+.redo::before {
+    content: 'redo';
+}
+
+.font-size::before {
+    content: 'format_size';
+}
+
+.bold::before {
+    content: 'format_bold';
+}
+
+.italic::before {
+    content: 'format_italic';
+}
+
+.underline::before {
+    content: 'format_underlined';
+}
+
+.toggle-format-btns::before {
+    content: 'format_color_text';
+}
+
+.format-align-left::before {
+    content: 'format_align_left';
+}
+
+.format-align-center::before {
+    content: 'format_align_center';
+}
+
+.format-align-right::before {
+    content: 'format_align_right';
+}
+
+.numbered-list::before {
+    content: 'format_list_numbered';
+}
+
+.bulleted-list::before {
+    content: 'format_list_bulleted';
+}
+
+.indent-less::before {
+    content: 'format_indent_increase';
+}
+
+.indent-more::before {
+    content: 'format_indent_decrease';
+}
+
+.send-options::before {
+    content: 'arrow_drop_down';
+}
+
+.attach-file::before {
+    content: 'attach_file';
+}

@@ -19,27 +19,35 @@ export function MailList({
 
 	else mailsToShow = mailsToShow.filter((mail) => !mail.removedAt)
 
-	if (filterBy.status === 'inbox')
-		mailsToShow = mailsToShow.filter((mail) => mail.from !== loggedUser.mail)
+	switch (filterBy.status) {
+		case 'inbox':
+			mailsToShow = mailsToShow.filter((mail) => mail.from !== loggedUser.mail)
+			break;
+	
+		case 'starred':
+			mailsToShow = mailsToShow.filter((mail) => mail.isStarred)
+			break;
 
-	else if (filterBy.status === 'starred')
-		mailsToShow = mailsToShow.filter((mail) => mail.isStarred)
-
-	else if (filterBy.status === 'snoozed')
-		mailsToShow = mailsToShow.filter((mail) => mail.isSnoozed)
-
-	else if (filterBy.status === 'important')
-		mailsToShow = mailsToShow.filter((mail) => mail.isImportant)
-
-	else if (filterBy.status === 'sent')
-		mailsToShow = mailsToShow.filter((mail) => mail.from === loggedUser.mail)
-
-	else if (filterBy.status === 'drafts')
-		mailsToShow = mailsToShow.filter((mail) => !mail.sentAt).sort((m1, m2) => (m1.createdAt - m2.createdAt) * -1)
-
-	else if (filterBy.status === 'labels') {
-		mailsToShow = mailsToShow.filter((mail) =>
-			mail.labels.some((label) => filterBy.label.includes(label)))
+		case 'snoozed':
+			mailsToShow = mailsToShow.filter((mail) => mail.isSnoozed)
+			break;
+	
+		case 'important':
+			mailsToShow = mailsToShow.filter((mail) => mail.isImportant)
+			break;
+	
+		case 'sent':
+			mailsToShow = mailsToShow.filter((mail) => mail.from === loggedUser.mail)
+			break;
+	
+		case 'drafts':
+			mailsToShow = mailsToShow.filter((mail) => !mail.sentAt).sort((m1, m2) => (m1.createdAt - m2.createdAt) * -1)
+			break;
+	
+		case 'labels':
+			mailsToShow = mailsToShow.filter((mail) =>
+							mail.labels.some((label) => filterBy.label.includes(label)))
+			break;
 	}
 
 	if (!mailsToShow.length) {
@@ -49,8 +57,7 @@ export function MailList({
 			</div>
 		)
 	}
-			
-
+	
 	return (
 		<section>
 			<table>

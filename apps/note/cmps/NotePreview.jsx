@@ -15,8 +15,6 @@ export function NotePreview({ note, onRemoveNote, onSetStyle, onToggleTodo }){
                 <button className="palette">
                     <input onChange={(ev) => onSetStyle(note.id, ev.target.value, 'backgroundColor')} type="color" />
                 </button>
-                <button onClick={() => onSetStyle(note.id, fontSize + 2 + 'px', 'fontSize')} className="font-size-up"></button>
-                <button onClick={() => onSetStyle(note.id, fontSize - 2 + 'px', 'fontSize')} className="font-size-down"></button>
             </section>
         </li>
     )

@@ -9,7 +9,6 @@ import { Loader } from '../../../cmps/Loader.jsx'
 import { FilterByTabs } from '../../../cmps/FilterByTabs.jsx'
 import { MailList } from '../cmps/MailList.jsx'
 import { MailContextMenu } from '../cmps/MailContextMenu.jsx'
-import { ComposeForm } from '../cmps/ComposeForm.jsx'
 
 export function MailIndex() {
 	const [mails, setMails] = useState(null)
@@ -18,8 +17,6 @@ export function MailIndex() {
 	const [isHover, setIsHover] = useState(false)
 	const [hoveredMailId, setHoveredMailId] = useState(null)
 	const [selectedMail, setSelectedMail] = useState(null)
-
-	const [isMinimized, setIsMinimized] = useState(null)
 
 	const [searchPrms, setSearchPrms] = useSearchParams()
 	const [filterBy, setFilterBy] = useState(mailService.getFilterFromSearchParams(searchPrms))
@@ -140,10 +137,6 @@ export function MailIndex() {
 				setMails(mailsBackup)
 			})
 	}
-
-	function onMinimizeCompose() {
-		setIsMinimized(!isMinimized)
-	}
 	
 	if (!mails) return <Loader />
 	return (
@@ -204,7 +197,6 @@ export function MailIndex() {
 					/>
 				)}
 			</section>
-			<ComposeForm onMinimizeCompose={onMinimizeCompose} isMinimized={isMinimized}/>
 		</React.Fragment>
 	)
 }

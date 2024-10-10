@@ -1,13 +1,24 @@
 const { useState, useEffect } = React
 
 import { mailService } from "../services/mail.service.js"
+import { ComposeForm } from './ComposeForm.jsx'
 
 export function MailMenu({ setMarkedFolder, setSearchPrms }) {
+  const [newMail, setNewMail] = useState(null)
   const [mailData, setMailData] = useState({})
-
+  const [isMinimized, setIsMinimized] = useState(null)
+  
   useEffect(() => {
     getMailData()
   }, [])
+
+  function onComposeMail() {
+
+  }
+
+  function onMinimizeCompose() {
+		setIsMinimized(!isMinimized)
+	}
 
   function getMailData() {
     return mailService.query().then((mails) =>
@@ -95,6 +106,7 @@ export function MailMenu({ setMarkedFolder, setSearchPrms }) {
           </button>
         </li>
       </ul>
+    <ComposeForm onMinimizeCompose={onMinimizeCompose} isMinimized={isMinimized}/>
     </React.Fragment>
   )
 }

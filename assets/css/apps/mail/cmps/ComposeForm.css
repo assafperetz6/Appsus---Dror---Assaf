@@ -1,3 +1,7 @@
+.main-menu .compose-form-container *::before {
+    margin: 0;
+}
+
 .compose-form-container {
     --header-txt-color: #041e49;
     --form-header-bcg: var(--read-mail-bg);

@@ -3,7 +3,7 @@ const { useSearchParams } = ReactRouterDOM
 
 import { mailService } from '../services/mail.service.js'
 import { utilService } from '../../../services/util.service.js'
-import { showSuccessMsg, showErrorMsg } from '../../../services/event-bus.service.js'
+import { showSuccessMsg, showErrorMsg, updateUnreadCount } from '../../../services/event-bus.service.js'
 
 import { Loader } from '../../../cmps/Loader.jsx'
 import { FilterByTabs } from '../../../cmps/FilterByTabs.jsx'
@@ -21,6 +21,7 @@ export function MailIndex() {
 	const [searchPrms, setSearchPrms] = useSearchParams()
 	const [filterBy, setFilterBy] = useState(mailService.getFilterFromSearchParams(searchPrms))
 
+
 	useEffect(() => {
 		loadMails(filterBy)
 		setSearchPrms(utilService.getTruthyValues(filterBy))
@@ -37,7 +38,15 @@ export function MailIndex() {
 		mailService
 			.query()
 			.then(setMails)
+			.then(emitUnreadCount)
 			.catch((err) => console.log('error: ', err))
+	}
+
+	function emitUnreadCount() {
+		return updateUnreadCount(mails.reduce((acc, mail) => {
+			if (!mail.isRead) acc++
+			return acc
+		}, 0))
 	}
 
 	function onSetIsHover(boolian, mailId) {
@@ -126,7 +135,10 @@ export function MailIndex() {
 
 		if (status === 'starred') mailToUpdate.isStarred = !mailToUpdate.isStarred
 		else if (status === 'important') mailToUpdate.isImportant = !mailToUpdate.isImportant
-		else if (status === 'read') mailToUpdate.isRead = !mailToUpdate.isRead
+		else if (status === 'read') {
+			mailToUpdate.isRead = !mailToUpdate.isRead
+			emitUnreadCount()
+		}
 		
 		setMails(mails => [...mails])
 

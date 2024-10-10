@@ -14,8 +14,7 @@ export function MainMenu() {
 		if (currFolder === 'labels') {
 			const currLabel = searchPrms.get('label')
 			if (folderName === currLabel) return 'marked'
-		}
-		
+		}	
 
 		if (currFolder === folderName) return 'marked'
 		return ''

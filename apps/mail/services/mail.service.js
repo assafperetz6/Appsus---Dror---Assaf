@@ -18,6 +18,7 @@ export const mailService = {
 	save,
 	getEmptyMail,
 	getFilterFromSearchParams,
+	getInitUnreadCount,
 	debounce,
 }
 
@@ -67,6 +68,14 @@ function getEmptyMail(sender = loggedinUser.mail, subject = '') {
         from: sender,
         to: null
     }
+}
+
+function getInitUnreadCount() {
+	return query()
+		.then(mails => mails.reduce((acc, mail) => {
+			if (!mail.isRead) acc++
+			return acc
+		}, 0))
 }
 
 // function getDefaultFilter() {

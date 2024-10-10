@@ -18,6 +18,10 @@ function createEventEmitter() {
 
 export const eventBusService = createEventEmitter()
 
+export function updateUnreadCount(count) {
+    eventBusService.emit('unreadCount', count)
+}
+
 export function showUserMsg(msg) {
     eventBusService.emit('show-user-msg', msg)
 }

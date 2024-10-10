@@ -1,14 +1,25 @@
 const { useState, useEffect, useRef } = React
 
 import { mailService } from '../services/mail.service.js'
+import { eventBusService, showSuccessMsg, showErrorMsg } from '../../../services/event-bus.service.js'
 import { ComposeForm } from './ComposeForm.jsx'
-import { showSuccessMsg, showErrorMsg } from '../../../services/event-bus.service.js'
+import { MenuFilter } from './MenuFilter.jsx'
 
 export function MailMenu({ setMarkedFolder, setSearchPrms }) {
+  const [unreadMailsCount, setUnreadMailsCount] = useState(null)
 	const [mailToCompose, setMailToCompose] = useState(null)
 	// const [mailData, setMailData] = useState({})
 	const [isMinimized, setIsMinimized] = useState(null)
 	const clearAutoSave = useRef(null)
+
+  useEffect(() => {
+    mailService.getInitUnreadCount().then(setUnreadMailsCount)
+		const unsubscribe = eventBusService.on('unreadCount', setUnreadMailsCount)
+		
+		return () => {
+			unsubscribe()
+		}
+	}, [])
 
 	useEffect(() => {
 		handleAutoSave()
@@ -85,17 +96,6 @@ export function MailMenu({ setMarkedFolder, setSearchPrms }) {
     })
 	}
 
-	// function getMailData() {
-	//   return mailService.query().then((mails) =>
-	//       mails.reduce((acc, mail) => {
-	//           if (!mail.isRead) acc.unread++
-	//           if (mail.isStarred) acc.starred++
-	//           if (mail.isImportant) acc.important++
-	//           return acc
-	//       }, { unread: 0, starred: 0, important: 0 })
-	//   ).then(setMailData)
-	// }
-
 	return (
 		<React.Fragment>
 			<button className="compose" onClick={onComposeMail}>
@@ -109,7 +109,7 @@ export function MailMenu({ setMarkedFolder, setSearchPrms }) {
 						onClick={() => setSearchPrms({ status: 'inbox' })}
 					>
 						Inbox
-						<span className="mail-counter">{23}</span>
+						<span className="mail-counter">{unreadMailsCount}</span>
 					</button>
 				</li>
 				<li>

@@ -8,22 +8,34 @@ export function MailPreview({
 	onChangeMailStatus,
 	onRemoveMail,
 }) {
-	function getSentTime(timeStamp) {
-		var h = new Date(timeStamp).getHours()
-		var m = new Date(timeStamp).getMinutes()
+	function getSentTime(timeStamp) {		
+		if ((Date.now() - timeStamp) < (1000 * 60 * 60 * 24)) {
+			var hours = new Date(timeStamp).getHours()
+			var minutes = new Date(timeStamp).getMinutes()
+	
+			hours = hours < 10 ? '0' + hours : hours
+			minutes = minutes < 10 ? '0' + minutes : minutes
+	
+			return hours + ':' + minutes
+		}
+		const date = new Date(timeStamp)
+		const options = { month: 'short', day: 'numeric'}
 
-		h = h < 10 ? '0' + h : h
-		m = m < 10 ? '0' + m : m
-
-		return h + ':' + m
+		return date.toLocaleDateString('en-US', options)
 	}
 
-	function setLabelsToShow(label) {
-		if (currFolder === 'inbox') {
-			if (label !== 'inbox') return <span key={label}>{label}</span>
-		} else if (currFolder === 'labels') {
-			if (label !== currLabel) return <span key={label}>{label}</span>
-		} else return <span key={label}>{label}</span>
+	function setLabelsToShow(labels) {
+		let labelsToShow = [...labels]
+
+		if (currFolder !== 'inbox') labelsToShow.unshift('inbox')
+		if (labelsToShow.length > 2) labelsToShow = labelsToShow.slice(0, 2)
+
+		return labelsToShow.map(label => {
+			if (currFolder === 'inbox') return <span key={label}>{label}</span>
+			else if (currFolder === 'labels') {
+				if (label !== currLabel) return <span key={label}>{label}</span>
+			} else return <span key={label}>{label}</span>
+		})
 	}
 
 	return (
@@ -45,10 +57,10 @@ export function MailPreview({
 					onClick={() => onChangeMailStatus(mail.id, 'important')}
 				></button>
 			</td>
-			<td className="from">{mail.from}</td>
-			<td className="labels">{mail.labels.map(setLabelsToShow)}</td>
-			<td className="subject">{mail.subject} -</td>
-			<td className="mail-body">{mail.body}</td>
+			<td className="from"><span>{mail.from}</span></td>
+			<td className="labels">{setLabelsToShow(mail.labels)}</td>
+			<td className="subject">{mail.subject}</td>
+			<td className="mail-body"><p>- {mail.body}</p></td>
 
 			{hoveredMailId === mail.id ? (
 				<td className="mail-actions">

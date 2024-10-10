@@ -10,11 +10,12 @@ export function MainMenu() {
 	
 	function setMarkedFolder(folderName) {
 		const currFolder = searchPrms.get('status')
-
+		
 		if (currFolder === 'labels') {
-			const currLabel = searchPrms.get('labels')
+			const currLabel = searchPrms.get('label')
 			if (folderName === currLabel) return 'marked'
 		}
+		
 
 		if (currFolder === folderName) return 'marked'
 		return ''

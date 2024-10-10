@@ -2,12 +2,13 @@ const { useState, useEffect } = React
 const { useSearchParams } = ReactRouterDOM
 
 import { mailService } from '../services/mail.service.js'
+import { utilService } from '../../../services/util.service.js'
 import { showSuccessMsg, showErrorMsg } from '../../../services/event-bus.service.js'
-import { MailList } from '../cmps/MailList.jsx'
-import { MailContextMenu } from '../cmps/MailContextMenu.jsx'
+
 import { Loader } from '../../../cmps/Loader.jsx'
 import { FilterByTabs } from '../../../cmps/FilterByTabs.jsx'
-import { utilService } from '../../../services/util.service.js'
+import { MailList } from '../cmps/MailList.jsx'
+import { MailContextMenu } from '../cmps/MailContextMenu.jsx'
 
 export function MailIndex() {
 	const [mails, setMails] = useState(null)
@@ -139,61 +140,63 @@ export function MailIndex() {
 	
 	if (!mails) return <Loader />
 	return (
-		<section className="mail-container" onClick={closeContextMenu}>
-			<section className="actions-pagination">
-				<section className="select-options flex">
-					<button>
-						<span className="material-symbols-outlined">
-							check_box_outline_blank
-						</span>
-					</button>
-					<button>
-						<span className="material-symbols-outlined">
-							keyboard_arrow_down
-						</span>
-					</button>
+		<React.Fragment>
+			<section className="mail-container" onClick={closeContextMenu}>
+				<section className="actions-pagination">
+					<section className="select-options flex">
+						<button>
+							<span className="material-symbols-outlined">
+								check_box_outline_blank
+							</span>
+						</button>
+						<button>
+							<span className="material-symbols-outlined">
+								keyboard_arrow_down
+							</span>
+						</button>
 
-					<button>
-						<span className="material-symbols-outlined">refresh</span>
-					</button>
+						<button>
+							<span className="material-symbols-outlined">refresh</span>
+						</button>
 
-					<button>
-						<span className="material-symbols-outlined">more_vert</span>
-					</button>
+						<button>
+							<span className="material-symbols-outlined">more_vert</span>
+						</button>
+					</section>
+
+					<section className="info-pagination flex">
+						<div className="shown-mails">1-50 of 2,000</div>
+						<button>
+							<span className="material-symbols-outlined">chevron_left</span>
+						</button>
+						<button>
+							<span className="material-symbols-outlined">chevron_right</span>
+						</button>
+					</section>
 				</section>
 
-				<section className="info-pagination flex">
-					<div className="shown-mails">1-50 of 2,000</div>
-					<button>
-						<span className="material-symbols-outlined">chevron_left</span>
-					</button>
-					<button>
-						<span className="material-symbols-outlined">chevron_right</span>
-					</button>
-				</section>
-			</section>
+				{searchPrms.get('status') === 'inbox' && <FilterByTabs />}
 
-			{searchPrms.get('status') === 'inbox' && <FilterByTabs />}
-
-			<MailList
-				mails={mails}
-				filterBy={filterBy}
-				loggedUser={mailService.loggedinUser}
-				onContextMenu={onContextMenu}
-				onChangeMailStatus={onChangeMailStatus}
-				onRemoveMail={onRemoveMail}
-
-				onSetIsHover={onSetIsHover}
-				hoveredMailId={hoveredMailId}
-			/>
-			{isContextMenu && (
-				<MailContextMenu
-					cursorPos={cursorPos}
-					selectedMail={selectedMail}
-					onLabelAs={onLabelAs}
+				<MailList
+					mails={mails}
+					filterBy={filterBy}
+					loggedUser={mailService.loggedinUser}
+					onContextMenu={onContextMenu}
+					onChangeMailStatus={onChangeMailStatus}
 					onRemoveMail={onRemoveMail}
+
+					onSetIsHover={onSetIsHover}
+					hoveredMailId={hoveredMailId}
 				/>
-			)}
-		</section>
+				{isContextMenu && (
+					<MailContextMenu
+						cursorPos={cursorPos}
+						selectedMail={selectedMail}
+						onLabelAs={onLabelAs}
+						onRemoveMail={onRemoveMail}
+					/>
+				)}
+			</section>
+		</React.Fragment>
 	)
 }

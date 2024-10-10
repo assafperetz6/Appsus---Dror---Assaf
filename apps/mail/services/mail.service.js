@@ -53,8 +53,20 @@ function save(mail) {
 	}
 }
 
-function getEmptyMail(sender = '', subject = '') {
-	return { sender, subject }
+function getEmptyMail(sender = loggedinUser.mail, subject = '') {
+	return {
+        createdAt: Date.now(),
+        subject,
+        body: '',
+        isRead: true,
+        isStarred: false,
+        isImportant: false,
+        labels: [],
+        sentAt: null,
+        removedAt: null,
+        from: sender,
+        to: null
+    }
 }
 
 // function getDefaultFilter() {

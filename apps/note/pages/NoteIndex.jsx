@@ -44,11 +44,15 @@ export function NoteIndex() {
     }
 
     function onToggleTodo(ts, idx, noteId, ){
-        const notesBackup = structuredClone(notes)
-        const todoToUpdate = notes.find(note => note.id === noteId).info.todos[idx]
-        if(todoToUpdate.doneAt) todoToUpdate.doneAt = null
-        else todoToUpdate.doneAt = ts
+        const noteToUpdate = notes.find(note => note.id === noteId)
+        const todoToUpdate = noteToUpdate.info.todos[idx]
+        todoToUpdate.doneAt = todoToUpdate.doneAt ? null : ts
         setNotes(notes => [...notes])
+        noteService.save(noteToUpdate)
+         .catch(err => {
+             console.log(err)
+             showErrorMsg(`Problem editing note, ID:${noteId}`)
+         })    
     }
 
     function onSetStyle(noteId, value, property){

@@ -239,3 +239,11 @@
 .duplicate::before{
     content: 'content_copy';
 }
+
+button.checked::before{
+    content: 'check_box';
+}
+
+button.unchecked::before{
+    content: 'check_box_outline_blank';
+}

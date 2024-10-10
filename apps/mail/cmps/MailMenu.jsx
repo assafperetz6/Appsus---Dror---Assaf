@@ -8,29 +8,39 @@ export function MailMenu({ setMarkedFolder, setSearchPrms }) {
 	const [mailToCompose, setMailToCompose] = useState(null)
 	// const [mailData, setMailData] = useState({})
 	const [isMinimized, setIsMinimized] = useState(null)
-  const clearAutoSave = useRef(null)
+	const clearAutoSave = useRef(null)
 
 	useEffect(() => {
-		if (mailToCompose && mailToCompose.to && mailToCompose.body) {
-			const autoSaveDraft = setInterval(() => {
-				mailService
-					.save(mailToCompose)
-          .then(mail => setMailToCompose(mail))
-					.catch((err) => {
-						console.log('Error: ', err)
-						showErrorMsg('Failed to save draft')
-					})
-			}, 5000)
+		handleAutoSave()
 
-      clearAutoSave.current = autoSaveDraft
-		}
-    else if (clearAutoSave.current) clearInterval(clearAutoSave.current)
-
-    return () => {
-      if (clearAutoSave.current) clearInterval(clearAutoSave.current)
+		return () => {
+			if (clearAutoSave.current) {
+        clearInterval(clearAutoSave.current)
+        clearAutoSave.current = null
+		  }
     }
-
 	}, [mailToCompose])
+
+	function handleAutoSave() {
+		if (mailToCompose && mailToCompose.to && mailToCompose.body) {
+			const autoSaveDraft = setInterval(saveDraft, 5000)
+			clearAutoSave.current = autoSaveDraft
+      
+		} else if (clearAutoSave.current) {
+			clearInterval(clearAutoSave.current)
+			clearAutoSave.current = null
+		}
+	}
+
+	function saveDraft() {
+		return mailService
+			.save(mailToCompose)
+			.then((mail) => setMailToCompose(mail))
+			.catch((err) => {
+				console.log('Error: ', err)
+				showErrorMsg('Failed to save draft')
+			})
+	}
 
 	function onComposeMail() {
 		const newMail = mailService.getEmptyMail()
@@ -60,7 +70,19 @@ export function MailMenu({ setMarkedFolder, setSearchPrms }) {
 	}
 
 	function onMinimizeCompose() {
+    saveDraft()
 		setIsMinimized(!isMinimized)
+	}
+
+	function onCloseComposeWindow() {
+	  saveDraft().then(() => {
+      setMailToCompose(null)
+      showSuccessMsg('Your draft was saved!')
+    })
+    .catch(err => {
+      console.log('Error: ', err)
+      showErrorMsg('Could not save draft')
+    })
 	}
 
 	// function getMailData() {
@@ -155,8 +177,10 @@ export function MailMenu({ setMarkedFolder, setSearchPrms }) {
 				<ComposeForm
 					onMinimizeCompose={onMinimizeCompose}
 					isMinimized={isMinimized}
+          mailToCompose={mailToCompose}
 					onSetMailToCompose={onSetMailToCompose}
 					sendMail={sendMail}
+          onCloseComposeWindow={onCloseComposeWindow}
 				/>
 			)}
 		</React.Fragment>

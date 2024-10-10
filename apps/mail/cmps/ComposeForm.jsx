@@ -1,6 +1,6 @@
 import { ComposeBody } from './ComposeBody.jsx'
 
-export function ComposeForm({ onMinimizeCompose, isMinimized, onSetMailToCompose, sendMail }) {
+export function ComposeForm({ onMinimizeCompose, isMinimized, onSetMailToCompose, sendMail, onCloseComposeWindow, mailToCompose }) {
 
     return (
         <section className="compose-form-container">
@@ -8,9 +8,9 @@ export function ComposeForm({ onMinimizeCompose, isMinimized, onSetMailToCompose
             <section className="window-actions">
                 <button className="minimize" onClick={onMinimizeCompose}></button>
                 <button className="fullscreen"></button>
-                <button className="close"></button>
+                <button className="close" onClick={onCloseComposeWindow}></button>
             </section>
-            {!isMinimized && <ComposeBody onSetMailToCompose={onSetMailToCompose} sendMail={sendMail} />}
+            {!isMinimized && <ComposeBody mailToCompose={mailToCompose} onSetMailToCompose={onSetMailToCompose} sendMail={sendMail} />}
         </section>
     )
 }

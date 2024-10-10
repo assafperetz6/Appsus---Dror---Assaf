@@ -1,4 +1,4 @@
-export function ComposeBody({ onSetMailToCompose, sendMail }) {
+export function ComposeBody({ mailToCompose, onSetMailToCompose, sendMail }) {
 
     function handleSubmit(ev) {
         ev.preventDefault()
@@ -10,11 +10,11 @@ export function ComposeBody({ onSetMailToCompose, sendMail }) {
     return (
         <React.Fragment>
             <form onSubmit={handleSubmit}>
-                <input className="recipient" type="email" placeholder="Recipients" onChange={ev => onSetMailToCompose({ to: ev.target.value })} required/>
-                <input className="subject" type="text" placeholder="Subject" onChange={ev => onSetMailToCompose({ subject: ev.target.value })}/>
+                <input className="recipient" type="email" placeholder="Recipients" value={mailToCompose.to || ''} onChange={ev => onSetMailToCompose({ to: ev.target.value })} required/>
+                <input className="subject" type="text" placeholder="Subject" value={mailToCompose.subject || ''} onChange={ev => onSetMailToCompose({ subject: ev.target.value })}/>
 
                 <label htmlFor="mail-body"></label>
-                <textarea name="mail-body" id="mail-body" onChange={ev => onSetMailToCompose({ body: ev.target.value })}></textarea>
+                <textarea name="mail-body" id="mail-body" value={mailToCompose.body || ''} onChange={ev => onSetMailToCompose({ body: ev.target.value })}></textarea>
                 {/* <input id="mail-body" className="mail-body" type="text" /> */}
             
 

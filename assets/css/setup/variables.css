@@ -3,6 +3,7 @@
     --read-mail-bg: #f2f6fc;
     --search-bar: #e9f1fc;
     --btn-hover: #dde2ec;
+    --menu-btn-hover: #dde2ec;
     --label-color: #505253;
     --active-btn: #c2e7ff;
     --active-nav: blue;
@@ -23,6 +24,7 @@
     --read-mail-bg: #3c4043;
     --search-bar: #28292c;
     --btn-hover: #4a4a4a;
+    --menu-btn-hover: #28292c;
     --label-color: #dadada;
     --nav-press: rgb(170, 119, 170) ;
     --menu-marked: #e4e9f2;

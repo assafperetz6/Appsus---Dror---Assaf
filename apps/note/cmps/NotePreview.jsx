@@ -8,8 +8,10 @@ export function NotePreview({ note, onRemoveNote, onSetStyle, onToggleTodo, onDu
 
     return (
         <li style={style} className="note-preview">
-            <h2 className="note-title">{note.title}</h2>
-            <DynamicNote note={note} info={info} onToggleTodo={onToggleTodo} />
+            <section>
+                <h2 className="note-title">{note.title}</h2>
+                <DynamicNote note={note} info={info} onToggleTodo={onToggleTodo} />
+            </section>
             <section className="actions">
                 <button className="delete" onClick={() => onRemoveNote(note.id)} title="Delete note" ></button>
                 <button className="palette" title="Change background color">

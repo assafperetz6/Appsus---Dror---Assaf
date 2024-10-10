@@ -29,7 +29,7 @@
 
 .marked::before {
     font-variation-settings: 'FILL' 1;
-    fill: #041e49;
+    color: #041e49;
 }
 
 .marked.starred::before, .marked.important::before {

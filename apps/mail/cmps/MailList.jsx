@@ -31,6 +31,9 @@ export function MailList({
 	else if (filterBy.status === 'sent')
 		mailsToShow = mailsToShow.filter((mail) => mail.from === loggedUser.mail)
 
+	else if (filterBy.status === 'drafts')
+		mailsToShow = mailsToShow.filter((mail) => !mail.sentAt).sort((m1, m2) => (m1.createdAt - m2.createdAt) * -1)
+
 	else if (filterBy.status === 'labels') {
 		mailsToShow = mailsToShow.filter((mail) =>
 			mail.labels.some((label) => filterBy.label.includes(label))

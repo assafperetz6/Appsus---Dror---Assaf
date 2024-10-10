@@ -1,6 +1,6 @@
 
 
-export function NotePreview({ note, onRemoveNote, onSetStyle, onToggleTodo }){
+export function NotePreview({ note, onRemoveNote, onSetStyle, onToggleTodo, onDuplicateNote }){
 
     const { style, info } = note
     let fontSize = parseInt(style.fontSize)
@@ -11,10 +11,11 @@ export function NotePreview({ note, onRemoveNote, onSetStyle, onToggleTodo }){
             <h2 className="note-title">{note.title}</h2>
             <DynamicNote note={note} info={info} onToggleTodo={onToggleTodo} />
             <section className="actions">
-                <button className="delete" onClick={() => onRemoveNote(note.id)}></button>
-                <button className="palette">
+                <button className="delete" onClick={() => onRemoveNote(note.id)} title="Delete note" ></button>
+                <button className="palette" title="Change background color">
                     <input onChange={(ev) => onSetStyle(note.id, ev.target.value, 'backgroundColor')} type="color" />
                 </button>
+                <button onClick={() => onDuplicateNote(note.id)} className="duplicate" title="Duplicate note"></button>
             </section>
         </li>
     )

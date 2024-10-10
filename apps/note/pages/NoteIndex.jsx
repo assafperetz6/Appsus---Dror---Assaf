@@ -1,4 +1,4 @@
-import { showErrorMsg } from "../../../services/event-bus.service.js"
+import { showErrorMsg, showSuccessMsg } from "../../../services/event-bus.service.js"
 import { utilService } from "../../../services/util.service.js"
 import { NoteEdit } from "../cmps/NoteEdit.jsx"
 import { NoteList } from "../cmps/NoteList.jsx"
@@ -63,7 +63,23 @@ export function NoteIndex() {
                 showErrorMsg(`Problem editing note, ID:${noteId}`)
                 setNotes(notesBackup)
             })
-}
+    }
+
+    function onDuplicateNote(noteId){
+        const noteToDuplicate = notes.find(note => note.id === noteId)
+
+        noteToDuplicate.id = ''
+        noteToDuplicate.createdAt = Date.now()
+        noteService.save(noteToDuplicate)
+            .then(updatedNote => {
+                setNotes(prevNotes => [updatedNote, ...prevNotes])
+                showSuccessMsg('Note duplicated succesfully')
+            })
+            .catch(err => {
+                console.log(err)
+                showErrorMsg(`Problem duplicating note`)
+            })
+    }
 
     function saveNote(note){
         noteService.save(note)
@@ -84,7 +100,8 @@ export function NoteIndex() {
                 onToggleTodo={onToggleTodo} 
                 onSetStyle={onSetStyle} 
                 notes={notes} 
-                onRemoveNote={onRemoveNote} 
+                onRemoveNote={onRemoveNote}
+                onDuplicateNote={onDuplicateNote}
             />
         </section>
     )

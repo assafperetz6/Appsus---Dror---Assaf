@@ -233,5 +233,9 @@
 }
 
 .todos::before{
-    content: 'check_box';
+    content: 'checkList';
+}
+
+.duplicate::before{
+    content: 'content_copy';
 }

@@ -17,6 +17,8 @@
     --light-grey: #eef0f2;
 
     --text-color: #000;
+
+    --loader-color: #FF3D00;
 }
 
 .dark-mode{
@@ -38,6 +40,8 @@
     --grey-2: #636467;
 
     --text-color: #e4e9f2;
+
+    --loader-color: #e4e9f2;
 
     .app-header{
         border-block-end: 1px solid #606368;

@@ -1,3 +1,4 @@
+import { Loader } from "../../../cmps/Loader.jsx"
 import { showErrorMsg, showSuccessMsg } from "../../../services/event-bus.service.js"
 import { utilService } from "../../../services/util.service.js"
 import { NoteEdit } from "../cmps/NoteEdit.jsx"
@@ -92,7 +93,7 @@ export function NoteIndex() {
             })
     }
 
-    if(!notes) return <h1>Loading...</h1>
+    if(!notes) return <Loader />
     return (
         <section className="note-index">
             <NoteEdit saveNote={saveNote} />

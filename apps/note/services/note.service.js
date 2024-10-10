@@ -22,6 +22,7 @@ function query(filterBy = {}) {
 		if(filterBy.status){
 			notes = notes.filter(note => note.type === _getTypeFromStatus(filterBy.status))
 		}
+		notes = notes.sort((a, b) => (a.createdAt < b.createdAt) ? 1 : (b.createdAt < a.createdAt) ? -1 : 0) 
 		return notes
 	})
 }

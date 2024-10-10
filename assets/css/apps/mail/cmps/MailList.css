@@ -5,7 +5,7 @@
 
     height: 100%;
     width: 100%;
-    
+
     padding-block-end: 12px;
 }
 
@@ -93,7 +93,7 @@ td.labels {
     }
 }
 
-.subject {
+td.subject {
     justify-self: end;
 
     padding-inline-start: 10px;

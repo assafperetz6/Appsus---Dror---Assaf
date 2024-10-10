@@ -81,8 +81,10 @@
 
     #mail-body {
         height: 25vw;
-        
+        min-height: 262px;
         resize: none;
+        
+        padding-block-start: 12px;
     }
 }
 

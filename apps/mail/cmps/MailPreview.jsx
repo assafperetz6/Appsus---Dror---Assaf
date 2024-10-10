@@ -8,14 +8,20 @@ export function MailPreview({
 	onChangeMailStatus,
 	onRemoveMail,
 }) {
-	function getSentTime(timeStamp) {
-		var h = new Date(timeStamp).getHours()
-		var m = new Date(timeStamp).getMinutes()
+	function getSentTime(timeStamp) {		
+		if ((Date.now() - timeStamp) < (1000 * 60 * 60 * 24)) {
+			var hours = new Date(timeStamp).getHours()
+			var minutes = new Date(timeStamp).getMinutes()
+	
+			hours = hours < 10 ? '0' + hours : hours
+			minutes = minutes < 10 ? '0' + minutes : minutes
+	
+			return hours + ':' + minutes
+		}
+		const date = new Date(timeStamp)
+		const options = { month: 'short', day: 'numeric'}
 
-		h = h < 10 ? '0' + h : h
-		m = m < 10 ? '0' + m : m
-
-		return h + ':' + m
+		return date.toLocaleDateString('en-US', options)
 	}
 
 	function setLabelsToShow(labels) {

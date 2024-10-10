@@ -10,12 +10,16 @@ export function MailMenu({ setMarkedFolder, setSearchPrms }) {
   // const [mailData, setMailData] = useState({})
   const [isMinimized, setIsMinimized] = useState(null)
   
-  // useEffect(() => {
-  //   getMailData()
-  // }, [])
+  useEffect(() => {
+    // getMailData()
+    
+  }, [])
 
   function onComposeMail() {
-    setMailToCompose(mailService.getEmptyMail())
+    const newMail = mailService.getEmptyMail()
+    setMailToCompose(newMail)
+    console.log(newMail.createdAt)
+    
     setIsMinimized(false)
   }
 
@@ -23,8 +27,10 @@ export function MailMenu({ setMarkedFolder, setSearchPrms }) {
     setMailToCompose(prev => ({...prev, ...mailData}))
   }
 
-  function onSendMail() {
-    mailService.save(mailToCompose)
+  function sendMail() {
+    const mailToSend = {...mailToCompose, sentAt: Date.now() }
+    
+    mailService.save(mailToSend)
       .then(() => {
         setMailToCompose(null)
         showSuccessMsg('Message sent')
@@ -126,7 +132,7 @@ export function MailMenu({ setMarkedFolder, setSearchPrms }) {
           </button>
         </li>
       </ul>
-    { mailToCompose && <ComposeForm onMinimizeCompose={onMinimizeCompose} isMinimized={isMinimized} onSetMailToCompose={onSetMailToCompose} onSendMail={onSendMail} />}
+    { mailToCompose && <ComposeForm onMinimizeCompose={onMinimizeCompose} isMinimized={isMinimized} onSetMailToCompose={onSetMailToCompose} sendMail={sendMail} />}
     </React.Fragment>
   )
 }

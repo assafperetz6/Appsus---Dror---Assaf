@@ -1,10 +1,10 @@
-export function ComposeBody({ onSetMailToCompose, onSendMail }) {
+export function ComposeBody({ onSetMailToCompose, sendMail }) {
 
     function handleSubmit(ev) {
         ev.preventDefault()
+
         console.log('sent!')
-        
-        onSendMail()
+        sendMail()
     }
 
     return (

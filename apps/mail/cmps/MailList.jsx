@@ -10,7 +10,7 @@ export function MailList({
 	onSetIsHover,
 	hoveredMailId
 }) {
-	let mailsToShow = mails
+	let mailsToShow = mails.sort((m1, m2) => (m1.sentAt - m2.sentAt) * -1)
 
 	window.mails = mailsToShow
 
@@ -43,6 +43,13 @@ export function MailList({
 				</div>
 			)
 	}
+	
+	// mailsToShow.sort((m1, m2) => {
+	// 	const [m1Hours, m1Minutes] = m1.split(':').map(Number)
+	// 	const [m2Hours, m2Minutes] = m2.split(':').map(Number)
+	  
+	// 	return m1Hours - m2Hours || m1Minutes - m2Minutes
+	// })
 
 	return (
 		<section>

@@ -55,7 +55,7 @@ function save(mail) {
 
 function getEmptyMail(sender = loggedinUser.mail, subject = '') {
 	return {
-        createdAt: Date.now() - Math.floor(Math.random() * 10000000000),
+        createdAt: Date.now(),
         subject,
         body: '',
         isRead: true,

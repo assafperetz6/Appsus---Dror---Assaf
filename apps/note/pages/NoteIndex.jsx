@@ -67,7 +67,7 @@ export function NoteIndex() {
     }
 
     function onDuplicateNote(noteId){
-        const noteToDuplicate = notes.find(note => note.id === noteId)
+        const noteToDuplicate = structuredClone(notes.find(note => note.id === noteId))
 
         noteToDuplicate.id = ''
         noteToDuplicate.createdAt = Date.now()

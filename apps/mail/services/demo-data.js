@@ -48,6 +48,7 @@ export const demoEmails = Array.from({ length: 50 }, (_, index) => {
         isRead: Math.random() > 0.5,
         isStarred: false,
         isImportant: false,
+        isSnoozed: false,
         labels: ['romantic'],
         sentAt: Date.now() - Math.floor(Math.random() * 10000000000),
         removedAt: null,

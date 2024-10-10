@@ -25,6 +25,9 @@ export function MailList({
 	else if (filterBy.status === 'starred')
 		mailsToShow = mailsToShow.filter((mail) => mail.isStarred)
 
+	else if (filterBy.status === 'snoozed')
+		mailsToShow = mailsToShow.filter((mail) => mail.isSnoozed)
+
 	else if (filterBy.status === 'important')
 		mailsToShow = mailsToShow.filter((mail) => mail.isImportant)
 
@@ -36,23 +39,17 @@ export function MailList({
 
 	else if (filterBy.status === 'labels') {
 		mailsToShow = mailsToShow.filter((mail) =>
-			mail.labels.some((label) => filterBy.label.includes(label))
-	)
-
-		if (!mailsToShow.length)
-			return (
-				<div className="flex justify-center">
-					There are no conversations with this label.
-				</div>
-			)
+			mail.labels.some((label) => filterBy.label.includes(label)))
 	}
-	
-	// mailsToShow.sort((m1, m2) => {
-	// 	const [m1Hours, m1Minutes] = m1.split(':').map(Number)
-	// 	const [m2Hours, m2Minutes] = m2.split(':').map(Number)
-	  
-	// 	return m1Hours - m2Hours || m1Minutes - m2Minutes
-	// })
+
+	if (!mailsToShow.length) {
+		return (
+			<div className="flex justify-center">
+				There are no conversations with this label.
+			</div>
+		)
+	}
+			
 
 	return (
 		<section>

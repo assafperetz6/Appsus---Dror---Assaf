@@ -55,7 +55,7 @@ function NoteTodos({ note, info, onToggleTodo }){
             {info.todos.map((todo, idx) =>
                 <section key={idx} className="todo">
                     <button className={todo.doneAt ? 'checked' : 'unchecked'} onClick={() => onToggleTodo(Date.now(), idx, note.id)}></button>
-                    <li className={todo.doneAt ? 'checked' : 'unchecked'}>{todo.txt}</li>
+                    <li className={todo.doneAt ? 'checked' : 'unchecked'} onClick={() => onToggleTodo(Date.now(), idx, note.id)}>{todo.txt}</li>
                 </section>
             )}
         </ul>

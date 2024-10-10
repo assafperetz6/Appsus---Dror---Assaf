@@ -2,38 +2,58 @@ const { useState, useEffect } = React
 
 import { mailService } from "../services/mail.service.js"
 import { ComposeForm } from './ComposeForm.jsx'
+import { showSuccessMsg, showErrorMsg } from "../../../services/event-bus.service.js"
+
 
 export function MailMenu({ setMarkedFolder, setSearchPrms }) {
-  const [newMail, setNewMail] = useState(null)
-  const [mailData, setMailData] = useState({})
+  const [mailToCompose, setMailToCompose] = useState(null)
+  // const [mailData, setMailData] = useState({})
   const [isMinimized, setIsMinimized] = useState(null)
   
-  useEffect(() => {
-    getMailData()
-  }, [])
+  // useEffect(() => {
+  //   getMailData()
+  // }, [])
 
   function onComposeMail() {
+    setMailToCompose(mailService.getEmptyMail())
+    setIsMinimized(false)
+  }
 
+  function onSetMailToCompose(mailData) {
+    setMailToCompose(prev => ({...prev, ...mailData}))
+  }
+
+  function onSendMail() {
+    mailService.save(mailToCompose)
+      .then(() => {
+        setMailToCompose(null)
+        showSuccessMsg('Message sent')
+      })
+      .catch(err => {
+        console.log('Error: ', err)
+        showErrorMsg('Failed to send mail')
+      })
   }
 
   function onMinimizeCompose() {
 		setIsMinimized(!isMinimized)
 	}
 
-  function getMailData() {
-    return mailService.query().then((mails) =>
-        mails.reduce((acc, mail) => {
-            if (!mail.isRead) acc.unread++
-            if (mail.isStarred) acc.starred++
-            if (mail.isImportant) acc.important++
-            return acc
-        }, { unread: 0, starred: 0, important: 0 })
-    ).then(setMailData)
-  }
+  // function getMailData() {
+  //   return mailService.query().then((mails) =>
+  //       mails.reduce((acc, mail) => {
+  //           if (!mail.isRead) acc.unread++
+  //           if (mail.isStarred) acc.starred++
+  //           if (mail.isImportant) acc.important++
+  //           return acc
+  //       }, { unread: 0, starred: 0, important: 0 })
+  //   ).then(setMailData)
+  // }
+
   
   return (
     <React.Fragment>
-      <button className="compose">Compose</button>
+      <button className="compose" onClick={onComposeMail}>Compose</button>
 
       <ul className="filter-folders clean-list">
         <li>
@@ -42,7 +62,7 @@ export function MailMenu({ setMarkedFolder, setSearchPrms }) {
             onClick={() => setSearchPrms({ status: "inbox" })}
           >
             Inbox
-            <span className="mail-counter">{mailData.unread}</span>
+            <span className="mail-counter">{23}</span>
           </button>
         </li>
         <li>
@@ -106,7 +126,7 @@ export function MailMenu({ setMarkedFolder, setSearchPrms }) {
           </button>
         </li>
       </ul>
-    <ComposeForm onMinimizeCompose={onMinimizeCompose} isMinimized={isMinimized}/>
+    { mailToCompose && <ComposeForm onMinimizeCompose={onMinimizeCompose} isMinimized={isMinimized} onSetMailToCompose={onSetMailToCompose} onSendMail={onSendMail} />}
     </React.Fragment>
   )
 }

@@ -28,8 +28,8 @@
 }
 
 .marked::before {
-    font-variation-settings: 'FILL' 1;
-    color: #041e49;
+    font-variation-settings: 'FILL' var(--menu-fill);
+    color: var(--menu-marked);
 }
 
 .marked.starred::before, .marked.important::before {

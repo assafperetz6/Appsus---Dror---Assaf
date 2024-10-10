@@ -6,7 +6,9 @@
     --label-color: #505253;
     --active-btn: #c2e7ff;
     --active-nav: blue;
-    --nav-press: purple ;
+    --nav-press: purple;
+    --menu-marked:#041e49;
+    --menu-fill: 1;
     
     --grey-2: #262629;
     --grey-1: #484a4e;
@@ -23,6 +25,8 @@
     --btn-hover: #4a4a4a;
     --label-color: #dadada;
     --nav-press: rgb(170, 119, 170) ;
+    --menu-marked: #e4e9f2;
+    --menu-fill: 0;
 
     --active-btn: #3e341e;
     --active-nav: rgb(88, 130, 255);

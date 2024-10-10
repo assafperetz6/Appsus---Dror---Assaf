@@ -1,4 +1,4 @@
-import { MenuFilter } from "./MenuFilter.jsx";
+import { MenuFilter } from "../../../cmps/MenuFilter.jsx";
 
 export function NoteMenu(props){
     

@@ -3,9 +3,9 @@ const { useState, useEffect, useRef } = React
 import { mailService } from '../services/mail.service.js'
 import { eventBusService, showSuccessMsg, showErrorMsg } from '../../../services/event-bus.service.js'
 import { ComposeForm } from './ComposeForm.jsx'
-import { MenuFilter } from './MenuFilter.jsx'
+import { MenuFilter } from '../../../cmps/MenuFilter.jsx'
 
-export function MailMenu({ setMarkedFolder, setSearchPrms }) {
+export function MailMenu(props) {
   const [unreadMailsCount, setUnreadMailsCount] = useState(null)
 	const [mailToCompose, setMailToCompose] = useState(null)
 	// const [mailData, setMailData] = useState({})
@@ -103,75 +103,13 @@ export function MailMenu({ setMarkedFolder, setSearchPrms }) {
 			</button>
 
 			<ul className="filter-folders clean-list">
-				<li>
-					<button
-						className={`inbox ${setMarkedFolder('inbox')}`}
-						onClick={() => setSearchPrms({ status: 'inbox' })}
-					>
-						Inbox
-						<span className="mail-counter">{unreadMailsCount}</span>
-					</button>
-				</li>
-				<li>
-					<button
-						className={`starred ${setMarkedFolder('starred')}`}
-						onClick={() => setSearchPrms({ status: 'starred' })}
-					>
-						Starred
-						<span className="mail-counter"></span>
-					</button>
-				</li>
-				<li>
-					<button
-						className={`snoozed ${setMarkedFolder('snoozed')}`}
-						onClick={() => setSearchPrms({ status: 'snoozed' })}
-					>
-						Snoozed
-						<span className="mail-counter"></span>
-					</button>
-				</li>
-				<li>
-					<button
-						className={`important ${setMarkedFolder('important')}`}
-						onClick={() => setSearchPrms({ status: 'important' })}
-					>
-						Important
-						<span className="mail-counter"></span>
-					</button>
-				</li>
-				<li>
-					<button
-						className={`sent ${setMarkedFolder('sent')}`}
-						onClick={() => setSearchPrms({ status: 'sent' })}
-					>
-						Sent
-						<span className="mail-counter"></span>
-					</button>
-				</li>
-				<li>
-					<button
-						className={`drafts ${setMarkedFolder('drafts')}`}
-						onClick={() => setSearchPrms({ status: 'drafts' })}
-					>
-						Drafts
-						<span className="mail-counter"></span>
-					</button>
-				</li>
-				<li>
-					<button
-						className={`trash ${setMarkedFolder('trash')}`}
-						onClick={() => setSearchPrms({ status: 'trash' })}
-					>
-						trash
-						<span></span>
-					</button>
-				</li>
-				<li>
-					<button className="see-more">
-						More
-						<span></span>
-					</button>
-				</li>
+				<MenuFilter {...props} path="inbox" unreadMailsCount={unreadMailsCount} />
+				<MenuFilter {...props} path="starred" />
+				<MenuFilter {...props} path="snoozed" />
+				<MenuFilter {...props} path="important" />
+				<MenuFilter {...props} path="sent" />
+				<MenuFilter {...props} path="drafts" />
+				<MenuFilter {...props} path="trash" />
 			</ul>
 			{mailToCompose && (
 				<ComposeForm

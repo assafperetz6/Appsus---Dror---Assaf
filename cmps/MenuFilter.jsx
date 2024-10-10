@@ -1,6 +1,5 @@
 
-
-export function MenuFilter({ setMarkedFolder, setSearchPrms, path }) {
+export function MenuFilter({ setMarkedFolder, setSearchPrms, path, unreadMailsCount }) {
   return (
     <li>
       <button
@@ -8,6 +7,9 @@ export function MenuFilter({ setMarkedFolder, setSearchPrms, path }) {
         onClick={() => setSearchPrms({ status: path })}
       >
         {path}
+        {
+          unreadMailsCount && <span className="mail-counter">{unreadMailsCount}</span>
+        }
       </button>
     </li>
   )

@@ -38,7 +38,6 @@ export function MailIndex() {
 		mailService
 			.query()
 			.then(setMails)
-			.then(emitUnreadCount)
 			.catch((err) => console.log('error: ', err))
 	}
 

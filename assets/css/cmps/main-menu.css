@@ -117,5 +117,8 @@ button.compose {
 
 .main-menu .menu-title{
     text-transform: capitalize;
+}
+
+.dark-mode .main-menu .menu-title{
     font-weight: bold;
 }

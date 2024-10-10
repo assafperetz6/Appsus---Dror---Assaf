@@ -1,6 +1,6 @@
 
 
-export function NotePreview({ note, onRemoveNote, onSetStyle, onToggleTodo, onDuplicateNote }){
+export function NotePreview({ note, onRemoveNote, onSetStyle, onToggleTodo, onDuplicateNote, onTogglePinned }){
 
     const { style, info } = note
     let fontSize = parseInt(style.fontSize)
@@ -19,6 +19,7 @@ export function NotePreview({ note, onRemoveNote, onSetStyle, onToggleTodo, onDu
                 </button>
                 <button onClick={() => onDuplicateNote(note.id)} className="duplicate" title="Duplicate note"></button>
             </section>
+            <button className={`pin-btn ${note.pinnedAt && 'pinned'}`} onClick={() => onTogglePinned(note.id)}></button>
         </li>
     )
 }
@@ -54,8 +55,8 @@ function NoteTodos({ note, info, onToggleTodo }){
         <ul className="todos-note">
             {info.todos.map((todo, idx) =>
                 <section key={idx} className="todo">
-                    <button className={todo.doneAt ? 'checked' : 'unchecked'} onClick={() => onToggleTodo(Date.now(), idx, note.id)}></button>
-                    <li className={todo.doneAt ? 'checked' : 'unchecked'} onClick={() => onToggleTodo(Date.now(), idx, note.id)}>{todo.txt}</li>
+                    <button className={todo.doneAt ? 'checked' : 'unchecked'} onClick={() => onToggleTodo(note.id, idx)}></button>
+                    <li className={todo.doneAt ? 'checked' : 'unchecked'} onClick={() => onToggleTodo(note.id, idx)}>{todo.txt}</li>
                 </section>
             )}
         </ul>

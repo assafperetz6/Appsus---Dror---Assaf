@@ -43,16 +43,31 @@ export function NoteIndex() {
             })
     }
 
-    function onToggleTodo(ts, idx, noteId, ){
+    function onToggleTodo(noteId, idx){
+        const notesBackup = structuredClone(notes)
         const noteToUpdate = notes.find(note => note.id === noteId)
         const todoToUpdate = noteToUpdate.info.todos[idx]
-        todoToUpdate.doneAt = todoToUpdate.doneAt ? null : ts
+        todoToUpdate.doneAt = todoToUpdate.doneAt ? null : Date.now()
         setNotes(notes => [...notes])
         noteService.save(noteToUpdate)
          .catch(err => {
              console.log(err)
              showErrorMsg(`Problem editing note, ID:${noteId}`)
+             setNotes(notesBackup)
          })    
+    }
+
+    function onTogglePinned(noteId){
+        const noteToUpdate = notes.find(note => note.id === noteId)
+        noteToUpdate.pinnedAt = noteToUpdate.pinnedAt ? null : Date.now()
+        notes.sort((a, b) => (a.createdAt < b.createdAt) ? 1 : (b.createdAt < a.createdAt) ? -1 : 0)
+        notes.sort((a, b) => (a.pinnedAt < b.pinnedAt) ? 1 : (b.pinnedAt < a.pinnedAt) ? -1 : 0)
+        setNotes([...notes])
+        noteService.save(noteToUpdate)
+            .catch(err => {
+                console.log(err)
+                showErrorMsg(`Problem pinning note, ID:${noteId}`)
+            })    
     }
 
     function onSetStyle(noteId, value, property){
@@ -107,6 +122,7 @@ export function NoteIndex() {
                 notes={notes} 
                 onRemoveNote={onRemoveNote}
                 onDuplicateNote={onDuplicateNote}
+                onTogglePinned={onTogglePinned}
             />
         </section>
     )

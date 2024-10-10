@@ -247,3 +247,11 @@ button.checked::before{
 button.unchecked::before{
     content: 'check_box_outline_blank';
 }
+
+.pin-btn::before{
+    content: url(/assets/img/icons/unpinned.svg);
+}
+
+.pin-btn.pinned::before{
+    content: url(/assets/img/icons/pinned.svg);
+}

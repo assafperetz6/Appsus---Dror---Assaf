@@ -6,7 +6,7 @@ export const defaultNotes = [
         id: utilService.makeId(),
         createdAt: Date.now(),
         type: 'NoteTxt',
-        isPinned: false,
+        pinnedAt: null,
         title: 'This is a text note',
         info: {
             txt: 'This is the body of the note'
@@ -19,7 +19,7 @@ export const defaultNotes = [
         id: utilService.makeId(),
         createdAt: Date.now(),
         type: 'NoteTxt',
-        isPinned: false,
+        pinnedAt: null,
         title: 'This is a text note',
         info: {
             txt: 'This is the body of the note'
@@ -32,7 +32,7 @@ export const defaultNotes = [
         id: utilService.makeId(),
         createdAt: Date.now(),
         type: 'NoteTodos',
-        isPinned: false,
+        pinnedAt: null,
         title: 'This is a todo list note',
         info: {
             todos:[
@@ -48,7 +48,7 @@ export const defaultNotes = [
         id: utilService.makeId(),
         createdAt: Date.now(),
         type: 'NoteImg',
-        isPinned: false,
+        pinnedAt: null,
         title: 'This is an image note',
         info: {
             url: 'https://www.renemagritte.org/assets/img/paintings/the-treachery-of-images.jpg'

@@ -5,10 +5,9 @@ import { eventBusService, showSuccessMsg, showErrorMsg } from '../../../services
 import { ComposeForm } from './ComposeForm.jsx'
 import { MenuFilter } from '../../../cmps/MenuFilter.jsx'
 
-export function MailMenu(props) {
+export function MailMenu({searchPrms, setSearchPrms, ...props }) {
   const [unreadMailsCount, setUnreadMailsCount] = useState(null)
 	const [mailToCompose, setMailToCompose] = useState(null)
-	// const [mailData, setMailData] = useState({})
 	const [isMinimized, setIsMinimized] = useState(null)
 	const clearAutoSave = useRef(null)
 
@@ -54,9 +53,10 @@ export function MailMenu(props) {
 	}
 
 	function onComposeMail() {
-		const newMail = mailService.getEmptyMail()
-		setMailToCompose(newMail)
-		console.log(newMail.createdAt)
+    // setSearchPrms(prms => prms.compose = 'new')
+
+    const newMail = mailService.getEmptyMail()
+    setMailToCompose(newMail)
 
 		setIsMinimized(false)
 	}
@@ -103,13 +103,13 @@ export function MailMenu(props) {
 			</button>
 
 			<ul className="filter-folders clean-list">
-				<MenuFilter {...props} path="inbox" unreadMailsCount={unreadMailsCount} />
-				<MenuFilter {...props} path="starred" />
-				<MenuFilter {...props} path="snoozed" />
-				<MenuFilter {...props} path="important" />
-				<MenuFilter {...props} path="sent" />
-				<MenuFilter {...props} path="drafts" />
-				<MenuFilter {...props} path="trash" />
+				<MenuFilter setSearchPrms={setSearchPrms} {...props} path="inbox" unreadMailsCount={unreadMailsCount} />
+				<MenuFilter setSearchPrms={setSearchPrms} {...props} path="starred" />
+				<MenuFilter setSearchPrms={setSearchPrms} {...props} path="snoozed" />
+				<MenuFilter setSearchPrms={setSearchPrms} {...props} path="important" />
+				<MenuFilter setSearchPrms={setSearchPrms} {...props} path="sent" />
+				<MenuFilter setSearchPrms={setSearchPrms} {...props} path="drafts" />
+				<MenuFilter setSearchPrms={setSearchPrms} {...props} path="trash" />
 			</ul>
 			{mailToCompose && (
 				<ComposeForm

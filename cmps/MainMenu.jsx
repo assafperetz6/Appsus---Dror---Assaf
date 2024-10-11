@@ -26,7 +26,7 @@ export function MainMenu() {
 
 	return (
 		<section className="main-menu">
-			<DynamicMenu pathname={pathname} setMarkedFolder={setMarkedFolder} setSearchPrms={setSearchPrms} />
+			<DynamicMenu pathname={pathname} setMarkedFolder={setMarkedFolder} searchPrms={searchPrms} setSearchPrms={setSearchPrms} />
 			{(pathname.startsWith('/mail') || pathname.startsWith('/note')) 
 				? <FilterByLabel setMarkedFolder={setMarkedFolder} onSelectLabel={onSelectLabel}/> 
 				: null}

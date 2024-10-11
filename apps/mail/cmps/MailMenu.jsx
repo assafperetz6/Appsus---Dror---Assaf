@@ -10,6 +10,7 @@ export function MailMenu(props) {
 	const [mailToCompose, setMailToCompose] = useState(null)
 	const [isMinimized, setIsMinimized] = useState(null)
 	const clearAutoSave = useRef(null)
+	const isFirstRender = useRef(true)
 	const {searchPrms, setSearchPrms} = props
 
   useEffect(() => {
@@ -34,6 +35,11 @@ export function MailMenu(props) {
 	}, [mailToCompose])
 
 	useEffect(() => {
+		if (isFirstRender.current) {
+			isFirstRender.current = false
+			return
+		}
+
 		if (mailToCompose) {
 			mailToCompose.id ? setSearchPrms({ ...Object.fromEntries(searchPrms.entries()), compose: mailToCompose.id })
 			: setSearchPrms({ ...Object.fromEntries(searchPrms.entries()), compose: 'new' })

@@ -24,7 +24,7 @@ export function MailIndex() {
 
 	useEffect(() => {
 		loadMails(filterBy)
-		setSearchPrms(utilService.getTruthyValues(filterBy))
+		// setSearchPrms(utilService.getTruthyValues(filterBy))
 
 	}, [filterBy])
 

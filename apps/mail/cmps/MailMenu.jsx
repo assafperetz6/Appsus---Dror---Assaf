@@ -21,8 +21,12 @@ export function MailMenu({searchPrms, setSearchPrms, ...props }) {
 	}, [])
 
 	useEffect(() => {
-		handleAutoSave()
+		if (mailToCompose) {
+			mailToCompose.id ? setSearchPrms({ ...Object.fromEntries(searchPrms.entries()), compose: mailToCompose.id })
+			: setSearchPrms({ ...Object.fromEntries(searchPrms.entries()), compose: 'new' })
+		}
 
+		handleAutoSave()
 		return () => {
 			if (clearAutoSave.current) {
         clearInterval(clearAutoSave.current)
@@ -53,10 +57,8 @@ export function MailMenu({searchPrms, setSearchPrms, ...props }) {
 	}
 
 	function onComposeMail() {
-    // setSearchPrms(prms => prms.compose = 'new')
-
-    const newMail = mailService.getEmptyMail()
-    setMailToCompose(newMail)
+		const newMail = mailService.getEmptyMail()
+		setMailToCompose(newMail)
 
 		setIsMinimized(false)
 	}

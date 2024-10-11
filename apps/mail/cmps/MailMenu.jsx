@@ -6,11 +6,11 @@ import { ComposeForm } from './ComposeForm.jsx'
 import { MenuFilter } from '../../../cmps/MenuFilter.jsx'
 
 export function MailMenu(props) {
-	const {searchPrms, setSearchPrms} = props
  	const [unreadMailsCount, setUnreadMailsCount] = useState(null)
 	const [mailToCompose, setMailToCompose] = useState(null)
 	const [isMinimized, setIsMinimized] = useState(null)
 	const clearAutoSave = useRef(null)
+	const {searchPrms, setSearchPrms} = props
 
   useEffect(() => {
     mailService.getInitUnreadCount().then(setUnreadMailsCount)
@@ -21,7 +21,7 @@ export function MailMenu(props) {
 		}
 	}, [])
 
-	useEffect(() => {		
+	useEffect(() => {				
 		handleAutoSave()
 
 		return () => {
@@ -53,6 +53,8 @@ export function MailMenu(props) {
 	}
 
 	function saveDraft() {
+		if(!mailToCompose.to || !mailToCompose.body) return
+		
 		return mailService
 			.save(mailToCompose)
 			.then((mail) => setMailToCompose(mail))
@@ -94,6 +96,8 @@ export function MailMenu(props) {
 	}
 
 	function onCloseComposeWindow() {
+	  if (!mailToCompose.to || !mailToCompose.body) return setMailToCompose(null)
+
 	  saveDraft().then(() => {
       setMailToCompose(null)
       showSuccessMsg('Your draft was saved!')

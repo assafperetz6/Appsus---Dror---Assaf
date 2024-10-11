@@ -1,6 +1,5 @@
 .mail-list {
     display: grid;
-
     grid-template-columns: 120px 200px minmax(0, 1fr) 100px;
 
     height: 100%;
@@ -57,7 +56,6 @@ td:last-child {
 }
 
 td.mail-actions {
-    /* display: flex; */
     align-content: center;
     justify-content: space-around;
 
@@ -95,7 +93,9 @@ td.info {
         display: flex;
         margin-right: 10px;
         gap: 4px;
+
         font-size: 12px;
+        font-weight: 200;
 
         > * {
             padding: 0 4px;
@@ -107,7 +107,7 @@ td.info {
     }
     
     .subject {
-        flex: 1 1 auto;
+        flex: 4 0 auto;
         padding-inline-start: 10px;
         line-height: 1.2;
         white-space: nowrap;
@@ -116,7 +116,7 @@ td.info {
     }
     
     .mail-body {
-        flex: 1 2 auto;
+        flex: 1 5 auto;
         margin-left: 10px;
         
         white-space: nowrap;
@@ -124,49 +124,6 @@ td.info {
         text-overflow: ellipsis;
     }
 }
-/* td.info {
-    grid-template-columns: max-content minmax(0, max-content) minmax(0, 1fr);
-    height: unset;
-    padding-block: 0;
-
-    align-self: self-start;
-    white-space: nowrap;
-
-    .labels {
-        display: flex;
-        gap: 5px;
-
-        font-size: 12px;
-        font-weight: 200;
-
-        > * {
-            padding:4px;
-            border-radius: 4px;
-
-            color: #666;
-            background-color: #d1d1d1;
-        }
-    }
-
-    .subject {
-        justify-self: end;
-
-        padding-inline-start: 10px;
-        line-height: 0;
-
-        text-overflow: ellipsis;
-    }
-
-    .mail-body p{
-        margin: 0;
-
-        color: var(--grey-0);
-        font-weight: 200;
-
-        overflow: inherit;
-        text-overflow: ellipsis;
-    }
-} */
 
 .mail-preview.read {
     background-color: var(--read-mail-bg);

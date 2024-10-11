@@ -58,9 +58,11 @@ export function MailPreview({
 				></button>
 			</td>
 			<td className="from"><span>{mail.from}</span></td>
-			<td className="labels">{setLabelsToShow(mail.labels)}</td>
-			<td className="subject">{mail.subject}</td>
-			<td className="mail-body"><p>- {mail.body}</p></td>
+			<td className="info">
+				<div className="labels">{setLabelsToShow(mail.labels)}</div>
+				<div className="subject">{mail.subject}</div>
+				<p className="mail-body">- {mail.body}</p>
+			</td>
 
 			{hoveredMailId === mail.id ? (
 				<td className="mail-actions">

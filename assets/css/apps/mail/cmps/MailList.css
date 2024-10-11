@@ -1,7 +1,7 @@
 .mail-list {
     display: grid;
 
-    grid-template-columns: 120px 200px minmax(0, min-content) max-content minmax(0, 1fr) max-content;
+    grid-template-columns: 120px 200px minmax(0, 1fr) 100px;
 
     height: 100%;
     width: 100%;
@@ -15,7 +15,7 @@
     display: grid;
     grid-template-columns: subgrid;
 
-    /* justify-items: stretch; */
+    align-items: center;
 
     padding-inline-start: 10px;
 
@@ -29,6 +29,7 @@
 
 .mail-list > tr > * {
     display: grid;
+    grid-auto-flow: column;
     justify-content: center;
     align-items: center;
 
@@ -56,7 +57,8 @@ td:last-child {
 }
 
 td.mail-actions {
-    display: flex;
+    /* display: flex; */
+    align-content: center;
     justify-content: space-around;
 
     > * {
@@ -66,7 +68,6 @@ td.mail-actions {
 }
 
 .from, .subject {
-    justify-self: start;
     color: var(--grey-2);
 }
 
@@ -77,38 +78,95 @@ td.mail-actions {
     padding-inline-end: 16px;
 }
 
-td.labels {
+td.info {
     display: flex;
-    gap: 5px;
+    width: 100%;
+    justify-items: center;
+    align-items: center;
+    
+    white-space: nowrap;
+    overflow: hidden;
 
-    font-size: 12px;
-    font-weight: 200;
+    align-self: self-start;
 
-    > * {
-        padding:4px;
-        border-radius: 4px;
+    .labels {
+        flex: 0 1 auto;
 
-        color: #666;
-        background-color: #d1d1d1;
+        display: flex;
+        margin-right: 10px;
+        gap: 4px;
+        font-size: 12px;
+
+        > * {
+            padding: 0 4px;
+            border-radius: 4px;
+
+            color: #666;
+            background-color: #d1d1d1;
+        }
+    }
+    
+    .subject {
+        flex: 1 1 auto;
+        padding-inline-start: 10px;
+        line-height: 1.2;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    
+    .mail-body {
+        flex: 1 2 auto;
+        margin-left: 10px;
+        
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 }
+/* td.info {
+    grid-template-columns: max-content minmax(0, max-content) minmax(0, 1fr);
+    height: unset;
+    padding-block: 0;
 
-td.subject {
-    justify-self: end;
+    align-self: self-start;
+    white-space: nowrap;
 
-    padding-inline-start: 10px;
-    line-height: 0;
-}
+    .labels {
+        display: flex;
+        gap: 5px;
 
-td.mail-body p{
-    margin: 0;
+        font-size: 12px;
+        font-weight: 200;
 
-    color: var(--grey-0);
-    font-weight: 200;
+        > * {
+            padding:4px;
+            border-radius: 4px;
 
-    overflow: inherit;
-    text-overflow: inherit;
-}
+            color: #666;
+            background-color: #d1d1d1;
+        }
+    }
+
+    .subject {
+        justify-self: end;
+
+        padding-inline-start: 10px;
+        line-height: 0;
+
+        text-overflow: ellipsis;
+    }
+
+    .mail-body p{
+        margin: 0;
+
+        color: var(--grey-0);
+        font-weight: 200;
+
+        overflow: inherit;
+        text-overflow: ellipsis;
+    }
+} */
 
 .mail-preview.read {
     background-color: var(--read-mail-bg);

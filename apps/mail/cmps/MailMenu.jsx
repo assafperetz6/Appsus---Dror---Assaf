@@ -38,6 +38,12 @@ export function MailMenu(props) {
 			mailToCompose.id ? setSearchPrms({ ...Object.fromEntries(searchPrms.entries()), compose: mailToCompose.id })
 			: setSearchPrms({ ...Object.fromEntries(searchPrms.entries()), compose: 'new' })
 		}
+
+		else {
+			const currPrms = Object.fromEntries(searchPrms.entries())
+			const { compose, ...filteredPrms } = currPrms
+			setSearchPrms(filteredPrms)
+		}
 	}, [searchPrms, mailToCompose])
 
 	function handleAutoSave() {

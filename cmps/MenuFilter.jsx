@@ -1,5 +1,5 @@
 
-export function MenuFilter({ setMarkedFolder, setSearchPrms, path, unreadMailsCount }) {
+export function MenuFilter({ setMarkedFolder, searchPrms, setSearchPrms, path, unreadMailsCount }) {
   return (
     <li>
       <button

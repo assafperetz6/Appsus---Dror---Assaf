@@ -5,8 +5,9 @@ import { eventBusService, showSuccessMsg, showErrorMsg } from '../../../services
 import { ComposeForm } from './ComposeForm.jsx'
 import { MenuFilter } from '../../../cmps/MenuFilter.jsx'
 
-export function MailMenu({searchPrms, setSearchPrms, ...props }) {
-  const [unreadMailsCount, setUnreadMailsCount] = useState(null)
+export function MailMenu(props) {
+	const {searchPrms, setSearchPrms} = props
+ 	const [unreadMailsCount, setUnreadMailsCount] = useState(null)
 	const [mailToCompose, setMailToCompose] = useState(null)
 	const [isMinimized, setIsMinimized] = useState(null)
 	const clearAutoSave = useRef(null)
@@ -20,27 +21,32 @@ export function MailMenu({searchPrms, setSearchPrms, ...props }) {
 		}
 	}, [])
 
+	useEffect(() => {		
+		handleAutoSave()
+
+		return () => {
+			if (clearAutoSave.current) {
+				clearInterval(clearAutoSave.current)
+				clearAutoSave.current = null
+			}
+		}
+
+	}, [mailToCompose])
+
 	useEffect(() => {
 		if (mailToCompose) {
 			mailToCompose.id ? setSearchPrms({ ...Object.fromEntries(searchPrms.entries()), compose: mailToCompose.id })
 			: setSearchPrms({ ...Object.fromEntries(searchPrms.entries()), compose: 'new' })
 		}
-
-		handleAutoSave()
-		return () => {
-			if (clearAutoSave.current) {
-        clearInterval(clearAutoSave.current)
-        clearAutoSave.current = null
-		  }
-    }
-	}, [mailToCompose])
+	}, [searchPrms, mailToCompose])
 
 	function handleAutoSave() {
 		if (mailToCompose && mailToCompose.to && mailToCompose.body) {
 			const autoSaveDraft = setInterval(saveDraft, 5000)
 			clearAutoSave.current = autoSaveDraft
-      
-		} else if (clearAutoSave.current) {
+		}
+
+		else if (clearAutoSave.current) {
 			clearInterval(clearAutoSave.current)
 			clearAutoSave.current = null
 		}
@@ -105,13 +111,13 @@ export function MailMenu({searchPrms, setSearchPrms, ...props }) {
 			</button>
 
 			<ul className="filter-folders clean-list">
-				<MenuFilter setSearchPrms={setSearchPrms} {...props} path="inbox" unreadMailsCount={unreadMailsCount} />
-				<MenuFilter setSearchPrms={setSearchPrms} {...props} path="starred" />
-				<MenuFilter setSearchPrms={setSearchPrms} {...props} path="snoozed" />
-				<MenuFilter setSearchPrms={setSearchPrms} {...props} path="important" />
-				<MenuFilter setSearchPrms={setSearchPrms} {...props} path="sent" />
-				<MenuFilter setSearchPrms={setSearchPrms} {...props} path="drafts" />
-				<MenuFilter setSearchPrms={setSearchPrms} {...props} path="trash" />
+				<MenuFilter searchPrms={searchPrms} setSearchPrms={setSearchPrms} {...props} path="inbox" unreadMailsCount={unreadMailsCount} />
+				<MenuFilter searchPrms={searchPrms} setSearchPrms={setSearchPrms} {...props} path="starred" />
+				<MenuFilter searchPrms={searchPrms} setSearchPrms={setSearchPrms} {...props} path="snoozed" />
+				<MenuFilter searchPrms={searchPrms} setSearchPrms={setSearchPrms} {...props} path="important" />
+				<MenuFilter searchPrms={searchPrms} setSearchPrms={setSearchPrms} {...props} path="sent" />
+				<MenuFilter searchPrms={searchPrms} setSearchPrms={setSearchPrms} {...props} path="drafts" />
+				<MenuFilter searchPrms={searchPrms} setSearchPrms={setSearchPrms} {...props} path="trash" />
 			</ul>
 			{mailToCompose && (
 				<ComposeForm

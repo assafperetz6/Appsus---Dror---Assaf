@@ -16,7 +16,7 @@ export function MainMenu() {
 			if (folderName === currLabel) return 'marked'
 		}	
 
-		if (pathname.includes(folderName) || searchPrms.get('status') === folderName) return 'marked'
+		if (pathname.includes(folderName) || searchPrms.get('status') === folderName || (folderName === 'notes' && !searchPrms.get('status'))) return 'marked'
 		return ''
 	}
 

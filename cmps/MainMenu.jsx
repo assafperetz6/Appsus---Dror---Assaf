@@ -21,13 +21,15 @@ export function MainMenu() {
 	}
 
 	function onSelectLabel(labelName) {
-		navigate(`/mail/labels?label=${labelName}`) // DIDN'T USE setSearchParams BECAUSE OF ASYNC DELAY
+		const path = pathname.startsWith('/mail') ? 'mail' : 'note'
+		
+		navigate(`/${path}/labels?label=${labelName}`) // DIDN'T USE setSearchParams BECAUSE OF ASYNC DELAY
 	}
 	
 	return (
 		<section className="main-menu">
 			<DynamicMenu pathname={pathname} setMarkedFolder={setMarkedFolder} searchPrms={searchPrms} setSearchPrms={setSearchPrms} />
-			{(pathname.startsWith('/mail' || '/note')) 
+			{(pathname.startsWith('/note') || pathname.startsWith('/mail')) 
 				? <FilterByLabel Link={Link} setMarkedFolder={setMarkedFolder} onSelectLabel={onSelectLabel}/> 
 				: null}
 		</section>
@@ -35,6 +37,6 @@ export function MainMenu() {
 }
 
 function DynamicMenu(props) {
-	if(props.pathname.startsWith('/mail')) return <MailMenu {...props}/>
-	else if(props.pathname.startsWith('/note')) return <NoteMenu {...props}/>
+	if(props.pathname.startsWith('/mail')) return <MailMenu {...props} />
+	else if(props.pathname.startsWith('/note')) return <NoteMenu {...props} />
 }

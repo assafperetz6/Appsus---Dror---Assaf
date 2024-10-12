@@ -1,5 +1,5 @@
 const { useState, useEffect } = React
-const { useLocation, useSearchParams, Outlet } = ReactRouterDOM
+const { useLocation, useParams, useSearchParams, Outlet } = ReactRouterDOM
 
 import { mailService } from '../services/mail.service.js'
 import { MailContext } from '../services/mailContext.js'
@@ -18,14 +18,15 @@ export function MailIndex() {
 	const [selectedMail, setSelectedMail] = useState(null)
 
 	const loc = useLocation()
+	const params = useParams()
 	const [searchPrms, setSearchPrms] = useSearchParams({ status: 'inbox' })
 	const [filterBy, setFilterBy] = useState(mailService.getFilterFromSearchParams(searchPrms))
 
 	useEffect(() => {
 		loadMails(filterBy)
 		setSearchPrms(utilService.getTruthyValues(filterBy))
-	}, [])
-
+	}, [params.mailId])
+	
 	useEffect(() => {
 		const newFilter = mailService.getFilterFromSearchParams(searchPrms)
 

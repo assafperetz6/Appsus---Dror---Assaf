@@ -19,7 +19,7 @@ export function MailPreview({ mail, onSetIsHover, hoveredMailId, currFolder, cur
 		return date.toLocaleDateString('en-US', options)
 	}
 
-	function setLabelsToShow(labels) {
+	function setLabelsToShow(labels) {		
 		let labelsToShow = [...labels]
 
 		if (currFolder !== 'inbox') labelsToShow.unshift('inbox')

@@ -4,7 +4,7 @@ const { Link } = ReactRouterDOM
 import { mailService } from '../services/mail.service.js'
 import { eventBusService, showSuccessMsg, showErrorMsg } from '../../../services/event-bus.service.js'
 import { ComposeForm } from './ComposeForm.jsx'
-import { MenuFilter } from '../../../cmps/MenuFilter.jsx'
+import { MailMenuFilter } from '../../../cmps/MenuFilter.jsx'
 
 export function MailMenu(props) {
  	const [unreadMailsCount, setUnreadMailsCount] = useState(null)
@@ -13,6 +13,7 @@ export function MailMenu(props) {
 	const clearAutoSave = useRef(null)
 	const isFirstRender = useRef(true)
 	const {searchPrms, setSearchPrms} = props
+	
 	
 	useEffect(() => {
 		mailService.getInitUnreadCount().then(setUnreadMailsCount)
@@ -131,13 +132,13 @@ export function MailMenu(props) {
 			</button>
 
 			<ul className="filter-folders clean-list">
-				<MenuFilter Link={Link} searchPrms={searchPrms} setSearchPrms={setSearchPrms} {...props} path="inbox" unreadMailsCount={unreadMailsCount} />
-				<MenuFilter Link={Link} searchPrms={searchPrms} setSearchPrms={setSearchPrms} {...props} path="starred" />
-				<MenuFilter Link={Link} searchPrms={searchPrms} setSearchPrms={setSearchPrms} {...props} path="snoozed" />
-				<MenuFilter Link={Link} searchPrms={searchPrms} setSearchPrms={setSearchPrms} {...props} path="important" />
-				<MenuFilter Link={Link} searchPrms={searchPrms} setSearchPrms={setSearchPrms} {...props} path="sent" />
-				<MenuFilter Link={Link} searchPrms={searchPrms} setSearchPrms={setSearchPrms} {...props} path="drafts" />
-				<MenuFilter Link={Link} searchPrms={searchPrms} setSearchPrms={setSearchPrms} {...props} path="trash" />
+				<MailMenuFilter Link={Link} searchPrms={searchPrms} setSearchPrms={setSearchPrms} {...props} path="inbox" unreadMailsCount={unreadMailsCount} />
+				<MailMenuFilter Link={Link} searchPrms={searchPrms} setSearchPrms={setSearchPrms} {...props} path="starred" />
+				<MailMenuFilter Link={Link} searchPrms={searchPrms} setSearchPrms={setSearchPrms} {...props} path="snoozed" />
+				<MailMenuFilter Link={Link} searchPrms={searchPrms} setSearchPrms={setSearchPrms} {...props} path="important" />
+				<MailMenuFilter Link={Link} searchPrms={searchPrms} setSearchPrms={setSearchPrms} {...props} path="sent" />
+				<MailMenuFilter Link={Link} searchPrms={searchPrms} setSearchPrms={setSearchPrms} {...props} path="drafts" />
+				<MailMenuFilter Link={Link} searchPrms={searchPrms} setSearchPrms={setSearchPrms} {...props} path="trash" />
 			</ul>
 			{mailToCompose && (
 				<ComposeForm

@@ -27,15 +27,10 @@ export function App() {
                     <Route index path="/mail/inbox" element={<MailDashboard />}/>
                     <Route path="/mail/:status" element={<MailDashboard />}/>
                     <Route path="" element={<Navigate to="/mail/inbox" replace />} />
-                    {/* <Route path="/mail/starred" element={<MailDashboard />}/>
-                    <Route path="/mail/snoozed" element={<MailDashboard />}/>
-                    <Route path="/mail/important" element={<MailDashboard />}/>
-                    <Route path="/mail/sent" element={<MailDashboard />}/>
-                    <Route path="/mail/drafts" element={<MailDashboard />}/>
-                    <Route path="/mail/trash" element={<MailDashboard />}/>
-                    <Route path="/mail/labels" element={<MailDashboard />}/> */}
                 </Route>
-                <Route path="/note" element={<NoteIndex />} />
+                <Route path="/note" element={<NoteIndex />} >
+                    <Route path="/note/labels" element={<NoteIndex />}/>
+                </Route>
                 <Route path="/*" element={<NotFound />} />
             </Routes>
 

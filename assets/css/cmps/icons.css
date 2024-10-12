@@ -235,3 +235,31 @@
 .todos::before{
     content: 'check_box';
 }
+
+/* MAIL DETAILS ICONS */
+
+.go-back::before {
+    content: 'arrow_back';
+}
+
+.archive::before {
+    content: 'archive';
+}
+
+.report::before {
+    content: 'report';
+}
+
+.move-to::before {
+    content: 'drive_file_move';
+}
+
+.reply::before {
+    content: 'reply';
+}
+
+.forward::before {
+    content: 'reply';
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+}

@@ -17,11 +17,17 @@ export function MailMenuFilter({ Link, setMarkedFolder, path, unreadMailsCount }
 }
 
 export function NoteMenuFilter({ setSearchPrms, setMarkedFolder, path, unreadMailsCount }) {
+
+  function onSetSearchParams(path){
+      if(path === 'notes') setSearchPrms({})
+      else setSearchPrms({staus: path})
+  }
+
   return (
     <li>
         <button
           className={`${path} ${setMarkedFolder(path)} menu-title`}
-          onClick={() => setSearchPrms({ status: path })}
+          onClick={() => onSetSearchParams(path)}
         >
           {path}
           {

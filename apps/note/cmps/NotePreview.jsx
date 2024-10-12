@@ -1,6 +1,10 @@
+const { useState } = React
 
+import { ColorPicker } from "./ColorPicker.jsx"
 
 export function NotePreview({ note, onRemoveNote, onSetStyle, onToggleTodo, onDuplicateNote, onTogglePinned }){
+
+    const [openMenu, setOpenMenu] = useState(null)
 
     const { style, info } = note
     let fontSize = parseInt(style.fontSize)
@@ -14,9 +18,8 @@ export function NotePreview({ note, onRemoveNote, onSetStyle, onToggleTodo, onDu
             </section>
             <section className="actions">
                 <button className="delete" onClick={() => onRemoveNote(note.id)} title="Delete note" ></button>
-                <button className="palette" title="Change background color">
-                    <input onChange={(ev) => onSetStyle(note.id, ev.target.value, 'backgroundColor')} type="color" />
-                </button>
+                <button onClick={() => setOpenMenu(prevOpen => !prevOpen)} className="palette" title="Change background color"></button>
+                {openMenu && <ColorPicker onSetStyle={onSetStyle} noteId={note.id} pickedColor={style.backgroundColor} />}
                 <button onClick={() => onDuplicateNote(note.id)} className="duplicate" title="Duplicate note"></button>
             </section>
             <button className={`pin-btn ${note.pinnedAt && 'pinned'}`} onClick={() => onTogglePinned(note.id)}></button>

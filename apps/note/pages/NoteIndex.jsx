@@ -1,6 +1,5 @@
 import { Loader } from "../../../cmps/Loader.jsx"
 import { showErrorMsg, showSuccessMsg } from "../../../services/event-bus.service.js"
-import { utilService } from "../../../services/util.service.js"
 import { NoteEdit } from "../cmps/NoteEdit.jsx"
 import { NoteList } from "../cmps/NoteList.jsx"
 import { noteService } from "../services/note.service.js"
@@ -70,11 +69,11 @@ export function NoteIndex() {
             })    
     }
 
-    function onSetStyle(noteId, value, property){
+    function onSetStyle(noteId, value){
         const notesBackup = structuredClone(notes)
 
         const noteToUpdate = notes.find(note => note.id === noteId)
-        noteToUpdate.style ={...noteToUpdate.style, [property]: value}
+        noteToUpdate.style ={...noteToUpdate.style, backgroundColor: value}
         setNotes(notes => [...notes])
         
         noteService.save(noteToUpdate)

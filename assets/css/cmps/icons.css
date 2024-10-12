@@ -255,3 +255,7 @@ button.unchecked::before{
 .pin-btn.pinned::before{
     content: url(/assets/img/icons/pinned.svg);
 }
+
+.no-color::before{
+    content: 'format_color_reset';
+}

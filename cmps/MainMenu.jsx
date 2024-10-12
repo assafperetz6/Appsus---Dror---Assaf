@@ -16,14 +16,16 @@ export function MainMenu() {
 			if (folderName === currLabel) return 'marked'
 		}	
 
-		if (pathname.includes(folderName)) return 'marked'
+		if (pathname.includes(folderName) || searchPrms.get('status') === folderName) return 'marked'
 		return ''
 	}
 
 	function onSelectLabel(labelName) {
-		const path = pathname.startsWith('/mail') ? 'mail' : 'note'
-		
-		navigate(`/${path}/labels?label=${labelName}`) // DIDN'T USE setSearchParams BECAUSE OF ASYNC DELAY
+		if(pathname.startsWith('/mail')) {
+			navigate(`/mail/labels?label=${labelName}`)
+			return
+		}
+		setSearchPrms({status: 'labels', label: labelName})
 	}
 	
 	return (

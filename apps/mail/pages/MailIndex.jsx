@@ -76,7 +76,9 @@ export function MailIndex() {
 		setIsContextMenu(false)
 	}
 
-	function onRemoveMail(mailId) {
+	function onRemoveMail(ev, mailId) {
+		ev.stopPropagation()
+		
 		const mailsBackup = structuredClone(mails)
 		const mailToRemove = mails.find((mail) => mail.id === mailId)
 
@@ -124,7 +126,9 @@ export function MailIndex() {
 		})
 	}
 
-	function onChangeMailStatus(mailId, status) {
+	function onChangeMailStatus(ev, mailId, status) {
+		ev.stopPropagation()
+
 		const mailsBackup = structuredClone(mails)
 		const mailToUpdate = mails.find((mail) => mail.id === mailId)
 

@@ -77,6 +77,8 @@ h2.subject {
     height: inherit;
 
     .sent-at {
+        display: flex;
+        justify-content: end;
         width: 100%;
         font-size: 12px;
     }
@@ -110,7 +112,7 @@ h2.subject {
 .mail-content {
     display: grid;
     grid-template-columns: 2fr 1fr;
-    grid-template-rows: 20px 36px max-content 72px;
+    grid-template-rows: 20px 20px max-content 72px;
 
     height: 100%;
     width: 100%;
@@ -120,6 +122,11 @@ h2.subject {
     > tr {
         display: flex;
         grid-column: 1 / -1;
+        align-items: center;
+    }
+
+    > tr > td {
+        display: flex;
     }
 
     h6 {
@@ -131,7 +138,10 @@ h2.subject {
     .mail-body {
         height: fit-content;
 
-        padding-block-end: 20px;
+        padding-block: 20px;
+        padding-inline-end: 16px;
+
+        text-wrap: pretty;
     }
 }
 

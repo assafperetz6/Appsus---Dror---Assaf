@@ -5,7 +5,7 @@
     height: 100%;
     width: 100%;
 
-    padding-block-end: 12px;
+    /* padding-block-end: 12px; */
 }
 
 .mail-list > tr {
@@ -48,7 +48,7 @@
     text-overflow: ellipsis;
 }
 
-td:last-child {
+.mail-list td:last-child {
     justify-self: end;
     padding-inline-end: 16px;
 
@@ -69,14 +69,14 @@ td.mail-actions {
     color: var(--grey-2);
 }
 
-.from span {
+.mail-list .from span {
     overflow: inherit;
     text-overflow: inherit;
 
     padding-inline-end: 16px;
 }
 
-td.info {
+.mail-list td.info {
     display: flex;
     width: 100%;
     justify-items: center;

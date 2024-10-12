@@ -1,3 +1,5 @@
+// import { mailService } from "../services/mail.service"
+
 export function MailDetails() {
     return (
         <article className="details-container">
@@ -34,22 +36,22 @@ export function MailDetails() {
 
             <section className="mail-info">
                 <div className="img-container"><img className="profile-pic" src="../../assets/img/unknown-profile.png" alt="" /></div>
-                <table>
-                    <tbody className="mail-body">
+                <table className="flex">
+                    <tbody className="mail-content">
                         <tr>
-                            <td><h3>placeholder@gmail.com</h3></td>
-                            <td>Oct 9, 2024, 4:52PM (3 days ago)</td>
+                            <td className="sender-address"><h3>placeholder@gmail.com</h3></td>
+                            <td className="sent-at"><span>Oct 9, 2024, 4:52PM (3 days ago)</span></td>
                             <td><button className="starred"></button></td>
-                            <td className="reply"></td>
+                            <td><button className="reply"></button></td>
                         </tr>
                         <tr><td><h6>to me</h6></td></tr>
-                        <tr><td>Actual Mail body</td></tr>
+                        <tr className="mail-body"><td>Actual Mail body</td></tr>
+                        <tr className="reply-actions">
+                            <td><button className="reply">Reply</button></td>
+                            <td><button className="forward">Forward</button></td>
+                        </tr>
                     </tbody>
                 </table>
-                <section className="reply-actions">
-                    <button className="reply">Reply</button>
-                    <button className="forward">Forward</button>
-                </section>
             </section>
         </article>
     )

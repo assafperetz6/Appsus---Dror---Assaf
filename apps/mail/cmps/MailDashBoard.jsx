@@ -67,6 +67,7 @@ export function MailDashboard() {
 				onSetIsHover={onSetIsHover}
 				hoveredMailId={hoveredMailId}
 			/>
+            <footer><div>A mail app for those who hate Emails.</div></footer>
 		</React.Fragment>
 	)
 }

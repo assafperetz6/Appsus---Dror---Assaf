@@ -78,7 +78,7 @@ export function MailIndex() {
 
 	function onRemoveMail(ev, mailId) {
 		ev.stopPropagation()
-		
+
 		const mailsBackup = structuredClone(mails)
 		const mailToRemove = mails.find((mail) => mail.id === mailId)
 

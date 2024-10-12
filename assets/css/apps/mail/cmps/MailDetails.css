@@ -1,4 +1,6 @@
 .details-container {
+    display: flex;
+    flex-direction: column;
     height: 100%;
 
     button {
@@ -70,15 +72,13 @@ h2.subject {
 }
 
 .mail-info {
-    display: grid;
-    grid-template-columns: 72px 1fr;
-    grid-template-rows: 20px 20px 1fr;
+    display: flex;
 
-    height: 100%;
+    height: inherit;
 
-    .mail-body {
-        grid-column: 2;
-        grid-row: 1 / -1;
+    .sent-at {
+        width: 100%;
+        font-size: 12px;
     }
 
     h3 {
@@ -88,12 +88,13 @@ h2.subject {
 }
 
 .img-container {
-    grid-column: 1;
-    grid-row: 1 / -1;
     justify-self: center;
 
     display: flex;
+    justify-content: center;
+
     height: 100%;
+    width: 72px;
     padding-block-start: 20px;
 
     .profile-pic {
@@ -103,5 +104,49 @@ h2.subject {
         border-radius: 50%;
     
         background-color: #cccccc;
+    }
+}
+
+.mail-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: 20px 36px max-content 72px;
+
+    height: 100%;
+    width: 100%;
+
+    padding-block-start: 20px;
+
+    > tr {
+        display: flex;
+        grid-column: 1 / -1;
+    }
+
+    h6 {
+        font-size: 12px;
+        font-weight: 200;
+        color: #5d5d5d;
+    }
+
+    .mail-body {
+        height: fit-content;
+
+        padding-block-end: 20px;
+    }
+}
+
+.reply-actions {
+    display: flex;
+    align-items: center;
+
+    button {
+        height: 36px;
+        width: 104px;
+
+        border: 1px solid #747775;
+        border-radius: 18px;
+    }
+    button, button::before {
+        margin-inline-end: 8px;
     }
 }

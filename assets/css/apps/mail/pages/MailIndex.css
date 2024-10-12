@@ -69,3 +69,13 @@
         }
     }
 }
+
+.mail-container footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding-inline: 16px;
+    margin-block: 16px;
+
+}

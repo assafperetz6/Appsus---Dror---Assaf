@@ -1,4 +1,4 @@
-export function FilterByLabel({ setMarkedFolder, onSelectLabel }) {
+export function FilterByLabel({ Link, setMarkedFolder, onSelectLabel }) {
     return (
         <section className="label-container">
         <div className="flex space-between">

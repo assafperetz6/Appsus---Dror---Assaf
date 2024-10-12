@@ -1,4 +1,5 @@
 const { useState, useEffect, useRef } = React
+const { Link } = ReactRouterDOM
 
 import { mailService } from '../services/mail.service.js'
 import { eventBusService, showSuccessMsg, showErrorMsg } from '../../../services/event-bus.service.js'
@@ -130,13 +131,13 @@ export function MailMenu(props) {
 			</button>
 
 			<ul className="filter-folders clean-list">
-				<MenuFilter searchPrms={searchPrms} setSearchPrms={setSearchPrms} {...props} path="inbox" unreadMailsCount={unreadMailsCount} />
-				<MenuFilter searchPrms={searchPrms} setSearchPrms={setSearchPrms} {...props} path="starred" />
-				<MenuFilter searchPrms={searchPrms} setSearchPrms={setSearchPrms} {...props} path="snoozed" />
-				<MenuFilter searchPrms={searchPrms} setSearchPrms={setSearchPrms} {...props} path="important" />
-				<MenuFilter searchPrms={searchPrms} setSearchPrms={setSearchPrms} {...props} path="sent" />
-				<MenuFilter searchPrms={searchPrms} setSearchPrms={setSearchPrms} {...props} path="drafts" />
-				<MenuFilter searchPrms={searchPrms} setSearchPrms={setSearchPrms} {...props} path="trash" />
+				<MenuFilter Link={Link} searchPrms={searchPrms} setSearchPrms={setSearchPrms} {...props} path="inbox" unreadMailsCount={unreadMailsCount} />
+				<MenuFilter Link={Link} searchPrms={searchPrms} setSearchPrms={setSearchPrms} {...props} path="starred" />
+				<MenuFilter Link={Link} searchPrms={searchPrms} setSearchPrms={setSearchPrms} {...props} path="snoozed" />
+				<MenuFilter Link={Link} searchPrms={searchPrms} setSearchPrms={setSearchPrms} {...props} path="important" />
+				<MenuFilter Link={Link} searchPrms={searchPrms} setSearchPrms={setSearchPrms} {...props} path="sent" />
+				<MenuFilter Link={Link} searchPrms={searchPrms} setSearchPrms={setSearchPrms} {...props} path="drafts" />
+				<MenuFilter Link={Link} searchPrms={searchPrms} setSearchPrms={setSearchPrms} {...props} path="trash" />
 			</ul>
 			{mailToCompose && (
 				<ComposeForm

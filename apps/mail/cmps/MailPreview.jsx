@@ -35,7 +35,7 @@ export function MailPreview({ mail, onSetIsHover, hoveredMailId, currFolder, cur
 
 	function onShowDetails() {
 		if (!mail.sentAt) onLoadDraft(mail)
-		// navigate(`/mail/${mail.id}`)
+		else navigate(`/mail/details/${mail.id}`)
 	}
 
 	return (
@@ -47,6 +47,7 @@ export function MailPreview({ mail, onSetIsHover, hoveredMailId, currFolder, cur
 			onMouseOver={(ev) => onSetIsHover(true, ev.currentTarget.dataset.id)}
 			onMouseOut={() => onSetIsHover(false)}
 		>
+
 			<td className="mail-actions">
 				<button className="check-box"></button>
 				<button

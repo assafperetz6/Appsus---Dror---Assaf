@@ -1,13 +1,12 @@
 const { useState, useEffect } = React
-const { useSearchParams, Outlet } = ReactRouterDOM
+const { useLocation, useSearchParams, Outlet } = ReactRouterDOM
 
 import { mailService } from '../services/mail.service.js'
+import { MailContext } from '../services/mailContext.js'
 import { utilService } from '../../../services/util.service.js'
 import { showSuccessMsg, showErrorMsg, updateUnreadCount, loadDraft, eventBusService } from '../../../services/event-bus.service.js'
 
 import { Loader } from '../../../cmps/Loader.jsx'
-import { FilterByTabs } from '../../../cmps/FilterByTabs.jsx'
-import { MailList } from '../cmps/MailList.jsx'
 import { MailContextMenu } from '../cmps/MailContextMenu.jsx'
 
 export function MailIndex() {
@@ -18,14 +17,13 @@ export function MailIndex() {
 	const [hoveredMailId, setHoveredMailId] = useState(null)
 	const [selectedMail, setSelectedMail] = useState(null)
 
-	const [searchPrms, setSearchPrms] = useSearchParams({ status: 'inbox'})
+	const loc = useLocation()
+	const [searchPrms, setSearchPrms] = useSearchParams({ status: 'inbox' })
 	const [filterBy, setFilterBy] = useState(mailService.getFilterFromSearchParams(searchPrms))
-
 
 	useEffect(() => {
 		loadMails(filterBy)
 		setSearchPrms(utilService.getTruthyValues(filterBy))
-
 	}, [])
 
 	useEffect(() => {
@@ -33,7 +31,7 @@ export function MailIndex() {
 
 		setFilterBy(newFilter)
 	}, [searchPrms])
-	
+
 	function loadMails() {
 		mailService
 			.query()
@@ -42,10 +40,12 @@ export function MailIndex() {
 	}
 
 	function emitUnreadCount() {
-		return updateUnreadCount(mails.reduce((acc, mail) => {
-			if (!mail.isRead) acc++
-			return acc
-		}, 0))
+		return updateUnreadCount(
+			mails.reduce((acc, mail) => {
+				if (!mail.isRead) acc++
+				return acc
+			}, 0)
+		)
 	}
 
 	function onSetIsHover(boolian, mailId) {
@@ -56,11 +56,10 @@ export function MailIndex() {
 	function onContextMenu(ev) {
 		ev.preventDefault()
 
-		
 		// setIsContextMenu(false) WONDER IF NEEDED
-		
+
 		const mailId = ev.currentTarget.dataset.id
-		
+
 		setCursorPos({ top: ev.clientY, left: ev.clientX })
 		loadContextMenu(mailId)
 		setIsContextMenu(true)
@@ -79,35 +78,34 @@ export function MailIndex() {
 
 	function onRemoveMail(mailId) {
 		const mailsBackup = structuredClone(mails)
-		const mailToRemove = mails.find(mail => mail.id === mailId)
+		const mailToRemove = mails.find((mail) => mail.id === mailId)
 
 		if (mailToRemove.removedAt) {
-			setMails(mails.filter(mail => mail.id !== mailToRemove.id))
+			setMails(mails.filter((mail) => mail.id !== mailToRemove.id))
 
 			mailService
-			.remove(mailId)
-			.then(() => {
-				showSuccessMsg(`mail removed successfully!`)
-			})
-			.catch((err) => {
-				console.log('Problems removing mail:', err)
-				showErrorMsg(`Problems removing mail (${mailId})`)
-				setMails(mailsBackup)
-			})
-		}
+				.remove(mailId)
+				.then(() => {
+					showSuccessMsg(`mail removed successfully!`)
+				})
+				.catch((err) => {
+					console.log('Problems removing mail:', err)
+					showErrorMsg(`Problems removing mail (${mailId})`)
+					setMails(mailsBackup)
+				})
+		} else {
+			mailToRemove.removedAt = Date.now()
+			setMails((mails) => [...mails])
 
-		else {
-				mailToRemove.removedAt = Date.now()
-				setMails(mails => [...mails])
-				
-				mailService.save(mailToRemove)
+			mailService
+				.save(mailToRemove)
 				.then(() => showSuccessMsg(`mail moved to trash`))
 				.catch((err) => {
 					console.log('Err: ', err)
 					showErrorMsg(`Problems adding mail to folder (${mailId})`)
 					setMails(mailsBackup)
 				})
-			}
+		}
 	}
 
 	function onLabelAs(selectedMail, label) {
@@ -116,112 +114,72 @@ export function MailIndex() {
 		const mailsBackup = structuredClone(mails)
 		selectedMail.labels.push(label)
 
-		setMails(mails => [...mails])
+		setMails((mails) => [...mails])
 		setIsContextMenu(false)
 
-		mailService
-			.save(selectedMail)
-			.catch((err) => {
-				console.log('Err: ', err)
-				showErrorMsg(`Problems adding label (${mailId})`)
-				setMails(mailsBackup)
-			})
+		mailService.save(selectedMail).catch((err) => {
+			console.log('Err: ', err)
+			showErrorMsg(`Problems adding label (${mailId})`)
+			setMails(mailsBackup)
+		})
 	}
 
 	function onChangeMailStatus(mailId, status) {
 		const mailsBackup = structuredClone(mails)
-		const mailToUpdate = mails.find(mail => mail.id === mailId)
+		const mailToUpdate = mails.find((mail) => mail.id === mailId)
 
 		if (status === 'starred') mailToUpdate.isStarred = !mailToUpdate.isStarred
-		else if (status === 'important') mailToUpdate.isImportant = !mailToUpdate.isImportant
+		else if (status === 'important')
+			mailToUpdate.isImportant = !mailToUpdate.isImportant
 		else if (status === 'read') {
 			mailToUpdate.isRead = !mailToUpdate.isRead
 			emitUnreadCount()
 		}
-		
-		setMails(mails => [...mails])
 
-		mailService.save(mailToUpdate)
-			.catch((err) => {
-				console.log('Err: ', err)
-				showErrorMsg(`Problems adding mail to folder (${mailId})`)
-				setMails(mailsBackup)
-			})
+		setMails((mails) => [...mails])
+
+		mailService.save(mailToUpdate).catch((err) => {
+			console.log('Err: ', err)
+			showErrorMsg(`Problems adding mail to folder (${mailId})`)
+			setMails(mailsBackup)
+		})
 	}
 
 	function onLoadDraft(mailId) {
 		return loadDraft(mailId)
 	}
-	
+
 	if (!mails) return <Loader />
+
+	const dashboardProps = {
+		loggedUser: mailService.loggedinUser,
+		loc,
+		searchPrms,
+		mails,
+		filterBy,
+		onContextMenu,
+		onChangeMailStatus,
+		onRemoveMail,
+		onLoadDraft,
+		onSetIsHover,
+		hoveredMailId,
+	}
+	
 	return (
 		<React.Fragment>
 			<section className="mail-container" onClick={closeContextMenu}>
-				<ActionsAndTabs/>
-
-				<MailList
-					mails={mails}
-					filterBy={filterBy}
-					loggedUser={mailService.loggedinUser}
-					onContextMenu={onContextMenu}
-					onChangeMailStatus={onChangeMailStatus}
+				<MailContext.Provider value={dashboardProps}>
+					<Outlet/>
+				</MailContext.Provider>
+			</section>
+			{isContextMenu && (
+				<MailContextMenu
+					cursorPos={cursorPos}
+					selectedMail={selectedMail}
+					onLabelAs={onLabelAs}
 					onRemoveMail={onRemoveMail}
-					onLoadDraft={onLoadDraft}
-
-					onSetIsHover={onSetIsHover}
-					hoveredMailId={hoveredMailId}
 				/>
-			</section>
-				{isContextMenu && (
-					<MailContextMenu
-						cursorPos={cursorPos}
-						selectedMail={selectedMail}
-						onLabelAs={onLabelAs}
-						onRemoveMail={onRemoveMail}
-					/>
-				)}
-		</React.Fragment>
-	)
-}
-
-function ActionsAndTabs() {
-	const [searchPrms] = useSearchParams()
-	return (
-		<React.Fragment>
-			<section className="actions-pagination">
-				<section className="select-options flex">
-					<button>
-						<span className="material-symbols-outlined">
-							check_box_outline_blank
-						</span>
-					</button>
-					<button>
-						<span className="material-symbols-outlined">
-							keyboard_arrow_down
-						</span>
-					</button>
-
-					<button>
-						<span className="material-symbols-outlined">refresh</span>
-					</button>
-
-					<button>
-						<span className="material-symbols-outlined">more_vert</span>
-					</button>
-				</section>
-
-				<section className="info-pagination flex">
-					<div className="shown-mails">1-50 of 2,000</div>
-					<button>
-						<span className="material-symbols-outlined">chevron_left</span>
-					</button>
-					<button>
-						<span className="material-symbols-outlined">chevron_right</span>
-					</button>
-				</section>
-			</section>
-
-			{searchPrms.get('status') === 'inbox' && <FilterByTabs />}
+			)}
 		</React.Fragment>
 	)
 }

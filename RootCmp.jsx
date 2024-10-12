@@ -12,6 +12,7 @@ import { MailDetails } from "./apps/mail/cmps/MailDetails.jsx"
 
 import { NoteIndex } from "./apps/note/pages/NoteIndex.jsx"
 import { UserMsg } from "./cmps/UserMsg.jsx"
+import { NoteEditModal } from "./apps/note/cmps/NoteEditModal.jsx"
 
 
 export function App() {
@@ -29,7 +30,7 @@ export function App() {
                     <Route path="" element={<Navigate to="/mail/inbox" replace />} />
                 </Route>
                 <Route path="/note" element={<NoteIndex />} >
-                    <Route path="/note/labels" element={<NoteIndex />}/>
+                    <Route path="/note/edit/:noteId" element={<NoteEditModal />} />
                 </Route>
                 <Route path="/*" element={<NotFound />} />
             </Routes>

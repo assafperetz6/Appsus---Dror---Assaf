@@ -287,3 +287,7 @@ button.unchecked::before{
 .no-color::before{
     content: 'format_color_reset';
 }
+
+.edit::before{
+    content: 'edit';
+}

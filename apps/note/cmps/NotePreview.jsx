@@ -1,4 +1,5 @@
 const { useState } = React
+const { Link } = ReactRouterDOM
 
 import { ColorPicker } from "./ColorPicker.jsx"
 
@@ -12,15 +13,14 @@ export function NotePreview({ note, onRemoveNote, onSetStyle, onToggleTodo, onDu
 
     return (
         <li style={style} className="note-preview">
-            <section>
-                <h2 className="note-title">{note.title}</h2>
-                <DynamicNote note={note} info={info} onToggleTodo={onToggleTodo} />
-            </section>
+            <h2 className="note-title">{note.title}</h2>
+            <DynamicNote note={note} info={info} onToggleTodo={onToggleTodo} />
             <section className="actions">
                 <button className="delete" onClick={() => onRemoveNote(note.id)} title="Delete note" ></button>
                 <button onClick={() => setOpenMenu(prevOpen => !prevOpen)} className="palette" title="Change background color"></button>
                 {openMenu && <ColorPicker onSetStyle={onSetStyle} noteId={note.id} pickedColor={style.backgroundColor} />}
                 <button onClick={() => onDuplicateNote(note.id)} className="duplicate" title="Duplicate note"></button>
+                <Link to={`/note/edit/${note.id}`}><button className="edit"></button></Link>
             </section>
             <button className={`pin-btn ${note.pinnedAt && 'pinned'}`} onClick={() => onTogglePinned(note.id)}></button>
         </li>

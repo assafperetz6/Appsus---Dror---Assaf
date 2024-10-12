@@ -104,6 +104,7 @@ function _createMail(sender, subject = 250) {
 
 function getFilterFromSearchParams(searchParams) {
 	const status = searchParams.get('status') || ''
+	const compose = searchParams.get('compose') || ''
 	const txt = searchParams.get('txt') || ''
 	const isRead = searchParams.get('isRead') || ''
 	const isStarred = searchParams.get('isStarred') || ''
@@ -115,6 +116,7 @@ function getFilterFromSearchParams(searchParams) {
 		isRead,
 		isStarred,
 		label,
+		compose
 	}
 }
 

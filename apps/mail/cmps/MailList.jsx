@@ -7,6 +7,7 @@ export function MailList({
 	onContextMenu,
 	onChangeMailStatus,
 	onRemoveMail,
+	onLoadDraft,
 	onSetIsHover,
 	hoveredMailId
 }) {
@@ -73,6 +74,7 @@ export function MailList({
 							onContextMenu={onContextMenu}
 							onChangeMailStatus={onChangeMailStatus}
 							onRemoveMail={onRemoveMail}
+							onLoadDraft={onLoadDraft}
 							key={mail.id}
 						/>
 					))}

@@ -1,13 +1,8 @@
-export function MailPreview({
-	mail,
-	onSetIsHover,
-	hoveredMailId,
-	currFolder,
-	currLabel,
-	onContextMenu,
-	onChangeMailStatus,
-	onRemoveMail,
-}) {
+const { useNavigate } = ReactRouterDOM
+
+export function MailPreview({ mail, onSetIsHover, hoveredMailId, currFolder, currLabel, onContextMenu, onChangeMailStatus, onRemoveMail, onLoadDraft }) {
+	const navigate = useNavigate()
+
 	function getSentTime(timeStamp) {		
 		if ((Date.now() - timeStamp) < (1000 * 60 * 60 * 24)) {
 			var hours = new Date(timeStamp).getHours()
@@ -38,10 +33,16 @@ export function MailPreview({
 		})
 	}
 
+	function onShowDetails() {
+		if (!mail.sentAt) onLoadDraft(mail)
+		// navigate(`/mail/${mail.id}`)
+	}
+
 	return (
 		<tr
 			className={`mail-preview ${mail.isRead ? 'read' : ''}`}
 			data-id={mail.id}
+			onClick={onShowDetails}
 			onContextMenu={onContextMenu}
 			onMouseOver={(ev) => onSetIsHover(true, ev.currentTarget.dataset.id)}
 			onMouseOut={() => onSetIsHover(false)}

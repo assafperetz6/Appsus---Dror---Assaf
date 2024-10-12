@@ -12,13 +12,16 @@ export function MailMenu(props) {
 	const clearAutoSave = useRef(null)
 	const isFirstRender = useRef(true)
 	const {searchPrms, setSearchPrms} = props
-
-  useEffect(() => {
-    mailService.getInitUnreadCount().then(setUnreadMailsCount)
+	
+	useEffect(() => {
+		mailService.getInitUnreadCount().then(setUnreadMailsCount)
 		const unsubscribe = eventBusService.on('unreadCount', setUnreadMailsCount)
+		
+		const unsubscribe2 = eventBusService.on('mailToCompose', setMailToCompose)
 		
 		return () => {
 			unsubscribe()
+			unsubscribe2()
 		}
 	}, [])
 
@@ -139,10 +142,10 @@ export function MailMenu(props) {
 				<ComposeForm
 					onMinimizeCompose={onMinimizeCompose}
 					isMinimized={isMinimized}
-          mailToCompose={mailToCompose}
+          			mailToCompose={mailToCompose}
 					onSetMailToCompose={onSetMailToCompose}
 					sendMail={sendMail}
-          onCloseComposeWindow={onCloseComposeWindow}
+          			onCloseComposeWindow={onCloseComposeWindow}
 				/>
 			)}
 		</React.Fragment>

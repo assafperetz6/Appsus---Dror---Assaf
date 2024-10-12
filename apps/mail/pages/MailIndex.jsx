@@ -1,9 +1,9 @@
 const { useState, useEffect } = React
-const { useSearchParams } = ReactRouterDOM
+const { useSearchParams, Outlet } = ReactRouterDOM
 
 import { mailService } from '../services/mail.service.js'
 import { utilService } from '../../../services/util.service.js'
-import { showSuccessMsg, showErrorMsg, updateUnreadCount } from '../../../services/event-bus.service.js'
+import { showSuccessMsg, showErrorMsg, updateUnreadCount, loadDraft, eventBusService } from '../../../services/event-bus.service.js'
 
 import { Loader } from '../../../cmps/Loader.jsx'
 import { FilterByTabs } from '../../../cmps/FilterByTabs.jsx'
@@ -18,15 +18,15 @@ export function MailIndex() {
 	const [hoveredMailId, setHoveredMailId] = useState(null)
 	const [selectedMail, setSelectedMail] = useState(null)
 
-	const [searchPrms, setSearchPrms] = useSearchParams()
+	const [searchPrms, setSearchPrms] = useSearchParams({ status: 'inbox'})
 	const [filterBy, setFilterBy] = useState(mailService.getFilterFromSearchParams(searchPrms))
 
 
 	useEffect(() => {
 		loadMails(filterBy)
-		// setSearchPrms(utilService.getTruthyValues(filterBy))
+		setSearchPrms(utilService.getTruthyValues(filterBy))
 
-	}, [filterBy])
+	}, [])
 
 	useEffect(() => {
 		const newFilter = mailService.getFilterFromSearchParams(searchPrms)
@@ -148,45 +148,16 @@ export function MailIndex() {
 				setMails(mailsBackup)
 			})
 	}
+
+	function onLoadDraft(mailId) {
+		return loadDraft(mailId)
+	}
 	
 	if (!mails) return <Loader />
 	return (
 		<React.Fragment>
 			<section className="mail-container" onClick={closeContextMenu}>
-				<section className="actions-pagination">
-					<section className="select-options flex">
-						<button>
-							<span className="material-symbols-outlined">
-								check_box_outline_blank
-							</span>
-						</button>
-						<button>
-							<span className="material-symbols-outlined">
-								keyboard_arrow_down
-							</span>
-						</button>
-
-						<button>
-							<span className="material-symbols-outlined">refresh</span>
-						</button>
-
-						<button>
-							<span className="material-symbols-outlined">more_vert</span>
-						</button>
-					</section>
-
-					<section className="info-pagination flex">
-						<div className="shown-mails">1-50 of 2,000</div>
-						<button>
-							<span className="material-symbols-outlined">chevron_left</span>
-						</button>
-						<button>
-							<span className="material-symbols-outlined">chevron_right</span>
-						</button>
-					</section>
-				</section>
-
-				{searchPrms.get('status') === 'inbox' && <FilterByTabs />}
+				<ActionsAndTabs/>
 
 				<MailList
 					mails={mails}
@@ -195,10 +166,12 @@ export function MailIndex() {
 					onContextMenu={onContextMenu}
 					onChangeMailStatus={onChangeMailStatus}
 					onRemoveMail={onRemoveMail}
+					onLoadDraft={onLoadDraft}
 
 					onSetIsHover={onSetIsHover}
 					hoveredMailId={hoveredMailId}
 				/>
+			</section>
 				{isContextMenu && (
 					<MailContextMenu
 						cursorPos={cursorPos}
@@ -207,7 +180,48 @@ export function MailIndex() {
 						onRemoveMail={onRemoveMail}
 					/>
 				)}
+		</React.Fragment>
+	)
+}
+
+function ActionsAndTabs() {
+	const [searchPrms] = useSearchParams()
+	return (
+		<React.Fragment>
+			<section className="actions-pagination">
+				<section className="select-options flex">
+					<button>
+						<span className="material-symbols-outlined">
+							check_box_outline_blank
+						</span>
+					</button>
+					<button>
+						<span className="material-symbols-outlined">
+							keyboard_arrow_down
+						</span>
+					</button>
+
+					<button>
+						<span className="material-symbols-outlined">refresh</span>
+					</button>
+
+					<button>
+						<span className="material-symbols-outlined">more_vert</span>
+					</button>
+				</section>
+
+				<section className="info-pagination flex">
+					<div className="shown-mails">1-50 of 2,000</div>
+					<button>
+						<span className="material-symbols-outlined">chevron_left</span>
+					</button>
+					<button>
+						<span className="material-symbols-outlined">chevron_right</span>
+					</button>
+				</section>
 			</section>
+
+			{searchPrms.get('status') === 'inbox' && <FilterByTabs />}
 		</React.Fragment>
 	)
 }

@@ -1,13 +1,24 @@
 .note-preview{
-    border: 1px solid var(--grey-2);
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    border: 1px solid #5f6368;
+    border-radius: 8px;
     padding: 10px;
+}
+
+.note-preview:hover{
+    box-shadow: 0px 2px 5px 1px #101010;
 }
 
 .note-preview p{
     margin-block: 12px;
 }
 
-.note-preview:hover .actions{
+.note-preview:hover .actions, .note-preview:hover .pin-btn{
     opacity: 100;
 }
 
@@ -64,6 +75,42 @@
     padding: 0;
 }
 
+.todos-note li{
+    display: flex;
+    align-items: center;
+}
+
+.todos-note button:hover, .todos-note li:hover{
+    cursor: pointer;
+}
+
+.todos-note button:hover{
+    background-color: rgba(255, 255, 255, 0);
+}
+
+.todos-note li.checked{
+    text-decoration: line-through;
+}
+
 .todo{
     display: flex;
+}
+
+button.pin-btn{
+    position: absolute;
+    top: -10px;
+    right: -10px;
+
+    background-color: rgb(68, 68, 68);
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+
+    opacity: 0;
+    transition: opacity .25s;
+    cursor: pointer;
+}
+
+button.pin-btn.pinned{
+    opacity: 100;
 }

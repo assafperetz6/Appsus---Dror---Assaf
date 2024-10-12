@@ -1,5 +1,5 @@
-import { showErrorMsg } from "../../../services/event-bus.service.js"
-import { utilService } from "../../../services/util.service.js"
+import { Loader } from "../../../cmps/Loader.jsx"
+import { showErrorMsg, showSuccessMsg } from "../../../services/event-bus.service.js"
 import { NoteEdit } from "../cmps/NoteEdit.jsx"
 import { NoteList } from "../cmps/NoteList.jsx"
 import { noteService } from "../services/note.service.js"
@@ -42,19 +42,38 @@ export function NoteIndex() {
             })
     }
 
-    function onToggleTodo(ts, idx, noteId, ){
+    function onToggleTodo(noteId, idx){
         const notesBackup = structuredClone(notes)
-        const todoToUpdate = notes.find(note => note.id === noteId).info.todos[idx]
-        if(todoToUpdate.doneAt) todoToUpdate.doneAt = null
-        else todoToUpdate.doneAt = ts
+        const noteToUpdate = notes.find(note => note.id === noteId)
+        const todoToUpdate = noteToUpdate.info.todos[idx]
+        todoToUpdate.doneAt = todoToUpdate.doneAt ? null : Date.now()
         setNotes(notes => [...notes])
+        noteService.save(noteToUpdate)
+         .catch(err => {
+             console.log(err)
+             showErrorMsg(`Problem editing note, ID:${noteId}`)
+             setNotes(notesBackup)
+         })    
     }
 
-    function onSetStyle(noteId, value, property){
+    function onTogglePinned(noteId){
+        const noteToUpdate = notes.find(note => note.id === noteId)
+        noteToUpdate.pinnedAt = noteToUpdate.pinnedAt ? null : Date.now()
+        notes.sort((a, b) => (a.createdAt < b.createdAt) ? 1 : (b.createdAt < a.createdAt) ? -1 : 0)
+        notes.sort((a, b) => (a.pinnedAt < b.pinnedAt) ? 1 : (b.pinnedAt < a.pinnedAt) ? -1 : 0)
+        setNotes([...notes])
+        noteService.save(noteToUpdate)
+            .catch(err => {
+                console.log(err)
+                showErrorMsg(`Problem pinning note, ID:${noteId}`)
+            })    
+    }
+
+    function onSetStyle(noteId, value){
         const notesBackup = structuredClone(notes)
 
         const noteToUpdate = notes.find(note => note.id === noteId)
-        noteToUpdate.style ={...noteToUpdate.style, [property]: value}
+        noteToUpdate.style ={...noteToUpdate.style, backgroundColor: value}
         setNotes(notes => [...notes])
         
         noteService.save(noteToUpdate)
@@ -63,7 +82,23 @@ export function NoteIndex() {
                 showErrorMsg(`Problem editing note, ID:${noteId}`)
                 setNotes(notesBackup)
             })
-}
+    }
+
+    function onDuplicateNote(noteId){
+        const noteToDuplicate = structuredClone(notes.find(note => note.id === noteId))
+
+        noteToDuplicate.id = ''
+        noteToDuplicate.createdAt = Date.now()
+        noteService.save(noteToDuplicate)
+            .then(updatedNote => {
+                setNotes(prevNotes => [updatedNote, ...prevNotes])
+                showSuccessMsg('Note duplicated succesfully')
+            })
+            .catch(err => {
+                console.log(err)
+                showErrorMsg(`Problem duplicating note`)
+            })
+    }
 
     function saveNote(note){
         noteService.save(note)
@@ -76,7 +111,7 @@ export function NoteIndex() {
             })
     }
 
-    if(!notes) return <h1>Loading...</h1>
+    if(!notes) return <Loader />
     return (
         <section className="note-index">
             <NoteEdit saveNote={saveNote} />
@@ -84,7 +119,9 @@ export function NoteIndex() {
                 onToggleTodo={onToggleTodo} 
                 onSetStyle={onSetStyle} 
                 notes={notes} 
-                onRemoveNote={onRemoveNote} 
+                onRemoveNote={onRemoveNote}
+                onDuplicateNote={onDuplicateNote}
+                onTogglePinned={onTogglePinned}
             />
         </section>
     )

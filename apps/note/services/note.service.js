@@ -22,6 +22,8 @@ function query(filterBy = {}) {
 		if(filterBy.status){
 			notes = notes.filter(note => note.type === _getTypeFromStatus(filterBy.status))
 		}
+        notes.sort((a, b) => (a.createdAt < b.createdAt) ? 1 : (b.createdAt < a.createdAt) ? -1 : 0)
+        notes.sort((a, b) => (a.pinnedAt < b.pinnedAt) ? 1 : (b.pinnedAt < a.pinnedAt) ? -1 : 0)
 		return notes
 	})
 }
@@ -49,7 +51,7 @@ function getEmptyNote() {
 			title: '', 
 			info: {}, 
 			style: {},
-			isPinned: false,
+			pinnedAt: false,
 			type: 'NoteTxt',
 		}
 }

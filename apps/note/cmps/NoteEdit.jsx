@@ -1,12 +1,27 @@
 import { showErrorMsg } from "../../../services/event-bus.service.js"
 import { noteService } from "../services/note.service.js"
 
-const { useState } = React
+const { useState, useEffect, useRef } = React
 
 export function NoteEdit({ saveNote }){
 
     const [note, setNote] = useState(noteService.getEmptyNote)
-
+    const [isOpen, setIsopen] = useState(false)
+    const textAreaRef = useRef()
+    const inputRef = useRef()
+    
+    useEffect(() => {
+        addEventListener('keydown', onEscapeKey)
+        
+        return (() => {
+            removeEventListener('keydown', onEscapeKey)
+        })
+    }, [])
+    
+    function onEscapeKey(ev){
+        if(ev.key === 'Escape') setIsopen(false)
+    }
+    
     function onSaveNote(ev){
         ev.preventDefault()
         if(!note.info.txt && !note.title) {
@@ -47,11 +62,17 @@ export function NoteEdit({ saveNote }){
         target.style.height = "1px";
         target.style.height = (target.scrollHeight)+"px"
     }
+    
+    function onInputBlur(ev){
+        if (ev.relatedTarget === textAreaRef.current || ev.relatedTarget === inputRef.current) return
+        setIsopen(false)
+    }
+        
     const  { title, info } = note
-
     return (
-        <form onSubmit={onSaveNote} className="note-add">
+        <form onSubmit={onSaveNote} className="note-add" onFocus={() => setIsopen(true)} onBlur={onInputBlur}>
             <input
+                ref={inputRef}
                 value={title}
                 className="add-input" 
                 type="text"
@@ -61,14 +82,15 @@ export function NoteEdit({ saveNote }){
                 onChange={handleChange}
                 autoComplete="off"
              />
-            <textarea className="add-input-text" 
+            { isOpen && <textarea className="add-input-text" 
+                ref={textAreaRef}
                 onChange={handleChange}
                 value={info.text}
                 name="info.txt" 
                 id="txt" 
                 onKeyUp={resizeTextArea}
                 placeholder="Take a note...">
-            </textarea>
+            </textarea>}
             <button>Save</button>
         </form>
     )

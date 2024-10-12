@@ -1,6 +1,10 @@
+const { useState } = React
 
+import { ColorPicker } from "./ColorPicker.jsx"
 
-export function NotePreview({ note, onRemoveNote, onSetStyle, onToggleTodo }){
+export function NotePreview({ note, onRemoveNote, onSetStyle, onToggleTodo, onDuplicateNote, onTogglePinned }){
+
+    const [openMenu, setOpenMenu] = useState(null)
 
     const { style, info } = note
     let fontSize = parseInt(style.fontSize)
@@ -8,16 +12,17 @@ export function NotePreview({ note, onRemoveNote, onSetStyle, onToggleTodo }){
 
     return (
         <li style={style} className="note-preview">
-            <h2 className="note-title">{note.title}</h2>
-            <DynamicNote note={note} info={info} onToggleTodo={onToggleTodo} />
-            <section className="actions">
-                <button className="delete" onClick={() => onRemoveNote(note.id)}></button>
-                <button className="palette">
-                    <input onChange={(ev) => onSetStyle(note.id, ev.target.value, 'backgroundColor')} type="color" />
-                </button>
-                <button onClick={() => onSetStyle(note.id, fontSize + 2 + 'px', 'fontSize')} className="font-size-up"></button>
-                <button onClick={() => onSetStyle(note.id, fontSize - 2 + 'px', 'fontSize')} className="font-size-down"></button>
+            <section>
+                <h2 className="note-title">{note.title}</h2>
+                <DynamicNote note={note} info={info} onToggleTodo={onToggleTodo} />
             </section>
+            <section className="actions">
+                <button className="delete" onClick={() => onRemoveNote(note.id)} title="Delete note" ></button>
+                <button onClick={() => setOpenMenu(prevOpen => !prevOpen)} className="palette" title="Change background color"></button>
+                {openMenu && <ColorPicker onSetStyle={onSetStyle} noteId={note.id} pickedColor={style.backgroundColor} />}
+                <button onClick={() => onDuplicateNote(note.id)} className="duplicate" title="Duplicate note"></button>
+            </section>
+            <button className={`pin-btn ${note.pinnedAt && 'pinned'}`} onClick={() => onTogglePinned(note.id)}></button>
         </li>
     )
 }
@@ -53,8 +58,8 @@ function NoteTodos({ note, info, onToggleTodo }){
         <ul className="todos-note">
             {info.todos.map((todo, idx) =>
                 <section key={idx} className="todo">
-                    <input type="checkbox" checked={todo.doneAt} onChange={() => onToggleTodo(Date.now(), idx, note.id)} /> 
-                    <li>{todo.txt}</li>
+                    <button className={todo.doneAt ? 'checked' : 'unchecked'} onClick={() => onToggleTodo(note.id, idx)}></button>
+                    <li className={todo.doneAt ? 'checked' : 'unchecked'} onClick={() => onToggleTodo(note.id, idx)}>{todo.txt}</li>
                 </section>
             )}
         </ul>

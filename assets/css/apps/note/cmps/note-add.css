@@ -34,3 +34,8 @@
     outline: none;
 }
 
+.add-input::placeholder, .add-input-text::placeholder{
+    font-weight: bold;
+    font-family: product-sans;
+    color: #bdbdbe;
+}

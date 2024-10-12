@@ -233,6 +233,14 @@
 }
 
 .todos::before{
+    content: 'checkList';
+}
+
+.duplicate::before{
+    content: 'content_copy';
+}
+
+button.checked::before{
     content: 'check_box';
 }
 
@@ -262,4 +270,20 @@
     content: 'reply';
     -webkit-transform: scaleX(-1);
     transform: scaleX(-1);
+}
+
+button.unchecked::before{
+    content: 'check_box_outline_blank';
+}
+
+.pin-btn::before{
+    content: url(/assets/img/icons/unpinned.svg);
+}
+
+.pin-btn.pinned::before{
+    content: url(/assets/img/icons/pinned.svg);
+}
+
+.no-color::before{
+    content: 'format_color_reset';
 }

@@ -1,50 +1,54 @@
+const { Link } = ReactRouterDOM
+
 import { MailPreview } from './MailPreview.jsx'
 
 export function MailList({
+	loc,
 	mails,
 	filterBy,
 	loggedUser,
 	onContextMenu,
 	onChangeMailStatus,
 	onRemoveMail,
+	onLoadDraft,
 	onSetIsHover,
 	hoveredMailId
 }) {
 	let mailsToShow = mails.sort((m1, m2) => (m1.sentAt - m2.sentAt) * -1)
 
 	window.mails = mailsToShow
-
-	if (filterBy.status === 'trash')
+	
+	if (loc.pathname === '/mail/trash')
 		mailsToShow = mailsToShow.filter((mail) => mail.removedAt)
 
 	else mailsToShow = mailsToShow.filter((mail) => !mail.removedAt)
 
-	switch (filterBy.status) {
-		case 'inbox':
+	switch (loc.pathname) {
+		case '/mail/inbox':
 			mailsToShow = mailsToShow.filter((mail) => mail.from !== loggedUser.mail)
 			break;
 	
-		case 'starred':
+		case '/mail/starred':
 			mailsToShow = mailsToShow.filter((mail) => mail.isStarred)
 			break;
 
-		case 'snoozed':
+		case '/mail/snoozed':
 			mailsToShow = mailsToShow.filter((mail) => mail.isSnoozed)
 			break;
 	
-		case 'important':
+		case '/mail/important':
 			mailsToShow = mailsToShow.filter((mail) => mail.isImportant)
 			break;
 	
-		case 'sent':
+		case '/mail/sent':
 			mailsToShow = mailsToShow.filter((mail) => mail.from === loggedUser.mail)
 			break;
 	
-		case 'drafts':
+		case '/mail/drafts':
 			mailsToShow = mailsToShow.filter((mail) => !mail.sentAt).sort((m1, m2) => (m1.createdAt - m2.createdAt) * -1)
 			break;
 	
-		case 'labels':
+		case '/mail/labels':
 			mailsToShow = mailsToShow.filter((mail) =>
 							mail.labels.some((label) => filterBy.label.includes(label)))
 			break;
@@ -67,12 +71,12 @@ export function MailList({
 							mail={mail}
 							onSetIsHover={onSetIsHover}
 							hoveredMailId={hoveredMailId}
-
-							currFolder={filterBy.status}
+							currFolder={loc.pathname}
 							currLabel={filterBy.label}
 							onContextMenu={onContextMenu}
 							onChangeMailStatus={onChangeMailStatus}
 							onRemoveMail={onRemoveMail}
+							onLoadDraft={onLoadDraft}
 							key={mail.id}
 						/>
 					))}

@@ -1,13 +1,8 @@
-export function MailPreview({
-	mail,
-	onSetIsHover,
-	hoveredMailId,
-	currFolder,
-	currLabel,
-	onContextMenu,
-	onChangeMailStatus,
-	onRemoveMail,
-}) {
+const { useNavigate } = ReactRouterDOM
+
+export function MailPreview({ mail, onSetIsHover, hoveredMailId, currFolder, currLabel, onContextMenu, onChangeMailStatus, onRemoveMail, onLoadDraft }) {
+	const navigate = useNavigate()
+
 	function getSentTime(timeStamp) {		
 		if ((Date.now() - timeStamp) < (1000 * 60 * 60 * 24)) {
 			var hours = new Date(timeStamp).getHours()
@@ -24,7 +19,7 @@ export function MailPreview({
 		return date.toLocaleDateString('en-US', options)
 	}
 
-	function setLabelsToShow(labels) {
+	function setLabelsToShow(labels) {		
 		let labelsToShow = [...labels]
 
 		if (currFolder !== 'inbox') labelsToShow.unshift('inbox')
@@ -38,23 +33,30 @@ export function MailPreview({
 		})
 	}
 
+	function onShowDetails() {
+		if (!mail.sentAt) onLoadDraft(mail)
+		else navigate(`/mail/details/${mail.id}`)
+	}
+
 	return (
 		<tr
 			className={`mail-preview ${mail.isRead ? 'read' : ''}`}
 			data-id={mail.id}
+			onClick={onShowDetails}
 			onContextMenu={onContextMenu}
 			onMouseOver={(ev) => onSetIsHover(true, ev.currentTarget.dataset.id)}
 			onMouseOut={() => onSetIsHover(false)}
 		>
+
 			<td className="mail-actions">
 				<button className="check-box"></button>
 				<button
 					className={`starred ${mail.isStarred ? 'marked' : ''}`}
-					onClick={() => onChangeMailStatus(mail.id, 'starred')}
+					onClick={(ev) => onChangeMailStatus(ev, mail.id, 'starred')}
 				></button>
 				<button
 					className={`important ${mail.isImportant ? 'marked' : ''}`}
-					onClick={() => onChangeMailStatus(mail.id, 'important')}
+					onClick={(ev) => onChangeMailStatus(ev, mail.id, 'important')}
 				></button>
 			</td>
 			<td className="from"><span>{mail.from}</span></td>
@@ -66,10 +68,10 @@ export function MailPreview({
 
 			{hoveredMailId === mail.id ? (
 				<td className="mail-actions">
-					<button className="trash" onClick={() => onRemoveMail(mail.id)}></button>
+					<button className="trash" onClick={(ev) => onRemoveMail(ev, mail.id)}></button>
 					<button
 						className={`${mail.isRead ? 'mail-read' : 'mail-unread'}`}
-						onClick={() => onChangeMailStatus(mail.id, 'read')}
+						onClick={(ev) => onChangeMailStatus(ev, mail.id, 'read')}
 					></button>
 				</td>
 			) : (

@@ -1,0 +1,162 @@
+.details-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+
+    button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        height: 40px;
+        width: 40px;
+
+        color: #5E5E5E;
+    }
+}
+
+.actions-pagintation {
+    display: flex;
+    justify-content: space-between;
+
+    margin-block-start: -8px;
+}
+
+.details-actions {
+    display: flex;
+    align-items: baseline;
+    height: 48px;
+
+    > div {
+        display: flex;
+        align-items: center;
+
+        height: 20px;
+        width: 140px;
+        margin-inline-end: 20px;
+    }
+
+    div:first-of-type {
+        border-inline-end: 1px solid var(--light-grey);
+    }
+
+    .go-back {
+        margin-inline: 6px 16px;
+    }
+}
+
+.details-header {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    
+    width: 100%;
+
+    padding-block-start: 8px;
+
+    .important {
+        padding-block: 10px;
+        align-self: flex-end;
+    }
+}
+
+h2.subject {
+    display: flex;
+    align-items: center;
+    height: 28px;
+
+    padding-inline-start:72px;
+
+    font-size: 22px;
+    font-weight: 400;
+}
+
+.mail-info {
+    display: flex;
+
+    height: inherit;
+
+    .sent-at {
+        display: flex;
+        justify-content: end;
+        width: 100%;
+        font-size: 12px;
+    }
+
+    h3 {
+        font-size: 16px;
+        font-weight: 600;
+    }
+}
+
+.img-container {
+    justify-self: center;
+
+    display: flex;
+    justify-content: center;
+
+    height: 100%;
+    width: 72px;
+    padding-block-start: 20px;
+
+    .profile-pic {
+        height: 40px;
+        width: 40px;
+    
+        border-radius: 50%;
+    
+        background-color: #cccccc;
+    }
+}
+
+.mail-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: 20px 20px max-content 72px;
+
+    height: 100%;
+    width: 100%;
+
+    padding-block-start: 20px;
+
+    > tr {
+        display: flex;
+        grid-column: 1 / -1;
+        align-items: center;
+    }
+
+    > tr > td {
+        display: flex;
+    }
+
+    h6 {
+        font-size: 12px;
+        font-weight: 200;
+        color: #5d5d5d;
+    }
+
+    .mail-body {
+        height: fit-content;
+
+        padding-block: 20px;
+        padding-inline-end: 16px;
+
+        text-wrap: pretty;
+    }
+}
+
+.reply-actions {
+    display: flex;
+    align-items: center;
+
+    button {
+        height: 36px;
+        width: 104px;
+
+        border: 1px solid #747775;
+        border-radius: 18px;
+    }
+    button, button::before {
+        margin-inline-end: 8px;
+    }
+}

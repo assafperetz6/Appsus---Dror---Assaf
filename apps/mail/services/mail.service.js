@@ -103,18 +103,18 @@ function _createMail(sender, subject = 250) {
 }
 
 function getFilterFromSearchParams(searchParams) {
-	const status = searchParams.get('status') || ''
+	const compose = searchParams.get('compose') || ''
 	const txt = searchParams.get('txt') || ''
 	const isRead = searchParams.get('isRead') || ''
 	const isStarred = searchParams.get('isStarred') || ''
 	const label = searchParams.get('label') || []
 
 	return {
-		status,
 		txt,
 		isRead,
 		isStarred,
 		label,
+		compose
 	}
 }
 

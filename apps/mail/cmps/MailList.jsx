@@ -20,10 +20,17 @@ export function MailList({
 	
 	if (loc.pathname === '/mail/trash')
 		mailsToShow = mailsToShow.filter((mail) => mail.removedAt)
-
 	else mailsToShow = mailsToShow.filter((mail) => !mail.removedAt)
 
+	if (loc.pathname !== '/mail/labels') mailsToShow = mailsToShow.filter(mail => !mail.labels.includes('spam'))
+
 	switch (loc.pathname) {
+
+		case '/mail/labels':
+			mailsToShow = mailsToShow.filter((mail) =>
+							mail.labels.some((label) => filterBy.label.includes(label)))
+			break;
+
 		case '/mail/inbox':
 			mailsToShow = mailsToShow.filter((mail) => mail.from !== loggedUser.mail)
 			break;
@@ -47,13 +54,8 @@ export function MailList({
 		case '/mail/drafts':
 			mailsToShow = mailsToShow.filter((mail) => !mail.sentAt).sort((m1, m2) => (m1.createdAt - m2.createdAt) * -1)
 			break;
-	
-		case '/mail/labels':
-			mailsToShow = mailsToShow.filter((mail) =>
-							mail.labels.some((label) => filterBy.label.includes(label)))
-			break;
 	}
-
+	
 	if (!mailsToShow.length) {
 		return (
 			<div className="flex justify-center">

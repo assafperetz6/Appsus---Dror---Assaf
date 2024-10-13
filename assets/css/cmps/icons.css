@@ -12,7 +12,6 @@
 
 .mail-list tr:hover *::before {
     --mail-list-btns: rgb(66 68 67);
-    --marked-list-btns: #eaac07;
 }
 
 .trash::before {
@@ -110,7 +109,7 @@
     content: 'check_box_outline_blank';
 }
 
-/* NEW MAIL ICONS */
+/* COMPOSE MAIL ICONS */
 
 .minimize::before {
     content: 'minimize';
@@ -245,6 +244,14 @@ button.checked::before{
 }
 
 /* MAIL DETAILS ICONS */
+
+.prev-mail::before {
+    content: 'chevron_left';
+}
+
+.next-mail::before {
+    content: 'chevron_right';
+}
 
 .go-back::before {
     content: 'arrow_back';

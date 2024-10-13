@@ -33,16 +33,19 @@ export function MailPreview({ mail, onSetIsHover, hoveredMailId, currFolder, cur
 		})
 	}
 
-	function onShowDetails() {
+	function onShowDetails(ev) {
 		if (!mail.sentAt) onLoadDraft(mail)
-		else navigate(`/mail/details/${mail.id}`)
+		else {
+			onChangeMailStatus(ev, mail.id)
+			navigate(`/mail/details/${mail.id}`)
+		}
 	}
 
 	return (
 		<tr
 			className={`mail-preview ${mail.isRead ? 'read' : ''}`}
 			data-id={mail.id}
-			onClick={onShowDetails}
+			onClick={(ev) => onShowDetails(ev)}
 			onContextMenu={onContextMenu}
 			onMouseOver={(ev) => onSetIsHover(true, ev.currentTarget.dataset.id)}
 			onMouseOut={() => onSetIsHover(false)}

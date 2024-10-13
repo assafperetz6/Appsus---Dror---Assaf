@@ -25,8 +25,7 @@ export function MailIndex() {
 
 	
 	useEffect(() => {
-		loadMails(filterBy)
-		setSearchPrms(utilService.getTruthyValues(filterBy))
+		loadMails()
 
 		if (isFirstRender.current) {
 			isFirstRender.current = false
@@ -38,9 +37,21 @@ export function MailIndex() {
 	
 	useEffect(() => {
 		const newFilter = mailService.getFilterFromSearchParams(searchPrms)
-
+		
 		setFilterBy(newFilter)
+
 	}, [searchPrms])
+
+	useEffect(() => {
+		if (isFirstRender.current) {
+			isFirstRender.current = false
+		}
+		else {
+			loadMails(filterBy)
+			setSearchPrms(utilService.getTruthyValues(filterBy))
+		}
+
+	}, [filterBy])
 
 	useEffect(() => {
 		const unsubscribe = eventBusService.on('sentMail', loadMails)
@@ -48,9 +59,9 @@ export function MailIndex() {
 		return unsubscribe
 	}, [])
 
-	function loadMails() {
+	function loadMails(filterBy) {
 		mailService
-			.query()
+			.query(filterBy)
 			.then(setMails)
 			.catch((err) => console.log('error: ', err))
 	}

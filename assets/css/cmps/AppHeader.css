@@ -8,8 +8,9 @@ header {
 
 .app-header {
     grid-row: 1 / 2;
-    display: flex;
-    justify-content: space-between;
+
+    display: grid;
+    grid-template-columns: 256px 1fr max-content;
 
     padding: var(--padding);
 
@@ -71,12 +72,25 @@ button:hover {
     grid-template-columns: 46px 1fr 46px;
     align-items: center;
 
+
     height: 46px;
-    border-radius: 24px;
+    max-width: 720px;
+
+
+    border-radius: var(--main-search-border-radius);
+    margin-inline-end: 36px;
+
 
     background-color: var(--search-bar);
 
     input {
-        margin-inline: 20px;
+        height: 100%;
+        margin-inline: 0 20px;
+        
+        font-size: 1em;
+    }
+
+    input:focus-visible {
+        outline: none;
     }
 }

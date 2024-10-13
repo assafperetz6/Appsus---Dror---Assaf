@@ -22,15 +22,15 @@ export const mailService = {
 	debounce,
 }
 
-function query(filterBy = {}) {
+function query(filterBy = {}) {	
 	return storageService.query(MAIL_KEY).then((mails) => {
-		if (filterBy.sender) {
-			const regExp = new RegExp(filterBy.sender, 'i')
-			mails = mails.filter((mail) => regExp.test(mail.sender))
+		if (filterBy.txt) {
+			const regExp = new RegExp(filterBy.txt, 'i')
+			mails = mails.filter((mail) =>
+				regExp.test(mail.body) || regExp.test(mail.subject) || regExp.test(mail.from) || regExp.test(mail.to)
+			)
 		}
-		if (filterBy.subject) {
-			mails = mails.filter((mail) => mail.subject >= filterBy.subject)
-		}
+		
 		return mails
 	})
 }

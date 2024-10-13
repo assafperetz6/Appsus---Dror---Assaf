@@ -1,8 +1,7 @@
-export function Input({ type = 'text', value = '', onChange }) {
+export function Input({ type = 'text', onChange }) {
 	return (
 		<input
 			type={type}
-			value={value}
 			onChange={ev => onChange(ev.target.value)}
 		/>
 	)

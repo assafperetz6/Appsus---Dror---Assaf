@@ -57,6 +57,14 @@
     rotate: 90deg;
 }
 
+.search::before {
+    content: 'search'
+}
+
+.advanced-search::before {
+    content: 'tune'
+}
+
 /* MAIN MENU */
 
 .menu::before{

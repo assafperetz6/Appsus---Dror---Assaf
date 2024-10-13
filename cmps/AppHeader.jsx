@@ -13,9 +13,9 @@ export function AppHeader() {
 		mailService.getFilterFromSearchParams(searchPrms)
 	)
 
-	// useEffect(() => {
-
-	// }, [filterBy])
+	useEffect(() => {
+		setFilterBy(prev => ({ ...prev, ...searchPrms }))
+	}, [searchPrms])
 
 	return (
 		<header className="app-header full">
@@ -27,22 +27,17 @@ export function AppHeader() {
 			</section>
 
 			<div className="main-search-container">
-				<button>
-					<span className="material-symbols-outlined">search</span>
-				</button>
+				<button className="search"></button>
 
 				<Input
-					value={filterBy.txt}
 					onChange={(value) =>
-						setFilterBy((preFilter) => ({ ...preFilter, value }))
+						setSearchPrms({ txt: value})
 					}
 				/>
 
-				<button className="advanced-search">
-					<span className="material-symbols-outlined">tune</span>
-				</button>
+				{loc.pathname.startsWith('/mail') && <button className="advanced-search"></button>}
 			</div>
-			<nav className="flex align-center">
+			<nav className="main-nav flex align-center">
 				<NavLink to="/">Home</NavLink>
 				<NavLink to="/about">About</NavLink>
 				<NavLink to="/mail">Mail</NavLink>

@@ -1,4 +1,6 @@
 :root {
+    --main-search-border-radius: 24px;
+    
     --main-bg-color: #f6f8fc;
     --read-mail-bg: #f2f6fc;
     --search-bar: #e9f1fc;
@@ -23,6 +25,8 @@
 }
 
 .dark-mode{
+    --main-search-border-radius: 8px;
+
     --main-bg-color: #202124;
     --read-mail-bg: #3c4043;
     --search-bar: #28292c;

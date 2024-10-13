@@ -106,10 +106,27 @@ td.mail-actions {
             color: #666;
             background-color: #d1d1d1;
         }
+
+        > *:hover {
+            padding: 2px;
+            color: var(--read-mail-bg);
+            background-color: var(--grey-0);
+
+            cursor: pointer;
+        }
+
+        > *:hover::before {
+            font-size: 16px;
+            /* position: absolute; */
+            content: 'close';
+
+            color: antiquewhite;
+            z-index: 2;
+        }
     }
     
     .subject {
-        flex: 4 0 auto;
+        /* flex: 4 0 auto; */
         padding-inline-start: 10px;
         line-height: 1.2;
         white-space: nowrap;

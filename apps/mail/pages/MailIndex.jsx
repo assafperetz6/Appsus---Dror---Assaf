@@ -1,4 +1,4 @@
-const { useState, useEffect, useRef } = React
+const { useState, useEffect, useRef, useMemo } = React
 const { useLocation, useParams, useSearchParams, Outlet } = ReactRouterDOM
 
 import { mailService } from '../services/mail.service.js'
@@ -13,7 +13,6 @@ export function MailIndex() {
 	const [mails, setMails] = useState(null)
 	const [isContextMenu, setIsContextMenu] = useState(false)
 	const [cursorPos, setCursorPos] = useState({ top: 0, left: 0 })
-	const [isHover, setIsHover] = useState(false)
 	const [hoveredMailId, setHoveredMailId] = useState(null)
 	const [selectedMail, setSelectedMail] = useState(null)
 	const isFirstRender = useRef(true)
@@ -21,37 +20,23 @@ export function MailIndex() {
 	const loc = useLocation()
 	const params = useParams()
 	const [searchPrms, setSearchPrms] = useSearchParams({ status: 'inbox' })
-	const [filterBy, setFilterBy] = useState(mailService.getFilterFromSearchParams(searchPrms))
 
+	const filterBy = useMemo(() => {
+		return mailService.getFilterFromSearchParams(searchPrms)
+	}, [searchPrms])
 	
 	useEffect(() => {
 		loadMails(filterBy)
-		setSearchPrms(utilService.getTruthyValues(filterBy))
 
-		if (isFirstRender.current) {
-			isFirstRender.current = false
-		}
-		else emitUnreadCount()
-
-	}, [params.mailId])
-	
-	useEffect(() => {
-		const newFilter = mailService.getFilterFromSearchParams(searchPrms)
-		
-		setFilterBy(newFilter)
-
-	}, [searchPrms])
-
-	useEffect(() => {
 		if (isFirstRender.current) {
 			isFirstRender.current = false
 		}
 		else {
-			loadMails(filterBy)
 			setSearchPrms(utilService.getTruthyValues(filterBy))
+			emitUnreadCount()
 		}
-
-	}, [filterBy])
+		
+	}, [filterBy, params.mailId])
 
 	useEffect(() => {
 		const unsubscribe = eventBusService.on('sentMail', loadMails)
@@ -74,9 +59,8 @@ export function MailIndex() {
 			}, 0)
 		)
 	}
-
-	function onSetIsHover(boolian, mailId) {
-		setIsHover(boolian)
+	
+	function onSetIsHover(mailId) {
 		setHoveredMailId(mailId)
 	}
 
@@ -158,6 +142,26 @@ export function MailIndex() {
 		})
 	}
 
+	function onRemoveLabel(ev, mailId, label) {
+		ev.stopPropagation()
+
+		console.log('hi')
+		
+
+		const mailToUpdate = mails.find((mail) => mail.id === mailId)
+		const mailBackup = structuredClone(mailToUpdate)
+
+		mailToUpdate.labels = mailToUpdate.labels.filter(labelName => labelName !== label)
+
+		setMails((mails) => [...mails])
+
+		mailService.save(mailToUpdate).catch((err) => {
+			console.log('Err: ', err)
+			showErrorMsg(`Problems adding mail to folder (${mailId})`)
+			setMails(mails.map(mail => mail.id === mailId ? mailBackup : mail))
+		})
+	}
+
 	function onChangeMailStatus(ev, mailId, status) {
 		ev.stopPropagation()
 
@@ -202,9 +206,10 @@ export function MailIndex() {
 		onContextMenu,
 		onChangeMailStatus,
 		onRemoveMail,
+		onRemoveLabel,
 		onLoadDraft,
-		onSetIsHover,
 		hoveredMailId,
+		onSetIsHover,
 	}
 	
 	

@@ -1,7 +1,4 @@
-const { Link } = ReactRouterDOM
-
 import { MailPreview } from './MailPreview.jsx'
-import { eventBusService } from '../../../services/event-bus.service.js'
 
 export function MailList({
 	loc,
@@ -11,9 +8,10 @@ export function MailList({
 	onContextMenu,
 	onChangeMailStatus,
 	onRemoveMail,
+	onRemoveLabel,
 	onLoadDraft,
-	onSetIsHover,
-	hoveredMailId
+	hoveredMailId,
+	onSetIsHover
 }) {
 	let mailsToShow = mails.sort((m1, m2) => (m1.sentAt - m2.sentAt) * -1)
 
@@ -81,6 +79,7 @@ export function MailList({
 							onContextMenu={onContextMenu}
 							onChangeMailStatus={onChangeMailStatus}
 							onRemoveMail={onRemoveMail}
+							onRemoveLabel={onRemoveLabel}
 							onLoadDraft={onLoadDraft}
 							key={mail.id}
 						/>

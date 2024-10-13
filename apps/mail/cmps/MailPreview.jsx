@@ -1,6 +1,6 @@
 const { useNavigate } = ReactRouterDOM
 
-export function MailPreview({ mail, onSetIsHover, hoveredMailId, currFolder, currLabel, onContextMenu, onChangeMailStatus, onRemoveMail, onLoadDraft }) {
+export function MailPreview({ mail, onSetIsHover, hoveredMailId, currFolder, currLabel, onContextMenu, onChangeMailStatus, onRemoveMail, onRemoveLabel, onLoadDraft }) {
 	const navigate = useNavigate()
 
 	function getSentTime(timeStamp) {		
@@ -22,14 +22,14 @@ export function MailPreview({ mail, onSetIsHover, hoveredMailId, currFolder, cur
 	function setLabelsToShow(labels) {		
 		let labelsToShow = [...labels]
 
-		if (currFolder !== 'inbox') labelsToShow.unshift('inbox')
-		if (labelsToShow.length > 2) labelsToShow = labelsToShow.slice(0, 2)
+		// if (currFolder !== 'inbox') labelsToShow.unshift('inbox')
+		// if (labelsToShow.length > 2) labelsToShow = labelsToShow.slice(0, 2)
 
 		return labelsToShow.map(label => {
-			if (currFolder === 'inbox') return <span key={label}>{label}</span>
+			if (currFolder === 'inbox') return <span onClick={(ev) => onRemoveLabel(ev, mail.id, label)} key={label}>{label}</span>
 			else if (currFolder === 'labels') {
-				if (label !== currLabel) return <span key={label}>{label}</span>
-			} else return <span key={label}>{label}</span>
+				if (label !== currLabel) return <span onClick={(ev) => onRemoveLabel(ev, mail.id, label)} key={label}>{label}</span>
+			} else return <span onClick={(ev) => onRemoveLabel(ev, mail.id, label)} key={label}>{label}</span>
 		})
 	}
 
@@ -47,8 +47,8 @@ export function MailPreview({ mail, onSetIsHover, hoveredMailId, currFolder, cur
 			data-id={mail.id}
 			onClick={(ev) => onShowDetails(ev)}
 			onContextMenu={onContextMenu}
-			onMouseOver={(ev) => onSetIsHover(true, ev.currentTarget.dataset.id)}
-			onMouseOut={() => onSetIsHover(false)}
+			onMouseOver={(ev) => onSetIsHover(ev.currentTarget.dataset.id)}
+			onMouseOut={() => onSetIsHover(null)}
 		>
 
 			<td className="mail-actions">

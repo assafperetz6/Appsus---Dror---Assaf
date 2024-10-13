@@ -14,6 +14,7 @@ export function MailDashboard() {
 		onContextMenu,
 		onChangeMailStatus,
 		onRemoveMail,
+		onRemoveLabel,
 		onLoadDraft,
 		onSetIsHover,
 		hoveredMailId,
@@ -47,6 +48,7 @@ export function MailDashboard() {
 				onContextMenu={onContextMenu}
 				onChangeMailStatus={onChangeMailStatus}
 				onRemoveMail={onRemoveMail}
+				onRemoveLabel={onRemoveLabel}
 				onLoadDraft={onLoadDraft}
 				onSetIsHover={onSetIsHover}
 				hoveredMailId={hoveredMailId}

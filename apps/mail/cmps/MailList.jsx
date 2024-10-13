@@ -1,7 +1,7 @@
 const { Link } = ReactRouterDOM
 
 import { MailPreview } from './MailPreview.jsx'
-import { showMailCount } from '../../../services/event-bus.service.js'
+import { eventBusService } from '../../../services/event-bus.service.js'
 
 export function MailList({
 	loc,
@@ -59,12 +59,12 @@ export function MailList({
 	
 	if (!mailsToShow.length) {
 		return (
-			<div className="flex justify-center">
+			<div className="no-mails-container flex justify-center">
 				There are no conversations with this label.
 			</div>
 		)
 	}
-	
+
 	return (
 		<section>
 			<table>

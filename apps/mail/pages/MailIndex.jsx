@@ -4,14 +4,13 @@ const { useLocation, useParams, useSearchParams, Outlet } = ReactRouterDOM
 import { mailService } from '../services/mail.service.js'
 import { MailContext } from '../services/mailContext.js'
 import { utilService } from '../../../services/util.service.js'
-import { showSuccessMsg, showErrorMsg, updateUnreadCount, loadDraft, eventBusService } from '../../../services/event-bus.service.js'
+import { eventBusService, showSuccessMsg, showErrorMsg, updateUnreadCount, loadDraft } from '../../../services/event-bus.service.js'
 
 import { Loader } from '../../../cmps/Loader.jsx'
 import { MailContextMenu } from '../cmps/MailContextMenu.jsx'
 
 export function MailIndex() {
 	const [mails, setMails] = useState(null)
-	const [mailCount, setMailCount] = useState(null)
 	const [isContextMenu, setIsContextMenu] = useState(false)
 	const [cursorPos, setCursorPos] = useState({ top: 0, left: 0 })
 	const [isHover, setIsHover] = useState(false)
@@ -33,6 +32,7 @@ export function MailIndex() {
 			isFirstRender.current = false
 		}
 		else emitUnreadCount()
+		
 
 	}, [params.mailId])
 	
@@ -41,6 +41,12 @@ export function MailIndex() {
 
 		setFilterBy(newFilter)
 	}, [searchPrms])
+
+	useEffect(() => {
+		const unsubscribe = eventBusService.on('sentMail', loadMails)
+
+		return unsubscribe
+	}, [])
 
 	function loadMails() {
 		mailService

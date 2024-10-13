@@ -2,7 +2,7 @@ const { useState, useEffect, useRef } = React
 const { Link } = ReactRouterDOM
 
 import { mailService } from '../services/mail.service.js'
-import { eventBusService, showSuccessMsg, showErrorMsg } from '../../../services/event-bus.service.js'
+import { eventBusService, showSuccessMsg, showErrorMsg, emitSentMail } from '../../../services/event-bus.service.js'
 import { ComposeForm } from './ComposeForm.jsx'
 import { MailMenuFilter } from '../../../cmps/MenuFilter.jsx'
 
@@ -23,7 +23,7 @@ export function MailMenu(props) {
 		const unsubReplyToMail = eventBusService.on('mailToReply', mailToReply => {
 			onComposeMail()
 			onSetMailToCompose({ to: mailToReply.from, from: mailToReply.to, subject: `Reply to: ${mailToReply.subject}` })
-		})
+		}, [])
 		
 		return () => {
 			unsubUnreadCount()
@@ -59,6 +59,7 @@ export function MailMenu(props) {
 			const currPrms = Object.fromEntries(searchPrms.entries())
 			const { compose, ...filteredPrms } = currPrms
 			setSearchPrms(filteredPrms)
+			emitSentMail('mail!')
 		}
 	}, [searchPrms, mailToCompose])
 

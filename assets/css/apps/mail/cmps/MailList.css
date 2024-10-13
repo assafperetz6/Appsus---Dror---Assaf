@@ -1,11 +1,13 @@
+.no-mails-container {
+    padding-block-start: 20px;
+}
+
 .mail-list {
     display: grid;
     grid-template-columns: 120px 200px minmax(0, 1fr) 100px;
 
     height: 100%;
     width: 100%;
-
-    /* padding-block-end: 12px; */
 }
 
 .mail-list > tr {

@@ -10,6 +10,7 @@ export function MailDashboard() {
 		mails,
 		filterBy,
 		loggedUser,
+		onRefresh,
 		onContextMenu,
 		onChangeMailStatus,
 		onRemoveMail,
@@ -25,7 +26,7 @@ export function MailDashboard() {
 				<section className="select-options flex">
 					<button className="unchecked"></button>
 					<button className="see-more"></button>
-					<button className="refresh"></button>
+					<button className="refresh" onClick={() => onRefresh()}></button>
 					<button className="options"></button>
 				</section>
 

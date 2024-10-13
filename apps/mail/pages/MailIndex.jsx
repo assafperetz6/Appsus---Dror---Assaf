@@ -84,6 +84,13 @@ export function MailIndex() {
 		setIsContextMenu(false)
 	}
 
+	function onRefresh() {
+		setMails(null)
+		setTimeout(() => {
+			loadMails()
+		}, 500)
+	}
+
 	function onRemoveMail(ev, mailId) {
 		ev.stopPropagation()
 
@@ -174,6 +181,7 @@ export function MailIndex() {
 		searchPrms,
 		mails,
 		filterBy,
+		onRefresh,
 		onContextMenu,
 		onChangeMailStatus,
 		onRemoveMail,

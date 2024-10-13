@@ -2,8 +2,9 @@ const { useState } = React
 const { Link } = ReactRouterDOM
 
 import { ColorPicker } from "./ColorPicker.jsx"
+import { LabelPicker } from "./LabelPicker.jsx"
 
-export function NotePreview({ note, onRemoveNote, onSetStyle, onToggleTodo, onDuplicateNote, onTogglePinned }){
+export function NotePreview({ note, onRemoveNote, onSetStyle, onToggleTodo, onDuplicateNote, onTogglePinned, onToggleLabel }){
 
     const [openMenu, setOpenMenu] = useState(null)
 
@@ -11,16 +12,22 @@ export function NotePreview({ note, onRemoveNote, onSetStyle, onToggleTodo, onDu
     let fontSize = parseInt(style.fontSize)
     if (!fontSize) fontSize = 16
 
+    function onSetOpenMenu(menu){
+        setOpenMenu(() => menu === openMenu ? null : menu)
+    }
+
     return (
         <li style={style} className="note-preview">
             <h2 className="note-title">{note.title}</h2>
             <DynamicNote note={note} info={info} onToggleTodo={onToggleTodo} />
             <section className="actions">
                 <button className="delete" onClick={() => onRemoveNote(note.id)} title="Delete note" ></button>
-                <button onClick={() => setOpenMenu(prevOpen => !prevOpen)} className="palette" title="Change background color"></button>
-                {openMenu && <ColorPicker onSetStyle={onSetStyle} noteId={note.id} pickedColor={style.backgroundColor} />}
+                <button onClick={() => onSetOpenMenu('colors')} className="palette" title="Change background color"></button>
+                {openMenu === 'colors' && <ColorPicker onSetStyle={onSetStyle} noteId={note.id} pickedColor={style.backgroundColor} />}
                 <button onClick={() => onDuplicateNote(note.id)} className="duplicate" title="Duplicate note"></button>
                 <Link to={`/note/edit/${note.id}`}><button className="edit"></button></Link>
+                <button onClick={() => onSetOpenMenu('labels')} className="add-label" title="Change background color"></button>
+                {openMenu === 'labels' && <LabelPicker onToggleLabel={onToggleLabel} noteId={note.id} pickedLabels={note.labels} />}
             </section>
             <button className={`pin-btn ${note.pinnedAt && 'pinned'}`} onClick={() => onTogglePinned(note.id)}></button>
         </li>
@@ -70,10 +77,9 @@ function NoteTodos({ note, info, onToggleTodo }){
 
 function NoteVideo({ info }){
 
-    console.log(info.url)
     const url = info.url.split('watch?v=').join('embed/')
     
     return (
-        <iframe className="note-video" src={url} frameborder="0"></iframe>
+        <iframe className="note-video" src={url} frameBorder="0"></iframe>
     )
 }

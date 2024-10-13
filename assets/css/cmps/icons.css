@@ -295,3 +295,11 @@ button.unchecked::before{
 .video::before{
     content: 'smart_display';
 }
+
+.add-label::before{
+    content: 'new_label';
+}
+
+.label::before{
+    content: 'label';
+}

@@ -2,7 +2,7 @@ const { useState, useEffect } = React
 const { useParams, useNavigate, Link } = ReactRouterDOM
 
 import { mailService } from '../services/mail.service.js'
-import { showErrorMsg, showSuccessMsg, updateUnreadCount } from '../../../services/event-bus.service.js'
+import { showErrorMsg, showSuccessMsg, updateUnreadCount, composeReply } from '../../../services/event-bus.service.js'
 import { Loader } from '../../../cmps/Loader.jsx'
 
 export function MailDetails() {
@@ -202,7 +202,7 @@ export function MailDetails() {
 						</tr>
 						<tr className="reply-actions">
 							<td>
-								<button className="reply">Reply</button>
+								<button className="reply" onClick={() => composeReply(mail)}>Reply</button>
 							</td>
 							<td>
 								<button className="forward">Forward</button>

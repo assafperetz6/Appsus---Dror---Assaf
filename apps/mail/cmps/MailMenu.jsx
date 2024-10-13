@@ -17,13 +17,18 @@ export function MailMenu(props) {
 	
 	useEffect(() => {
 		mailService.getInitUnreadCount().then(setUnreadMailsCount)
-		const unsubscribe = eventBusService.on('unreadCount', setUnreadMailsCount)
+		const unsubUnreadCount = eventBusService.on('unreadCount', setUnreadMailsCount)
+		const unsubLoadDraft = eventBusService.on('mailToCompose', setMailToCompose)
 		
-		const unsubscribe2 = eventBusService.on('mailToCompose', setMailToCompose)
+		const unsubReplyToMail = eventBusService.on('mailToReply', mailToReply => {
+			onComposeMail()
+			onSetMailToCompose({ to: mailToReply.from, from: mailToReply.to, subject: `Reply to: ${mailToReply.subject}` })
+		})
 		
 		return () => {
-			unsubscribe()
-			unsubscribe2()
+			unsubUnreadCount()
+			unsubLoadDraft()
+			unsubReplyToMail()
 		}
 	}, [])
 
@@ -86,6 +91,8 @@ export function MailMenu(props) {
 		setMailToCompose(newMail)
 
 		setIsMinimized(false)
+
+		return newMail
 	}
 
 	function onSetMailToCompose(mailData) {
@@ -108,7 +115,7 @@ export function MailMenu(props) {
 	}
 
 	function onMinimizeCompose() {
-    saveDraft()
+    	saveDraft()
 		setIsMinimized(!isMinimized)
 	}
 
@@ -116,13 +123,12 @@ export function MailMenu(props) {
 	  if (!mailToCompose.to || !mailToCompose.body) return setMailToCompose(null)
 
 	  saveDraft().then(() => {
-      setMailToCompose(null)
-      showSuccessMsg('Your draft was saved!')
-    })
-    .catch(err => {
-      console.log('Error: ', err)
-      showErrorMsg('Could not save draft')
-    })
+      	setMailToCompose(null)
+      	showSuccessMsg('Your draft was saved!')})
+	  .catch(err => {
+		console.log('Error: ', err)
+		showErrorMsg('Could not save draft')
+		})
 	}
 
 	return (

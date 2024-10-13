@@ -1,6 +1,6 @@
 import { ComposeBody } from './ComposeBody.jsx'
 
-export function ComposeForm({ onMinimizeCompose, isMinimized, onSetMailToCompose, sendMail, onCloseComposeWindow, mailToCompose }) {
+export function ComposeForm({ onMinimizeCompose, isMinimized = false, mailToCompose, onSetMailToCompose, sendMail, onCloseComposeWindow }) {
 
     return (
         <section className="compose-form-container">

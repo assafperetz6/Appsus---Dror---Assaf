@@ -22,6 +22,9 @@ export function updateUnreadCount(count) {
     eventBusService.emit('unreadCount', count)
 }
 
+export function composeReply(mailToReply) {
+    eventBusService.emit('mailToReply', mailToReply)
+}
 export function loadDraft(mailId) {
     eventBusService.emit('mailToCompose', mailId)
 }

@@ -35,6 +35,8 @@ function DynamicNote(props){
             return <NoteImg {...props} />    
         case 'NoteTodos':
             return <NoteTodos {...props} />    
+        case 'NoteVideo':
+            return <NoteVideo {...props} />    
     }
 }
 
@@ -63,5 +65,15 @@ function NoteTodos({ note, info, onToggleTodo }){
                 </section>
             )}
         </ul>
+    )
+}
+
+function NoteVideo({ info }){
+
+    console.log(info.url)
+    const url = info.url.split('watch?v=').join('embed/')
+    
+    return (
+        <iframe className="note-video" src={url} frameborder="0"></iframe>
     )
 }

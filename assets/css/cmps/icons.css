@@ -291,3 +291,7 @@ button.unchecked::before{
 .edit::before{
     content: 'edit';
 }
+
+.video::before{
+    content: 'smart_display';
+}

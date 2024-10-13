@@ -95,6 +95,9 @@ export function NoteEdit({ saveNote }){
             case 'NoteTodos':
                 setSelectedType({type, placeholder: 'Enter a comma seperated list', infoKey:'todos'})
                 break   
+            case 'NoteVideo':
+                setSelectedType({type, placeholder: 'Enter video url', infoKey:'url'})
+                break   
         }
         setIsopen(true)
     }
@@ -132,6 +135,7 @@ export function NoteEdit({ saveNote }){
                     <button type="button" onClick={() => onSetType('Notetxt')} className="text" title="Text" ></button>
                     <button type="button" onClick={() => onSetType('NoteImg')} className="image" title="Image" ></button>
                     <button type="button" onClick={() => onSetType('NoteTodos')} className="todos" title="To do list" ></button>
+                    <button type="button" onClick={() => onSetType('NoteVideo')} className="video" title="To do list" ></button>
                 </section>
             }
             </section>

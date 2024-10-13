@@ -11,6 +11,7 @@ import { MailContextMenu } from '../cmps/MailContextMenu.jsx'
 
 export function MailIndex() {
 	const [mails, setMails] = useState(null)
+	const [mailCount, setMailCount] = useState(null)
 	const [isContextMenu, setIsContextMenu] = useState(false)
 	const [cursorPos, setCursorPos] = useState({ top: 0, left: 0 })
 	const [isHover, setIsHover] = useState(false)
@@ -180,6 +181,7 @@ export function MailIndex() {
 		onSetIsHover,
 		hoveredMailId,
 	}
+	
 	
 	return (
 		<React.Fragment>

@@ -17,39 +17,22 @@ export function MailDashboard() {
 		onSetIsHover,
 		hoveredMailId,
 	} = useMailContext()
-    
+	
+
 	return (
 		<React.Fragment>
 			<section className="actions-pagination">
 				<section className="select-options flex">
-					<button>
-						<span className="material-symbols-outlined">
-							check_box_outline_blank
-						</span>
-					</button>
-					<button>
-						<span className="material-symbols-outlined">
-							keyboard_arrow_down
-						</span>
-					</button>
-
-					<button>
-						<span className="material-symbols-outlined">refresh</span>
-					</button>
-
-					<button>
-						<span className="material-symbols-outlined">more_vert</span>
-					</button>
+					<button className="unchecked"></button>
+					<button className="see-more"></button>
+					<button className="refresh"></button>
+					<button className="options"></button>
 				</section>
 
 				<section className="info-pagination flex">
-					<div className="shown-mails">1-50 of 2,000</div>
-					<button>
-						<span className="material-symbols-outlined">chevron_left</span>
-					</button>
-					<button>
-						<span className="material-symbols-outlined">chevron_right</span>
-					</button>
+					<div className="shown-mails">{`Total of ${mails.length} mails`}</div>
+					<button className="prev-mail"></button>
+					<button className="next-mail"></button>
 				</section>
 			</section>
 

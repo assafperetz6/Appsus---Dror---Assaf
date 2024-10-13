@@ -7,13 +7,16 @@ import { Loader } from '../../../cmps/Loader.jsx'
 
 export function MailDetails() {
 	const [mail, setMail] = useState(null)
+	const [mailCount, setMailCount] = useState(null)
     const navigate = useNavigate()
-	const { mailId } = useParams()
+	const params = useParams()
+	const { mailId } = params
     const { mail: loggedinUser } = mailService.loggedinUser
 
 	useEffect(() => {
 		if (mailId) loadMail()
-	}, [])
+			getMailCount().then(setMailCount)
+	}, [params])
 
 	function loadMail() {
 		mailService
@@ -23,6 +26,13 @@ export function MailDetails() {
 				console.log('Problem getting mail', err)
 				navigate('/mail')
 			})
+	}
+	
+	function getMailCount() {
+		return mailService.query().then(mails => {
+			const mailIdx = mails.findIndex(mail => mail.id === mailId)
+			return { currIdx: mailIdx, totalCount: mails.length }
+		})
 	}
 
     function formatTimestamp(timestamp) {
@@ -36,15 +46,6 @@ export function MailDetails() {
         }
         return new Date(timestamp).toLocaleString('en-US', options)
     }
-
-    function emitUnreadCount() {
-		return updateUnreadCount(
-			mailService.query().then(mails => mails.reduce((acc, mail) => {
-				if (!mail.isRead) acc++
-				return acc
-			}, 0)
-		))
-	}
 
     function onRemoveMail(mailId) {
         const mailToRemove = structuredClone(mail)
@@ -137,7 +138,7 @@ export function MailDetails() {
 	}
 
     if (!mail) return <Loader/>
-
+	
 	const { subject, body, isStarred, isImportant, sentAt, from, to } = mail
 	return (
 		<article className="details-container">
@@ -157,9 +158,9 @@ export function MailDetails() {
 				</section>
 
 				<section className="info-pagination flex">
-					<div className="shown-mails">1-50 of 2,000</div>
-					<button className="prev-mail"></button>
-					<button className="next-mail"></button>
+					<div className="shown-mails">{`${mailCount.currIdx} of ${mailCount.totalCount}`}</div>
+					<button className="prev-mail" onClick={() => navigate(`/mail/details/${mail.prevMailId}`)}></button>
+					<button className="next-mail" onClick={() => navigate(`/mail/details/${mail.nextMailId}`)}></button>
 				</section>
 			</section>
 

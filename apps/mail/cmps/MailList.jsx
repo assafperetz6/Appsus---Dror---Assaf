@@ -1,6 +1,7 @@
 const { Link } = ReactRouterDOM
 
 import { MailPreview } from './MailPreview.jsx'
+import { showMailCount } from '../../../services/event-bus.service.js'
 
 export function MailList({
 	loc,

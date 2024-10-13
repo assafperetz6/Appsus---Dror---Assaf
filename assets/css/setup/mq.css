@@ -1,0 +1,41 @@
+@media (width <= 800px) {
+    tbody.mail-list {
+        grid-template-columns: 1fr;
+        grid-auto-rows: 80px;
+    }
+
+    .mail-list > .mail-preview {
+        grid-template-columns: 60px 1fr 60px;
+        grid-template-rows: repeat(3, 20px);
+
+        align-content: center;
+    }
+
+    .sent-at {
+        grid-column: -1;
+        grid-row: 1;
+    }
+
+    .mail-list td.info {
+        grid-column: 1 / -1;
+        grid-row: 2 / -1;
+
+        display: grid;
+        grid-template-columns: 70% 30%;
+        grid-template-rows: 20px 20px;
+        
+        height: 100%;
+
+        padding: 0 0 0 40px;
+
+        .labels {
+            grid-column: 2;
+            grid-row: 1;
+        }
+
+        .subject, .mail-body {
+            justify-self: baseline;
+        }
+
+    }
+}

@@ -34,17 +34,27 @@
     height: 48px;
 
     font-size: 12px;
+    color: var(--text-base);
 
     button {
+        display: flex;
+        align-items: center;
+
+        height: 40px;
+        width: 40px;
         padding: 10px;
     }
+}
 
-    color: var(--text-base);
+.select-options {
+    margin-inline-start: 12px;
 }
 
 .shown-mails {
     display: flex;
     align-items: center;
+
+    margin-inline-end: 8px;
 }
 
 .filter-tabs {
@@ -52,7 +62,8 @@
     grid-template-columns: repeat(4, minmax(167px, 252px));
 
     border-block-end: 1px solid rgba(211, 211, 211, 0.641);
-    
+    margin-inline-start: 6px;
+
     color: var(--text-base);
 
     > button {

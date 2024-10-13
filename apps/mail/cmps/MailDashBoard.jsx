@@ -6,7 +6,6 @@ import { FilterByTabs } from './FilterByTabs.jsx'
 export function MailDashboard() {
 	const {
         loc,
-		searchPrms,
 		mails,
 		filterBy,
 		loggedUser,
@@ -20,7 +19,6 @@ export function MailDashboard() {
 		hoveredMailId,
 	} = useMailContext()
 	
-
 	return (
 		<React.Fragment>
 			<section className="actions-pagination">
@@ -38,7 +36,7 @@ export function MailDashboard() {
 				</section>
 			</section>
 
-			{searchPrms.get('status') === 'inbox' && <FilterByTabs />}
+			{loc.pathname === '/mail/inbox' && <FilterByTabs />}
 
 			<MailList
                 loc={loc}

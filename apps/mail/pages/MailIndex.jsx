@@ -199,7 +199,6 @@ export function MailIndex() {
 	const dashboardProps = {
 		loggedUser: mailService.loggedinUser,
 		loc,
-		searchPrms,
 		mails,
 		filterBy,
 		onRefresh,
@@ -211,8 +210,7 @@ export function MailIndex() {
 		hoveredMailId,
 		onSetIsHover,
 	}
-	
-	
+
 	return (
 		<React.Fragment>
 			<section className="mail-container" onClick={closeContextMenu}>

@@ -1,4 +1,6 @@
 .details-container {
+    --faded-grey: #5E5E5E;
+
     display: flex;
     flex-direction: column;
     height: 100%;
@@ -11,21 +13,28 @@
         height: 40px;
         width: 40px;
 
-        color: #5E5E5E;
+        color: var(--faded-grey);
     }
 }
 
 .actions-pagintation {
     display: flex;
     justify-content: space-between;
-
+    align-content: center;
     margin-block-start: -8px;
+
+    .shown-mails {
+        display: flex;
+        align-items: center;
+        color: var(--faded-grey);
+        font-size: 12px;
+    }
 }
 
 .details-actions {
     display: flex;
-    align-items: baseline;
-    height: 48px;
+    align-items: center;
+    height: 40px;
 
     > div {
         display: flex;
@@ -52,7 +61,7 @@
     
     width: 100%;
 
-    padding-block-start: 8px;
+    padding-block-start: 16px;
 
     .important {
         padding-block: 10px;

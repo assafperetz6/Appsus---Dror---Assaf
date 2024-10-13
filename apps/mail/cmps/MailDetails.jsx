@@ -2,7 +2,7 @@ const { useState, useEffect } = React
 const { useParams, useNavigate, Link } = ReactRouterDOM
 
 import { mailService } from '../services/mail.service.js'
-import { showErrorMsg, showSuccessMsg } from '../../../services/event-bus.service.js'
+import { showErrorMsg, showSuccessMsg, updateUnreadCount } from '../../../services/event-bus.service.js'
 import { Loader } from '../../../cmps/Loader.jsx'
 
 export function MailDetails() {
@@ -18,7 +18,6 @@ export function MailDetails() {
 	function loadMail() {
 		mailService
 			.get(mailId)
-            // .then(mail => onChangeMailStatus(mail))
 			.then(setMail)
 			.catch((err) => {
 				console.log('Problem getting mail', err)
@@ -77,28 +76,65 @@ export function MailDetails() {
 	}
 
     function onChangeMailStatus(mail, status) {
-		const mailToUpdate = structuredClone(mail)
+		const mailBackup = structuredClone(mail)
 
-        if (!status) {
-            mailToUpdate.isRead = true
-            emitUnreadCount()
-        }
-		else if (status === 'starred') mailToUpdate.isStarred = !mailToUpdate.isStarred
+		if (status === 'starred') mail.isStarred = !mail.isStarred
 		else if (status === 'important')
-			mailToUpdate.isImportant = !mailToUpdate.isImportant
-		else if (status === 'read') {
-			mailToUpdate.isRead = !mailToUpdate.isRead
-			emitUnreadCount()
+			mail.isImportant = !mail.isImportant
+
+		else if (status === 'unread') {
+			mail.isRead = false
 		}
 
-		setMail(mailToUpdate)
+		setMail(mail => ({ ...mail }))
 
-		mailService.save(mailToUpdate).catch((err) => {
-			console.log('Err: ', err)
-			showErrorMsg(`Problems adding mail to folder (${mailId})`)
+		mailService.save(mail)
+			.then(() => {
+				if (status === 'unread') navigate('/mail')
+			})
+			.catch((err) => {
+				console.log('Err: ', err)
+				showErrorMsg(`Problems adding mail to folder (${mail.id})`)
+				setMail(mailBackup)
 		})
 	}
     
+	function onLabelAs(mail, label) {
+		if (mail.labels.includes(label)) return
+
+		const mailBackup = structuredClone(mail)
+		selectedMail.labels.push(label)
+
+		setMail(mail => ({ ...mail }))
+
+		mailService.save(selectedMail).catch((err) => {
+			console.log('Err: ', err)
+			showErrorMsg(`Problems adding label (${mail.id})`)
+			setMails(mailsBackup)
+		})
+	}
+
+	function onMarkSpam() {
+		const mailToMark = mail
+		if (mailToMark.labels.includes('spam')) {
+			showSuccessMsg('Mail already marked as spam')
+			return
+		}
+
+		const mailBackup = structuredClone(mailToMark)
+		
+		mailToMark.labels.push('spam')
+		mailService.save(mailToMark)
+			.then(() => {
+				navigate('/mail')
+				showSuccessMsg('Conversation marked as spam')
+			})
+			.catch((err) => {
+				console.log('Err: ', err)
+				showErrorMsg(`Problems marking as spam (${mailToMark.id})`)
+				setMail(mailBackup)
+		})
+	}
 
     if (!mail) return <Loader/>
 
@@ -111,29 +147,25 @@ export function MailDetails() {
 
 					<div className="flex space-evenly">
 						<button className="archive"></button>
-						<button className="report"></button>
+						<button className="report" onClick={onMarkSpam}></button>
 						<button className="trash" onClick={onRemoveMail}></button>
 					</div>
 					<div className="flex space-evenly">
-						<button className="mail-unread"></button>
+						<button className="mail-unread" onClick={() => onChangeMailStatus(mail, 'unread')}></button>
 						<button className="move-to"></button>
 					</div>
 				</section>
 
 				<section className="info-pagination flex">
 					<div className="shown-mails">1-50 of 2,000</div>
-					<button>
-						<span className="material-symbols-outlined">chevron_left</span>
-					</button>
-					<button>
-						<span className="material-symbols-outlined">chevron_right</span>
-					</button>
+					<button className="prev-mail"></button>
+					<button className="next-mail"></button>
 				</section>
 			</section>
 
 			<section className="details-header">
 				<h2 className="subject">{subject}</h2>
-				<button className="important"></button>
+				<button className={`important ${mail.isImportant ? 'marked' : ''}`} onClick={() => onChangeMailStatus(mail, 'important')}></button>
 			</section>
 
 			<section className="mail-info">
@@ -154,7 +186,7 @@ export function MailDetails() {
 								<div>{formatTimestamp(sentAt)}</div>
 							</td>
 							<td>
-								<button className="starred"></button>
+								<button className={`starred ${mail.isStarred ? 'marked' : ''}`} onClick={() => onChangeMailStatus(mail, 'starred')}></button>
 							</td>
 							<td>
 								<button className="reply"></button>

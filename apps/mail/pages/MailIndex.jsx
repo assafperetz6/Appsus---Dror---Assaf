@@ -1,4 +1,4 @@
-const { useState, useEffect } = React
+const { useState, useEffect, useRef } = React
 const { useLocation, useParams, useSearchParams, Outlet } = ReactRouterDOM
 
 import { mailService } from '../services/mail.service.js'
@@ -16,15 +16,23 @@ export function MailIndex() {
 	const [isHover, setIsHover] = useState(false)
 	const [hoveredMailId, setHoveredMailId] = useState(null)
 	const [selectedMail, setSelectedMail] = useState(null)
+	const isFirstRender = useRef(true)
 
 	const loc = useLocation()
 	const params = useParams()
 	const [searchPrms, setSearchPrms] = useSearchParams({ status: 'inbox' })
 	const [filterBy, setFilterBy] = useState(mailService.getFilterFromSearchParams(searchPrms))
 
+	
 	useEffect(() => {
 		loadMails(filterBy)
 		setSearchPrms(utilService.getTruthyValues(filterBy))
+
+		if (isFirstRender.current) {
+			isFirstRender.current = false
+		}
+		else emitUnreadCount()
+
 	}, [params.mailId])
 	
 	useEffect(() => {
@@ -56,8 +64,6 @@ export function MailIndex() {
 
 	function onContextMenu(ev) {
 		ev.preventDefault()
-
-		// setIsContextMenu(false) WONDER IF NEEDED
 
 		const mailId = ev.currentTarget.dataset.id
 
@@ -133,7 +139,12 @@ export function MailIndex() {
 		const mailsBackup = structuredClone(mails)
 		const mailToUpdate = mails.find((mail) => mail.id === mailId)
 
-		if (status === 'starred') mailToUpdate.isStarred = !mailToUpdate.isStarred
+
+		if (!status) {
+			mailToUpdate.isRead = true
+			emitUnreadCount()
+		}
+		else if (status === 'starred') mailToUpdate.isStarred = !mailToUpdate.isStarred
 		else if (status === 'important')
 			mailToUpdate.isImportant = !mailToUpdate.isImportant
 		else if (status === 'read') {

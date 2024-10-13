@@ -20,7 +20,7 @@ export function NoteMenuFilter({ setSearchPrms, setMarkedFolder, path, unreadMai
 
   function onSetSearchParams(path){
       if(path === 'notes') setSearchPrms({})
-      else setSearchPrms({staus: path})
+      else setSearchPrms({status: path})
   }
 
   return (

@@ -2,15 +2,23 @@ import { showErrorMsg } from "../../../services/event-bus.service.js"
 import { noteService } from "../services/note.service.js"
 
 const { useState, useEffect, useRef } = React
+const { useParams } = ReactRouterDOM
 
 export function NoteEdit({ saveNote }){
 
     const [note, setNote] = useState(noteService.getEmptyNote)
     const [isOpen, setIsopen] = useState(false)
+    const { noteId } = useParams()
     const textAreaRef = useRef()
     const inputRef = useRef()
     
     useEffect(() => {
+        if(noteId){
+            noteService.get(noteId)
+                .then(setNote)
+                .then(() => setIsopen(true))
+        } 
+
         addEventListener('keydown', onEscapeKey)
         
         return (() => {
@@ -28,7 +36,9 @@ export function NoteEdit({ saveNote }){
             showErrorMsg('Cant save empty note')
             return
         }
+        setIsopen(false)
         saveNote(note)
+        setNote(noteService.getEmptyNote)
     }
 
     function handleChange({ target }) {
@@ -70,11 +80,11 @@ export function NoteEdit({ saveNote }){
         
     const  { title, info } = note
     return (
-        <form onSubmit={onSaveNote} className="note-add" onFocus={() => setIsopen(true)} onBlur={onInputBlur}>
+        <form onSubmit={onSaveNote} className="note-edit" onFocus={() => setIsopen(true)} onBlur={onInputBlur}>
             <input
                 ref={inputRef}
                 value={title}
-                className="add-input" 
+                className="edit-input" 
                 type="text"
                 id="title"
                 name="title"
@@ -82,7 +92,7 @@ export function NoteEdit({ saveNote }){
                 onChange={handleChange}
                 autoComplete="off"
              />
-            { isOpen && <textarea className="add-input-text" 
+            { isOpen && <textarea className="edit-input-text" 
                 ref={textAreaRef}
                 onChange={handleChange}
                 value={info.text}

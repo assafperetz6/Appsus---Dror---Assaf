@@ -25,13 +25,13 @@ export function MailIndex() {
 
 	
 	useEffect(() => {
-		loadMails()
+		loadMails(filterBy)
+		setSearchPrms(utilService.getTruthyValues(filterBy))
 
 		if (isFirstRender.current) {
 			isFirstRender.current = false
 		}
 		else emitUnreadCount()
-		
 
 	}, [params.mailId])
 	

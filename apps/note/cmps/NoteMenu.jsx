@@ -1,13 +1,12 @@
 import { NoteMenuFilter } from "../../../cmps/MenuFilter.jsx";
-const { Link } = ReactRouterDOM
 
 export function NoteMenu(props){
     return (
         <ul>
-            <NoteMenuFilter {...props} Link={Link} path="notes" />
-            <NoteMenuFilter {...props} Link={Link} path="text" />
-            <NoteMenuFilter {...props} Link={Link} path="image" />
-            <NoteMenuFilter {...props} Link={Link} path="todos" />
+            <NoteMenuFilter {...props} path="notes" />
+            <NoteMenuFilter {...props} path="text" />
+            <NoteMenuFilter {...props} path="image" />
+            <NoteMenuFilter {...props} path="todos" />
         </ul>
     )
 }

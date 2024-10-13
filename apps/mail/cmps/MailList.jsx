@@ -25,20 +25,20 @@ export function MailList({
 
 		if (loc.pathname !== '/mail/labels') mailsToShow = mailsToShow.filter(mail => !mail.labels.includes('spam'))
 
-		switch (loc.pathname) {
+	switch (loc.pathname) {
 
-			case '/mail/labels':
-				mailsToShow = mailsToShow.filter((mail) =>
-								mail.labels.some((label) => filterBy.label.includes(label)))
-				break;
+		case '/mail/labels':
+			mailsToShow = mailsToShow.filter((mail) =>
+							mail.labels.some((label) => filterBy.label.includes(label)))
+			break;
 
-			case '/mail/inbox':
-				mailsToShow = mailsToShow.filter((mail) => mail.from !== loggedUser.mail)
-				break;
-		
-			case '/mail/starred':
-				mailsToShow = mailsToShow.filter((mail) => mail.isStarred)
-				break;
+		case '/mail/inbox':
+			mailsToShow = mailsToShow.filter((mail) => mail.from !== loggedUser.mail)
+			break;
+	
+		case '/mail/starred':
+			mailsToShow = mailsToShow.filter((mail) => mail.isStarred)
+			break;
 
 			case '/mail/snoozed':
 				mailsToShow = mailsToShow.filter((mail) => mail.isSnoozed)

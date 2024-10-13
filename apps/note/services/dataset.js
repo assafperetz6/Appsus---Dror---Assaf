@@ -41,7 +41,7 @@ export const defaultNotes = [
             ]
         },
         style: {
-            fontSize: '18px'
+            fontSize: '16px'
         },
     },
     {
@@ -54,7 +54,7 @@ export const defaultNotes = [
             url: 'https://www.renemagritte.org/assets/img/paintings/the-treachery-of-images.jpg'
         },
         style: {
-            backgroundColor: '#835f4e'
+            fontSize: '16px'
         },
     },
 ]

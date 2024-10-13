@@ -1,4 +1,4 @@
-.note-add{
+.note-edit{
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -12,19 +12,20 @@
     box-shadow: 0px 2px 5px 1px #101010;
 }
 
-.note-add button:hover{
+.note-edit button:hover{
     /* background-color: rgba(255, 255, 255, 0); */
     border-radius: 10px ;
 }
 
-.add-input{
+.edit-input{
     background-color: var(--main-bg-color);
     border: none;
     outline: none;
     color: var(--text-color);
+    font-family: product-sans;
 }
 
-.add-input-text{
+.edit-input-text{
     background-color: var(--main-bg-color);
     height: 25px;
     border: none;
@@ -32,9 +33,10 @@
     resize: none;
     color: var(--text-color);
     outline: none;
+    font-family: product-sans;
 }
 
-.add-input::placeholder, .add-input-text::placeholder{
+.edit-input::placeholder, .edit-input-text::placeholder{
     font-weight: bold;
     font-family: product-sans;
     color: #bdbdbe;

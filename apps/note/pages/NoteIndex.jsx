@@ -1,11 +1,11 @@
 import { Loader } from "../../../cmps/Loader.jsx"
-import { showErrorMsg, showSuccessMsg } from "../../../services/event-bus.service.js"
+import { eventBusService, showErrorMsg, showSuccessMsg } from "../../../services/event-bus.service.js"
 import { NoteEdit } from "../cmps/NoteEdit.jsx"
 import { NoteList } from "../cmps/NoteList.jsx"
 import { noteService } from "../services/note.service.js"
 
 const { useState, useEffect } = React
-const { useSearchParams } = ReactRouterDOM
+const { useSearchParams, Outlet } = ReactRouterDOM
 
 export function NoteIndex() {
     
@@ -25,10 +25,19 @@ export function NoteIndex() {
     }, [filterBy])
 
     useEffect(() => {
+        const unsubscribe = eventBusService.on('save-edit' ,(note) => {
+            noteService.save(note)
+                .then(noteService.query)
+                .then(setNotes)
+        })    
         noteService.query(filterBy)
             .then(setNotes)
-        return (() => document.body.classList.remove('dark-mode'))
+        return (() => {
+            document.body.classList.remove('dark-mode')
+            unsubscribe()
+        })
     }, [])
+
 
     function onRemoveNote(noteId){
         const notesBackup = structuredClone(notes)
@@ -123,6 +132,7 @@ export function NoteIndex() {
                 onDuplicateNote={onDuplicateNote}
                 onTogglePinned={onTogglePinned}
             />
+            <Outlet />
         </section>
     )
 }

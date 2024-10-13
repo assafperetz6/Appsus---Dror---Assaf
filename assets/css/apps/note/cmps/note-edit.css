@@ -41,3 +41,22 @@
     font-family: product-sans;
     color: #bdbdbe;
 }
+
+.input-container{
+    display: flex;
+    justify-content: space-between;
+
+    width: 100%;
+    padding-inline-end: 10px;
+}
+
+.noteTypes{
+    display: flex;
+    gap: 3px;
+}
+
+.noteTypes button:hover{
+    background-color: #ffffff00;
+    border-radius: 5px;
+    cursor: pointer;
+}

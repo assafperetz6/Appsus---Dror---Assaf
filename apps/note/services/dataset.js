@@ -12,9 +12,6 @@ export const defaultNotes = [
         info: {
             txt: 'This is the body of the note'
         },
-        style: {
-            fontSize: '16px'
-        },
     },
     {
         id: utilService.makeId(),
@@ -25,9 +22,6 @@ export const defaultNotes = [
         labels: [],
         info: {
             txt: 'This is the body of the note'
-        },
-        style: {
-            fontSize: '16px'
         },
     },
     {
@@ -43,9 +37,6 @@ export const defaultNotes = [
                 {txt: 'This hasn\'t', doneAt: null}
             ]
         },
-        style: {
-            fontSize: '16px'
-        },
     },
     {
         id: utilService.makeId(),
@@ -57,9 +48,6 @@ export const defaultNotes = [
         info: {
             url: 'https://www.renemagritte.org/assets/img/paintings/the-treachery-of-images.jpg'
         },
-        style: {
-            fontSize: '16px'
-        },
     },
     {
         id: utilService.makeId(),
@@ -70,9 +58,6 @@ export const defaultNotes = [
         labels: [],
         info: {
             url: 'https://www.youtube.com/watch?v=8cU3qrOikSU'
-        },
-        style: {
-            fontSize: '16px'
         },
     },
 ]

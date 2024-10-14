@@ -9,8 +9,6 @@ export function NotePreview({ note, onRemoveNote, onSetStyle, onToggleTodo, onDu
     const [openMenu, setOpenMenu] = useState(null)
 
     const { style, info } = note
-    let fontSize = parseInt(style.fontSize)
-    if (!fontSize) fontSize = 16
 
     function onSetOpenMenu(menu){
         setOpenMenu(() => menu === openMenu ? null : menu)

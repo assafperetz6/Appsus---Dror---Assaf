@@ -17,7 +17,7 @@ export function MailMenu(props) {
 	
 	useEffect(() => {
 		mailService.getInitUnreadCount().then(setUnreadMailsCount)
-		const unsubUnreadCount = eventBusService.on('unreadCount', setUnreadMailsCount)
+		const unsubUnreadCount = eventBusService.on('unreadCount', count => setUnreadMailsCount(prev => count ? count : prev))
 		const unsubLoadDraft = eventBusService.on('mailToCompose', setMailToCompose)
 		
 		const unsubReplyToMail = eventBusService.on('mailToReply', mailToReply => {

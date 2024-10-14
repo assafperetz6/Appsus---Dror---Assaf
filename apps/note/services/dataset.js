@@ -10,18 +10,22 @@ export const defaultNotes = [
         title: 'This is a text note',
         labels: ['Romantic'],
         info: {
-            txt: 'This is the body of the note'
+            txt: 'And this is the body of the note.'
         },
+        style: {},
     },
     {
         id: utilService.makeId(),
         createdAt: Date.now(),
         type: 'NoteTxt',
         pinnedAt: null,
-        title: 'This is a text note',
+        title: 'This is another text note',
         labels: [],
         info: {
-            txt: 'This is the body of the note'
+            txt: 'And this one has a different background color! You can change it anytime.'
+        },
+        style: {
+            backgroundColor: '#ecb3a9'
         },
     },
     {
@@ -33,9 +37,12 @@ export const defaultNotes = [
         labels: [],
         info: {
             todos:[
-                {txt: 'This has been done already', doneAt: Date.now()},
-                {txt: 'This hasn\'t', doneAt: null}
+                {txt: 'This task has been done already', doneAt: Date.now()},
+                {txt: 'This one hasn\'t', doneAt: null}
             ]
+        },
+        style: {
+            backgroundColor: '#e3a47a'
         },
     },
     {
@@ -43,10 +50,13 @@ export const defaultNotes = [
         createdAt: Date.now(),
         type: 'NoteImg',
         pinnedAt: null,
-        title: 'This is an image note',
+        title: 'This is an image note, (or is it?)',
         labels: [],
         info: {
             url: 'https://www.renemagritte.org/assets/img/paintings/the-treachery-of-images.jpg'
+        },
+        style: {
+            backgroundColor: '#fdf8bc'
         },
     },
     {
@@ -54,10 +64,13 @@ export const defaultNotes = [
         createdAt: Date.now(),
         type: 'NoteVideo',
         pinnedAt: null,
-        title: 'This is a video noot',
+        title: 'And this is a video noot',
         labels: [],
         info: {
             url: 'https://www.youtube.com/watch?v=8cU3qrOikSU'
+        },
+        style: {
+            backgroundColor: '#e6f5d5'
         },
     },
 ]

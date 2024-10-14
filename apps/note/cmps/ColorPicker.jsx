@@ -2,21 +2,21 @@
 
 export function ColorPicker({ onSetStyle, noteId, pickedColor }){
 
-    // non-dark mode colors
-    // ['#ecb3a9',
-    //     '#e3a47a',
-    //     '#fdf8bc',
-    //     '#e6f5d5',
-    //     '#bedbd3',
-    //     '#d8e3ec',
-    //     '#b6cbdb',
-    //     '#cfc0da',
-    //     '#f2e3dd',
-    //     '#e8e3d5',
-    //     '#efeff1'
-    // ]
+    const lightModeColors = [
+        '#ecb3a9',
+        '#e3a47a',
+        '#fdf8bc',
+        '#e6f5d5',
+        '#bedbd3',
+        '#d8e3ec',
+        '#b6cbdb',
+        '#cfc0da',
+        '#f2e3dd',
+        '#e8e3d5',
+        '#efeff1'
+    ]
 
-    const colors = [
+    const darkModeColors = [
         '#6a232f',
         '#5f301a',
         '#734d11',
@@ -30,6 +30,7 @@ export function ColorPicker({ onSetStyle, noteId, pickedColor }){
         '#232427',
     ]
 
+    const colors = document.body.classList.contains('dark-mode') ? [...darkModeColors] : [...lightModeColors]
     const noColorClass = !pickedColor ? 'picked' : ''
 
     return (

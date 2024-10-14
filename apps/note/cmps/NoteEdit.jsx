@@ -135,7 +135,7 @@ export function NoteEdit({ saveNote }){
                     <button type="button" onClick={() => onSetType('Notetxt')} className="text" title="Text" ></button>
                     <button type="button" onClick={() => onSetType('NoteImg')} className="image" title="Image" ></button>
                     <button type="button" onClick={() => onSetType('NoteTodos')} className="todos" title="To do list" ></button>
-                    <button type="button" onClick={() => onSetType('NoteVideo')} className="video" title="To do list" ></button>
+                    <button type="button" onClick={() => onSetType('NoteVideo')} className="video" title="Video" ></button>
                 </section>
             }
             </section>

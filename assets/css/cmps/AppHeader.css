@@ -7,6 +7,18 @@ header {
 }
 
 .app-header {
+    
+    .main-nav-btn {
+        display: inline-block;
+    }
+
+    .main-search-container {
+        --margin-search-bar: 72px;
+    }
+}
+
+.app-header {
+    position: relative;
     grid-row: 1 / 2;
 
     display: grid;
@@ -22,9 +34,70 @@ header {
     }
 }
 
+.main-nav-btn {
+    position: absolute;
+    top: 12px;
+    right: 16px;
+}
+
+.main-nav-btn::before {
+    display: block;
+    height: 24px;
+    width: 24px;
+}
+
 nav a {
     margin: .5em;
+}
 
+.main-nav {
+
+    position: absolute;
+    right: 0;
+    translate: -16px 64px;
+
+    width: 220px;
+
+    flex-wrap: wrap;
+    justify-content: center;
+
+    padding: 10px;
+    border: 8px solid var(--read-mail-bg);
+    border-radius: 16px;
+
+    box-shadow: 0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12),0 5px 5px -3px rgba(0,0,0,.2);
+    background: #ffffff;
+    z-index: 10;
+
+    a {
+        position: relative;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 70px;
+        width: 70px;
+        
+        padding: 5px;
+        border-radius: 16px; 
+    }
+
+    a > svg {
+        height: 100%;
+        width: 100%;
+    }
+
+    a:hover {
+        background-color: var(--menu-btn-hover);
+    }
+
+    > a:hover svg {
+        color: var(--btn-hover);
+    }
+}
+
+.main-nav.menu-open {
+    display: flex;
 }
 
 nav a:active {
@@ -34,7 +107,7 @@ nav a:active {
 nav a.active {
     color: var(--active-nav);
     font-weight: bold;
-    text-decoration: overline;
+    text-decoration: underline;
 }
 
 button {
@@ -68,6 +141,8 @@ button:hover {
 }
 
 .main-search-container {
+    --margin-search-bar: 36px;
+
     display: grid;
     grid-template-columns: 46px 1fr 46px;
     align-items: center;
@@ -78,7 +153,7 @@ button:hover {
 
 
     border-radius: var(--main-search-border-radius);
-    margin-inline-end: 36px;
+    margin-inline-end: var(--margin-search-bar);
 
 
     background-color: var(--search-bar);

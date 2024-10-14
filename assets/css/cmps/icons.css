@@ -65,6 +65,12 @@
     content: 'tune'
 }
 
+.main-nav-btn::before {
+    content: 'apps';
+
+    font-size: 24px;
+}
+
 /* MAIN MENU */
 
 .main-menu-btn::before{

@@ -9,7 +9,7 @@
 
     font-family: Product-sans, Arial, Helvetica, sans-serif;
 
-    transition: 300ms;
+    transition: 0.3s ease;
 }
 
 .app:has(.menu-close) {

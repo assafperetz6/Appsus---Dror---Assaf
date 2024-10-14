@@ -9,10 +9,8 @@ import { svgs } from './Svgs.jsx'
 export function AppHeader() {
 	const [searchPrms, setSearchPrms] = useSearchParams()
 	const loc = useLocation()
-
-	const [filterBy, setFilterBy] = useState(
-		mailService.getFilterFromSearchParams(searchPrms)
-	)
+	const [isAppMenuOpen, setIsAppMenuOpen] = useState(false)
+	const [filterBy, setFilterBy] = useState(mailService.getFilterFromSearchParams(searchPrms))
 
 	useEffect(() => {
 		setFilterBy(prev => ({ ...prev, ...searchPrms }))
@@ -23,7 +21,7 @@ export function AppHeader() {
 			<section className="logo-menu-container flex">
 				<button className="main-menu-btn" onClick={toggleMenu}></button>
 				<Link className="flex align-center logo" to="/">
-					{(loc.pathname.startsWith('/mail')) ? svgs.mailLogo : (loc.pathname.startsWith('/note') ? svgs.noteLogo : svgs.appLogo)}
+					{(loc.pathname.startsWith('/mail')) ? svgs.mailLogo : (loc.pathname.startsWith('/note') ? svgs.noteLogo : svgs.appLogoNoText)}
 				</Link>
 			</section>
 
@@ -38,11 +36,12 @@ export function AppHeader() {
 
 				{loc.pathname.startsWith('/mail') && <button className="advanced-search"></button>}
 			</div>
-			<nav className="main-nav flex align-center">
-				<NavLink to="/">Home</NavLink>
-				<NavLink to="/about">About</NavLink>
-				<NavLink to="/mail">Mail</NavLink>
-				<NavLink to="/note">Note</NavLink>
+			<button className="main-nav-btn" onClick={() => setIsAppMenuOpen(prev => prev = !prev)}></button>
+			<nav className={`main-nav flex align-center ${isAppMenuOpen ? 'menu-open' : 'hidden'}`}>
+				<NavLink to="/">{svgs.appLogo}</NavLink>
+				<NavLink to="/about">{svgs.aboutUs}</NavLink>
+				<NavLink to="/mail">{svgs.mailLogoNoTxt}</NavLink>
+				<NavLink to="/note">{svgs.noteLogoNoText}</NavLink>
 			</nav>
 		</header>
 	)

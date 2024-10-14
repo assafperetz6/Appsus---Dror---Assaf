@@ -1,4 +1,5 @@
 @media (width <= 800px) {
+
     tbody.mail-list {
         grid-template-columns: 1fr;
         grid-auto-rows: 80px;

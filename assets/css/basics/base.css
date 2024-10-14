@@ -38,3 +38,25 @@ button {
 table {
     width: 100%;
 }
+
+.app {
+    position: relative;
+
+    display: grid;
+    grid-template-columns: 256px minmax(0, 1fr);
+    grid-template-rows: 64px 1fr 16px;
+
+    height: 100vh;
+
+    font-family: Product-sans, Arial, Helvetica, sans-serif;
+    overflow: hidden;
+    transition: 0.3s ease;
+}
+
+.app:has(.menu-close) {
+    grid-template-columns: 72px minmax(0, 1fr);
+}
+
+.material-symbols-outlined {
+    font-size: 20px;
+}

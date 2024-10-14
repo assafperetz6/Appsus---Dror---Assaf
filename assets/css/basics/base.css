@@ -31,7 +31,7 @@ img {
 button {
     border: unset;
     background-color: unset;
-
+    
     color: var(--text-color);
 }
 

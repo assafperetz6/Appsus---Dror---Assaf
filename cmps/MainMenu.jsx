@@ -2,6 +2,7 @@ const { useState, useEffect } = React
 const { Link, useParams, useSearchParams, useNavigate, useLocation } = ReactRouterDOM
 
 import { eventBusService } from '../services/event-bus.service.js'
+import { onToggle } from '../services/util.service.js'
 import { MailMenu } from '../apps/mail/cmps/MailMenu.jsx'
 import { NoteMenu } from '../apps/note/cmps/NoteMenu.jsx'
 import { FilterByLabel } from './FilterByLabel.jsx'
@@ -15,7 +16,7 @@ export function MainMenu() {
 	const { pathname } = loc
 
 	useEffect(() => {
-		const unsubscribe = eventBusService.on('toggleMenu', () => setIsMenuOpen(prev => prev = !prev))
+		const unsubscribe = eventBusService.on('toggleMenu', () => setIsMenuOpen(onToggle))
 		
 		return unsubscribe
 	}, [])
@@ -38,9 +39,12 @@ export function MainMenu() {
 
 	}, [windowWidth])
 
-	function toggleMenu(menuState) {
+	function toggleMenu(menuState, ev) {
+		if (ev.target.closest('.compose-form-container')) return
 		if (isMenuOpen === true) return
+		
 		setIsMenuOpen(menuState)
+		
 	}
 
 	function setMarkedFolder(folderName) {		
@@ -62,7 +66,7 @@ export function MainMenu() {
 	}
 	
 	return (
-		<section className={`main-menu ${isMenuOpen ? 'menu-open' : 'menu-close'}`} onMouseOver={() => toggleMenu('hover')} onMouseOut={() => toggleMenu(false)}>
+		<section className={`main-menu ${isMenuOpen ? 'menu-open' : 'menu-close'}`} onMouseOver={(ev) => toggleMenu('hover', ev)} onMouseOut={(ev) => toggleMenu(false, ev)}>
 			<DynamicMenu pathname={pathname} setMarkedFolder={setMarkedFolder} searchPrms={searchPrms} setSearchPrms={setSearchPrms} />
 			{(pathname.startsWith('/note') || pathname.startsWith('/mail')) 
 				? <FilterByLabel Link={Link} setMarkedFolder={setMarkedFolder} onSelectLabel={onSelectLabel} openMenu={isMenuOpen}/> 

@@ -24,7 +24,7 @@
         margin-inline-start: 16px;
     }
 
-    button:not(.compose) {
+    ul button:not(.compose) {
         height: 32px;
         width: 32px;
 

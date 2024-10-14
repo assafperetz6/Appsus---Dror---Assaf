@@ -8,6 +8,11 @@ header {
 
 .app-header {
     
+    button:not(.main-menu-btn) {
+        height: 40px;
+        width: 40px;
+    }
+
     .main-nav-btn {
         display: inline-block;
     }

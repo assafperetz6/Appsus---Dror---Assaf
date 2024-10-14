@@ -7,6 +7,7 @@ export function NoteMenu(props){
             <NoteMenuFilter {...props} path="text" />
             <NoteMenuFilter {...props} path="image" />
             <NoteMenuFilter {...props} path="todos" />
+            <NoteMenuFilter {...props} path="video" />
         </ul>
     )
 }

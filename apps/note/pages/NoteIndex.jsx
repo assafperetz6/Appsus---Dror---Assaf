@@ -1,5 +1,6 @@
 import { Loader } from "../../../cmps/Loader.jsx"
 import { eventBusService, showErrorMsg, showSuccessMsg } from "../../../services/event-bus.service.js"
+import { NoNotes } from "../cmps/NoNotes.jsx"
 import { NoteEdit } from "../cmps/NoteEdit.jsx"
 import { NoteList } from "../cmps/NoteList.jsx"
 import { noteService } from "../services/note.service.js"
@@ -9,12 +10,10 @@ const { useSearchParams, Outlet } = ReactRouterDOM
 
 export function NoteIndex() {
     
-    document.body.classList.add('dark-mode')
-
     const [notes, setNotes] = useState(null)
     const [searchParams, setSearchParams] = useSearchParams()
     const [filterBy, setFilterBy] = useState(noteService.getFilterFromSearchParams(searchParams))
-    
+
     useEffect(() => {
         setFilterBy(noteService.getFilterFromSearchParams(searchParams))
     }, [searchParams])
@@ -25,6 +24,7 @@ export function NoteIndex() {
     }, [filterBy])
 
     useEffect(() => {
+        document.body.classList.add('dark-mode')
         const unsubscribe = eventBusService.on('save-edit' ,(note) => {
             noteService.save(note)
                 .then(noteService.query)
@@ -109,6 +109,21 @@ export function NoteIndex() {
             })
     }
 
+    function onToggleLabel(noteId, label){
+        const noteToUpdate = notes.find(note => note.id === noteId)
+        const idx = noteToUpdate.labels.indexOf(label)
+        if(idx === -1) noteToUpdate.labels.push(label)
+        else noteToUpdate.labels.splice(idx, 1)
+        setNotes(notes => [...notes])
+        
+        noteService.save(noteToUpdate)
+            .catch(err => {
+                console.log(err)
+                showErrorMsg(`Problem editing note, ID:${noteId}`)
+                setNotes(notesBackup)
+            })
+    }
+
     function saveNote(note){
         noteService.save(note)
             .then(note => {
@@ -121,9 +136,10 @@ export function NoteIndex() {
     }
 
     if(!notes) return <Loader />
+    if(!notes.length) return <NoNotes />
     return (
         <section className="note-index">
-            <NoteEdit saveNote={saveNote} />
+            {!searchParams.size && <NoteEdit saveNote={saveNote} />}
             <NoteList 
                 onToggleTodo={onToggleTodo} 
                 onSetStyle={onSetStyle} 
@@ -131,6 +147,7 @@ export function NoteIndex() {
                 onRemoveNote={onRemoveNote}
                 onDuplicateNote={onDuplicateNote}
                 onTogglePinned={onTogglePinned}
+                onToggleLabel={onToggleLabel}
             />
             <Outlet />
         </section>

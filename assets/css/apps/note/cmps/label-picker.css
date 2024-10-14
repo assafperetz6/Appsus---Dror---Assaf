@@ -1,0 +1,40 @@
+.add-label{
+    position: relative;
+}
+
+.label-picker{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+
+    position: absolute;
+    top: -230px;
+    right: 5px;
+
+    background-color: #202124;
+    width: 100px;
+    padding: 5px 10px ;
+}
+
+.label-picker button{
+    background-color: #202124;
+    display: flex;
+    justify-content: start;
+}
+
+.label-picker section{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    width: 65%;
+}
+
+.label.picked{
+    color: #944eef;
+    font-weight: bolder;
+}
+
+.label-picker button.picked{
+    color: #944eef;
+}

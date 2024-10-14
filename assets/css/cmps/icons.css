@@ -337,3 +337,15 @@ button.unchecked::before{
 .edit::before{
     content: 'edit';
 }
+
+.video::before{
+    content: 'smart_display';
+}
+
+.add-label::before{
+    content: 'new_label';
+}
+
+.label::before{
+    content: 'label';
+}

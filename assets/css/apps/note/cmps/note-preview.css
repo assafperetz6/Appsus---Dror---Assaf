@@ -114,3 +114,7 @@ button.pin-btn{
 button.pin-btn.pinned{
     opacity: 100;
 }
+
+.note-video{
+    margin-bottom: 8px;
+}

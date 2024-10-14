@@ -3,7 +3,7 @@ export function FilterByLabel({ setMarkedFolder, onSelectLabel, openMenu }) {
         <section className="label-container">
         {openMenu && <div className="flex space-between">
             <h3>Labels</h3>
-            <button className="add-label" onClick={() => console.log('New label added')}>+</button>
+            <button className="add-label" onClick={() => console.log('New label added')}></button>
         </div>}
 
         <ul className="label-list clean-list">

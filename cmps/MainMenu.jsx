@@ -53,7 +53,10 @@ export function MainMenu() {
 			if (folderName === currLabel) return 'marked'
 		}	
 
-		if (pathname.includes(folderName) || searchPrms.get('status') === folderName || (folderName === 'notes' && !searchPrms.get('status'))) return 'marked'
+		if (pathname.includes(folderName) || 
+			searchPrms.get('status') === folderName ||
+			(folderName === 'notes' && !searchPrms.size) ||
+			searchPrms.get('label') === folderName) return 'marked'
 		return ''
 	}
 
@@ -62,7 +65,7 @@ export function MainMenu() {
 			navigate(`/mail/labels?label=${labelName}`)
 			return
 		}
-		setSearchPrms({status: 'labels', label: labelName})
+		setSearchPrms({label: labelName})
 	}
 	
 	return (

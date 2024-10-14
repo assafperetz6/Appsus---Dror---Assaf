@@ -5,11 +5,11 @@
 
     width: min(600px, 90%);
     height: max-content;
-    border: 1px solid var(--grey-2);
+    border: 1px solid var(--note-border-color);
     border-radius: 10px;
     padding: 10px;
     margin: auto;
-    box-shadow: 0px 2px 5px 1px #101010;
+    box-shadow: var(--notes-box-shadow);
 }
 
 .note-edit button:hover{

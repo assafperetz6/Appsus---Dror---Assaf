@@ -26,6 +26,12 @@ function query(filterBy = {}) {
 			const label = filterBy.label.charAt(0).toUpperCase() + filterBy.label.slice(1)
 			notes = notes.filter(note => note.labels.includes(label))
 		}
+		if (filterBy.txt) {
+			const regExp = new RegExp(filterBy.txt, 'i')
+			notes = notes.filter((note) => 
+				regExp.test(note.title) || regExp.test(note.info.txt) || note.type === 'NoteTodos' && note.info.todos.some(todo => regExp.test(todo.txt))
+			)
+		}
         notes.sort((a, b) => (a.createdAt < b.createdAt) ? 1 : (b.createdAt < a.createdAt) ? -1 : 0)
         notes.sort((a, b) => (a.pinnedAt < b.pinnedAt) ? 1 : (b.pinnedAt < a.pinnedAt) ? -1 : 0)
 		return notes
@@ -71,11 +77,13 @@ function _createNotes() {
 function getFilterFromSearchParams(searchParams) {
 	const status = searchParams.get('status') || ''
 	const label = searchParams.get('label') || ''
+	const txt = searchParams.get('txt') || ''
 	if(status === 'notes') return {}
 
 	return {
 		status,
 		label,
+		txt,
 	}
 }
 

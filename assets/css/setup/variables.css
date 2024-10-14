@@ -24,6 +24,38 @@
     --loader-color: #FF3D00;
 }
 
+.notes-style{
+    --main-search-border-radius: 24px;
+    
+    --main-bg-color: #ffffff;
+    --read-mail-bg: #f2f6fc;
+    --search-bar: #f1f3f4;
+    --btn-hover: #3c404314;
+    --menu-btn-hover: #3c404314;
+    --label-color: #505253;
+    --active-btn: #faefc6;
+    --active-nav: blue;
+    --nav-press: purple;
+    --menu-marked:#0d0d0d;
+    --menu-fill: 1;
+    --note-border-color: #dadada;
+    
+    --grey-2: #262629;
+    --grey-1: #484a4e;
+    --grey-0: #636467;
+    --light-grey: #eef0f2;
+
+    --text-color: #202124;
+
+    --notes-box-shadow: inset 1px 1px 0 rgba(0,0,0,.1),inset 0 -1px 0 rgba(0,0,0,.07);
+    --text-shadow: 0px 2px 3px #bfbfbf;
+    --loader-color: #eaac07;
+
+    .app-header{
+        border-block-end: 1px solid #dadce0;
+    }
+}
+
 .dark-mode{
     --main-search-border-radius: 8px;
 
@@ -36,6 +68,7 @@
     --nav-press: rgb(170, 119, 170) ;
     --menu-marked: #e4e9f2;
     --menu-fill: 0;
+    --note-border-color: #5f6368;
 
     --active-btn: #3e341e;
     --active-nav: rgb(88, 130, 255);
@@ -46,6 +79,8 @@
 
     --text-color: #e4e9f2;
 
+    --notes-box-shadow: inset 1px 1px 0 rgba(0,0,0,.1),inset 0 -1px 0 rgba(0,0,0,.07);
+    --text-shadow: 0px 2px 3px #000;
     --loader-color: #e4e9f2;
 
     .app-header{

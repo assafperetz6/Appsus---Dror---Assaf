@@ -3,7 +3,7 @@ const { useLocation, useParams, useSearchParams, Outlet } = ReactRouterDOM
 
 import { mailService } from '../services/mail.service.js'
 import { MailContext } from '../services/mailContext.js'
-import { utilService } from '../../../services/util.service.js'
+import { utilService, onToggle } from '../../../services/util.service.js'
 import { eventBusService, showSuccessMsg, showErrorMsg, updateUnreadCount, loadDraft } from '../../../services/event-bus.service.js'
 
 import { Loader } from '../../../cmps/Loader.jsx'
@@ -144,8 +144,6 @@ export function MailIndex() {
 
 	function onRemoveLabel(ev, mailId, label) {
 		ev.stopPropagation()
-
-		console.log('hi')
 		
 
 		const mailToUpdate = mails.find((mail) => mail.id === mailId)
@@ -167,19 +165,15 @@ export function MailIndex() {
 
 		const mailsBackup = structuredClone(mails)
 		const mailToUpdate = mails.find((mail) => mail.id === mailId)
-
-
+		
 		if (!status) {
 			mailToUpdate.isRead = true
 			emitUnreadCount()
 		}
-		else if (status === 'starred') mailToUpdate.isStarred = !mailToUpdate.isStarred
-		else if (status === 'important')
-			mailToUpdate.isImportant = !mailToUpdate.isImportant
-		else if (status === 'read') {
-			mailToUpdate.isRead = !mailToUpdate.isRead
-			emitUnreadCount()
-		}
+
+		else mailToUpdate[status] = onToggle(mailToUpdate[status])
+
+		if (status === 'isRead') emitUnreadCount()
 
 		setMails((mails) => [...mails])
 

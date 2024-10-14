@@ -1,8 +1,12 @@
 const { useState, useEffect } = React
 const { Link, NavLink, useParams, useSearchParams, useLocation } = ReactRouterDOM
 
+
+
+import { onToggle } from '../services/util.service.js'
 import { mailService } from '../apps/mail/services/mail.service.js'
 import { toggleMenu } from '../services/event-bus.service.js'
+import { AdvancedFilter } from './AdvancedFilter.jsx'
 import { Input } from './Inputs.jsx'
 import { svgs } from './Svgs.jsx'
 
@@ -11,6 +15,7 @@ export function AppHeader() {
 	const loc = useLocation()
 	const params = useParams()
 	const [isAppMenuOpen, setIsAppMenuOpen] = useState(false)
+	const [isAdvancedFilter, setIsAdvancedFilter] = useState(false)
 	const [filterBy, setFilterBy] = useState(mailService.getFilterFromSearchParams(searchPrms))
 
 	useEffect(() => {
@@ -41,9 +46,10 @@ export function AppHeader() {
 					}
 				/>
 
-				{loc.pathname.startsWith('/mail') && <button className="advanced-search"></button>}
+				{loc.pathname.startsWith('/mail') && <button className="advanced-search" onClick={() => setIsAdvancedFilter(onToggle)}></button>}
+				{isAdvancedFilter && <AdvancedFilter/>}
 			</div>
-			<button className="main-nav-btn" onClick={() => setIsAppMenuOpen(prev => prev = !prev)}></button>
+			<button className="main-nav-btn" onClick={() => setIsAppMenuOpen(onToggle)}></button>
 			<nav className={`main-nav flex align-center ${isAppMenuOpen ? 'menu-open' : 'hidden'}`}>
 				<NavLink to="/">{svgs.appLogo}</NavLink>
 				<NavLink to="/about">{svgs.aboutUs}</NavLink>

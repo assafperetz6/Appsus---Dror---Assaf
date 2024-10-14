@@ -4,6 +4,7 @@ const { useParams, useNavigate, Link } = ReactRouterDOM
 import { mailService } from '../services/mail.service.js'
 import { showErrorMsg, showSuccessMsg, updateUnreadCount, composeReply } from '../../../services/event-bus.service.js'
 import { Loader } from '../../../cmps/Loader.jsx'
+import { onToggle } from '../../../services/util.service.js'
 
 export function MailDetails() {
 	const [mail, setMail] = useState(null)
@@ -78,15 +79,10 @@ export function MailDetails() {
 
     function onChangeMailStatus(mail, status) {
 		const mailBackup = structuredClone(mail)
-
-		if (status === 'starred') mail.isStarred = !mail.isStarred
-		else if (status === 'important')
-			mail.isImportant = !mail.isImportant
-
-		else if (status === 'unread') {
-			mail.isRead = false
-		}
-
+		
+		if (status === 'unread') mail.isRead = false		
+		else mail[status] = onToggle(mail[status])
+		
 		setMail(mail => ({ ...mail }))
 
 		mailService.save(mail)
@@ -111,7 +107,7 @@ export function MailDetails() {
 		mailService.save(selectedMail).catch((err) => {
 			console.log('Err: ', err)
 			showErrorMsg(`Problems adding label (${mail.id})`)
-			setMails(mailsBackup)
+			setMail(mailBackup)
 		})
 	}
 
@@ -166,7 +162,7 @@ export function MailDetails() {
 
 			<section className="details-header">
 				<h2 className="subject">{subject}</h2>
-				<button className={`important ${mail.isImportant ? 'marked' : ''}`} onClick={() => onChangeMailStatus(mail, 'important')}></button>
+				<button className={`important ${mail.isImportant ? 'marked' : ''}`} onClick={() => onChangeMailStatus(mail, 'isImportant')}></button>
 			</section>
 
 			<section className="mail-info">
@@ -187,7 +183,7 @@ export function MailDetails() {
 								<div>{formatTimestamp(sentAt)}</div>
 							</td>
 							<td>
-								<button className={`starred ${mail.isStarred ? 'marked' : ''}`} onClick={() => onChangeMailStatus(mail, 'starred')}></button>
+								<button className={`starred ${mail.isStarred ? 'marked' : ''}`} onClick={() => onChangeMailStatus(mail, 'isStarred')}></button>
 							</td>
 							<td>
 								<button className="reply"></button>

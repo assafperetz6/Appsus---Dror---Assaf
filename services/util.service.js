@@ -83,3 +83,7 @@ function getMonthName(date) {
     ]
     return monthNames[date.getMonth()]
 }
+
+export function onToggle(value) {
+    return !value
+}

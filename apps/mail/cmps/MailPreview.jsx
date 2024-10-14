@@ -55,11 +55,11 @@ export function MailPreview({ mail, onSetIsHover, hoveredMailId, currFolder, cur
 				<button className="check-box"></button>
 				<button
 					className={`starred ${mail.isStarred ? 'marked' : ''}`}
-					onClick={(ev) => onChangeMailStatus(ev, mail.id, 'starred')}
+					onClick={(ev) => onChangeMailStatus(ev, mail.id, 'isStarred')}
 				></button>
 				<button
 					className={`important ${mail.isImportant ? 'marked' : ''}`}
-					onClick={(ev) => onChangeMailStatus(ev, mail.id, 'important')}
+					onClick={(ev) => onChangeMailStatus(ev, mail.id, 'isImportant')}
 				></button>
 			</td>
 			<td className="from"><span>{mail.from}</span></td>
@@ -74,7 +74,7 @@ export function MailPreview({ mail, onSetIsHover, hoveredMailId, currFolder, cur
 					<button className="trash" onClick={(ev) => onRemoveMail(ev, mail.id)}></button>
 					<button
 						className={`${mail.isRead ? 'mail-read' : 'mail-unread'}`}
-						onClick={(ev) => onChangeMailStatus(ev, mail.id, 'read')}
+						onClick={(ev) => onChangeMailStatus(ev, mail.id, 'isRead')}
 					></button>
 				</td>
 			) : (

@@ -1,5 +1,13 @@
 @media (width <= 800px) {
 
+    section.select-options {
+        margin-inline-start: 6px;
+    }
+
+    section.filter-tabs {
+        display: none;
+    }
+
     tbody.mail-list {
         grid-template-columns: 1fr;
         grid-auto-rows: 80px;
@@ -38,5 +46,10 @@
             justify-self: baseline;
         }
 
+    }
+
+    .mail-content h3 {
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 }

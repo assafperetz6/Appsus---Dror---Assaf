@@ -32,7 +32,7 @@
     }
     
     *::before {
-        margin-inline: 2px 400px;
+        margin-inline: 2px 100vw;
         text-align: center;
     }
 }

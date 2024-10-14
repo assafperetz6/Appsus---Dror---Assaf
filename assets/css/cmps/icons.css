@@ -47,6 +47,20 @@
     }
 }
 
+.updates::before {
+    content: 'info';
+}
+
+.social::before {
+    content: 'group';
+}
+.promotions::before {
+    content: 'sell';
+}
+.primary::before {
+    content: 'inbox';
+}
+
 /* APP HEADER LOGO */
 
 .note-logo{

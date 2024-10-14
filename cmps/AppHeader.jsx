@@ -1,5 +1,5 @@
 const { useState, useEffect } = React
-const { Link, NavLink, useSearchParams, useLocation } = ReactRouterDOM
+const { Link, NavLink, useParams, useSearchParams, useLocation } = ReactRouterDOM
 
 import { mailService } from '../apps/mail/services/mail.service.js'
 import { toggleMenu } from '../services/event-bus.service.js'
@@ -9,6 +9,7 @@ import { svgs } from './Svgs.jsx'
 export function AppHeader() {
 	const [searchPrms, setSearchPrms] = useSearchParams()
 	const loc = useLocation()
+	const params = useParams()
 	const [isAppMenuOpen, setIsAppMenuOpen] = useState(false)
 	const [filterBy, setFilterBy] = useState(mailService.getFilterFromSearchParams(searchPrms))
 
@@ -16,8 +17,14 @@ export function AppHeader() {
 		setFilterBy(prev => ({ ...prev, ...searchPrms }))
 	}, [searchPrms])
 
+	useEffect(() => {
+		setIsAppMenuOpen(false)
+	}, [loc.pathname])
+
+	
 	return (
 		<header className="app-header full">
+			<div className={`close-menu ${isAppMenuOpen ? 'visible' : 'hidden'}`} onClick={() => setIsAppMenuOpen(false)}></div>
 			<section className="logo-menu-container flex">
 				<button className="main-menu-btn" onClick={toggleMenu}></button>
 				<Link className="flex align-center logo" to="/">

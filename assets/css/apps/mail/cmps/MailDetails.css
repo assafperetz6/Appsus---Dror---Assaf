@@ -120,7 +120,7 @@ h2.subject {
 
 .mail-content {
     display: grid;
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: 1fr 1fr;
     grid-template-rows: 20px 20px max-content 72px;
 
     height: 100%;
@@ -151,6 +151,14 @@ h2.subject {
         padding-inline-end: 16px;
 
         text-wrap: pretty;
+    }
+
+    .sent-at {
+        width: fit-content;
+
+        overflow: hidden;
+        text-wrap: nowrap;
+        text-overflow: clip;
     }
 }
 

@@ -1,5 +1,6 @@
 import { Loader } from "../../../cmps/Loader.jsx"
 import { eventBusService, showErrorMsg, showSuccessMsg } from "../../../services/event-bus.service.js"
+import { NoNotes } from "../cmps/NoNotes.jsx"
 import { NoteEdit } from "../cmps/NoteEdit.jsx"
 import { NoteList } from "../cmps/NoteList.jsx"
 import { noteService } from "../services/note.service.js"
@@ -12,7 +13,7 @@ export function NoteIndex() {
     const [notes, setNotes] = useState(null)
     const [searchParams, setSearchParams] = useSearchParams()
     const [filterBy, setFilterBy] = useState(noteService.getFilterFromSearchParams(searchParams))
-    
+
     useEffect(() => {
         setFilterBy(noteService.getFilterFromSearchParams(searchParams))
     }, [searchParams])
@@ -135,9 +136,10 @@ export function NoteIndex() {
     }
 
     if(!notes) return <Loader />
+    if(!notes.length) return <NoNotes />
     return (
         <section className="note-index">
-            <NoteEdit saveNote={saveNote} />
+            {!searchParams.size && <NoteEdit saveNote={saveNote} />}
             <NoteList 
                 onToggleTodo={onToggleTodo} 
                 onSetStyle={onSetStyle} 

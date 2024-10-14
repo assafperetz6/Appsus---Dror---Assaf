@@ -18,7 +18,7 @@ export function MainMenu() {
 
 		if (pathname.includes(folderName) || 
 			searchPrms.get('status') === folderName ||
-			(folderName === 'notes' && !searchPrms.get('status') && !searchPrms.get('label')) ||
+			(folderName === 'notes' && !searchPrms.size) ||
 			searchPrms.get('label') === folderName) return 'marked'
 		return ''
 	}

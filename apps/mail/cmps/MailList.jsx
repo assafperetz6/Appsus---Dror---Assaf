@@ -4,6 +4,7 @@ export function MailList({
 	loc,
 	mails,
 	filterBy,
+	searchPrms,
 	loggedUser,
 	onContextMenu,
 	onChangeMailStatus,
@@ -15,7 +16,8 @@ export function MailList({
 }) {
 	let mailsToShow = mails.sort((m1, m2) => (m1.sentAt - m2.sentAt) * -1)
 
-	if (!filterBy.txt) {
+	if (searchPrms.get('isAdvanced') === 'true') mailsToShow = mails
+	else if (!filterBy.txt) {
 		
 		if (loc.pathname === '/mail/trash')
 			mailsToShow = mailsToShow.filter((mail) => mail.removedAt)
@@ -23,20 +25,20 @@ export function MailList({
 
 		if (loc.pathname !== '/mail/labels') mailsToShow = mailsToShow.filter(mail => !mail.labels.includes('spam'))
 
-	switch (loc.pathname) {
+		switch (loc.pathname) {
 
-		case '/mail/labels':
-			mailsToShow = mailsToShow.filter((mail) =>
-							mail.labels.some((label) => filterBy.label.includes(label)))
-			break;
+			case '/mail/labels':
+				mailsToShow = mailsToShow.filter((mail) =>
+								mail.labels.some((label) => filterBy.label.includes(label)))
+				break;
 
-		case '/mail/inbox':
-			mailsToShow = mailsToShow.filter((mail) => mail.from !== loggedUser.mail)
-			break;
-	
-		case '/mail/starred':
-			mailsToShow = mailsToShow.filter((mail) => mail.isStarred)
-			break;
+			case '/mail/inbox':
+				mailsToShow = mailsToShow.filter((mail) => mail.from !== loggedUser.mail)
+				break;
+		
+			case '/mail/starred':
+				mailsToShow = mailsToShow.filter((mail) => mail.isStarred)
+				break;
 
 			case '/mail/snoozed':
 				mailsToShow = mailsToShow.filter((mail) => mail.isSnoozed)

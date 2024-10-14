@@ -27,7 +27,7 @@ export function MailIndex() {
 	
 	useEffect(() => {
 		loadMails(filterBy)
-
+		
 		if (isFirstRender.current) {
 			isFirstRender.current = false
 		}
@@ -195,6 +195,7 @@ export function MailIndex() {
 		loc,
 		mails,
 		filterBy,
+		searchPrms,
 		onRefresh,
 		onContextMenu,
 		onChangeMailStatus,

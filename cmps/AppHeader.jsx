@@ -26,10 +26,19 @@ export function AppHeader() {
 		setIsAppMenuOpen(false)
 	}, [loc.pathname])
 
+	function closeWindows() {
+		if (isAppMenuOpen) setIsAppMenuOpen(false)
+		if (isAdvancedFilter) setIsAdvancedFilter(false)
+	}
+
+	function submitAdvancedFilter(params) {
+		setSearchPrms(params)
+		setIsAdvancedFilter(false)
+	}
 	
 	return (
 		<header className="app-header full">
-			<div className={`close-menu ${isAppMenuOpen ? 'visible' : 'hidden'}`} onClick={() => setIsAppMenuOpen(false)}></div>
+			<div className={`close-menu ${isAppMenuOpen || isAdvancedFilter ? 'visible' : 'hidden'}`} onClick={() => closeWindows()}></div>
 			<section className="logo-menu-container flex">
 				<button className="main-menu-btn" onClick={toggleMenu}></button>
 				<Link className="flex align-center logo" to="/">
@@ -47,7 +56,7 @@ export function AppHeader() {
 				/>
 
 				{loc.pathname.startsWith('/mail') && <button className="advanced-search" onClick={() => setIsAdvancedFilter(onToggle)}></button>}
-				{isAdvancedFilter && <AdvancedFilter/>}
+				{isAdvancedFilter && <AdvancedFilter submitAdvancedFilter={submitAdvancedFilter}/>}
 			</div>
 			<button className="main-nav-btn" onClick={() => setIsAppMenuOpen(onToggle)}></button>
 			<nav className={`main-nav flex align-center ${isAppMenuOpen ? 'menu-open' : 'hidden'}`}>

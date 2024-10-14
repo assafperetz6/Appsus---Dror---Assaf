@@ -22,9 +22,31 @@ export const mailService = {
 	debounce,
 }
 
+function handleAdvancedFilter(filter, mails) {
+	console.log(filter)
+	
+	for (const key in filter) {
+		if (!filter[key]) continue
+		if (key === 'label') continue
+		
+		const regExp = new RegExp(filter[key], 'i')
+		if (key === 'txt') mails = mails.filter((mail) => {
+			
+			return regExp.test(mail.body)
+		})
+		else mails = mails.filter((mail) => regExp.test(mail[key]))
+	}
+	
+	return mails
+}
+
 function query(filterBy = {}) {	
 	return storageService.query(MAIL_KEY).then((mails) => {
-		if (filterBy.txt) {
+		if (filterBy.isAdvanced) {
+			delete filterBy.isAdvanced
+			mails = handleAdvancedFilter(filterBy, mails)
+		}
+		else if (filterBy.txt) {
 			const regExp = new RegExp(filterBy.txt, 'i')
 			mails = mails.filter((mail) =>
 				regExp.test(mail.body) || regExp.test(mail.subject) || regExp.test(mail.from) || regExp.test(mail.to)
@@ -103,19 +125,17 @@ function _createMail(sender, subject = 250) {
 }
 
 function getFilterFromSearchParams(searchParams) {
+	const isAdvanced = searchParams.get('isAdvanced') || false
 	const compose = searchParams.get('compose') || ''
 	const txt = searchParams.get('txt') || ''
+	const from = searchParams.get('from') || ''
+	const to = searchParams.get('to') || ''
+	const subject = searchParams.get('subject') || ''
 	const isRead = searchParams.get('isRead') || ''
 	const isStarred = searchParams.get('isStarred') || ''
 	const label = searchParams.get('label') || []
 
-	return {
-		txt,
-		isRead,
-		isStarred,
-		label,
-		compose
-	}
+	return { isAdvanced, txt, from, to, subject, isRead, isStarred, label, compose }
 }
 
 function _setNextPrevMailId(mail) {

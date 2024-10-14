@@ -8,6 +8,7 @@ export function MailDashboard() {
         loc,
 		mails,
 		filterBy,
+		searchPrms,
 		loggedUser,
 		onRefresh,
 		onContextMenu,
@@ -42,6 +43,7 @@ export function MailDashboard() {
                 loc={loc}
 				mails={mails}
 				filterBy={filterBy}
+				searchPrms={searchPrms}
 				loggedUser={loggedUser}
 				onContextMenu={onContextMenu}
 				onChangeMailStatus={onChangeMailStatus}

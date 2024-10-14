@@ -1,10 +1,42 @@
 .main-menu {
+    --compose-width: 142px;
+    --li-width: 240px;
+    
     color: var(--text-color);
 }
 
+.main-menu.menu-close {
+    --compose-width: 56px;
+    --li-width: 72px;
+
+    width: 72px;
+
+    ul {
+        margin-inline-start: 20px;
+    }
+
+    .compose::before {
+        margin-inline-start: 16px;
+    }
+
+    button:not(.compose) {
+        height: 32px;
+        width: 32px;
+
+        border-radius: 50%;
+    }
+    
+    *::before {
+        margin-inline: 2px 1000px;
+        text-align: center;
+    }
+}
+
 button.compose {
+    position: relative;
+
     height: 56px;
-    width: 142px;
+    width: var(--compose-width);
 
     padding-inline: 0 24px;
     border-radius: 16px;
@@ -13,6 +45,9 @@ button.compose {
     background-color: var(--active-btn);
 
     justify-self: start;
+
+    transition: width 0.3s ease;
+
 }
 
 .compose:hover {
@@ -52,7 +87,10 @@ button.compose {
         align-items: center;
 
         height: 32px;
-        width: 240px;
+        width: var(--li-width);
+
+        transition: width 0.3s ease;
+
 
         > * {
             grid-column: 1 / -1;

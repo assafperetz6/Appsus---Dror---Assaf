@@ -67,7 +67,7 @@
 
 /* MAIN MENU */
 
-.menu::before{
+.main-menu-btn::before{
     content: 'menu'
 }
 

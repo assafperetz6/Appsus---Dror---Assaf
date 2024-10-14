@@ -2,12 +2,18 @@
     position: relative;
 
     display: grid;
-    grid-template-columns: minmax(92px, 256px) minmax(0, 1fr);
+    grid-template-columns: 256px minmax(0, 1fr);
     grid-template-rows: 64px 1fr 16px;
 
     height: 100vh;
 
     font-family: Product-sans, Arial, Helvetica, sans-serif;
+
+    transition: 300ms;
+}
+
+.app:has(.menu-close) {
+    grid-template-columns: 72px minmax(0, 1fr);
 }
 
 .material-symbols-outlined {
@@ -25,6 +31,8 @@
     margin-inline-end: 16px;
 
     background-color: white;
+
+    z-index: 2;
 }
 
 .actions-pagination {

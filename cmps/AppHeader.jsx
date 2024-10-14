@@ -2,6 +2,7 @@ const { useState, useEffect } = React
 const { Link, NavLink, useSearchParams, useLocation } = ReactRouterDOM
 
 import { mailService } from '../apps/mail/services/mail.service.js'
+import { toggleMenu } from '../services/event-bus.service.js'
 import { Input } from './Inputs.jsx'
 import { svgs } from './Svgs.jsx'
 
@@ -20,7 +21,7 @@ export function AppHeader() {
 	return (
 		<header className="app-header full">
 			<section className="logo-menu-container flex">
-				<button className="menu"></button>
+				<button className="main-menu-btn" onClick={toggleMenu}></button>
 				<Link className="flex align-center logo" to="/">
 					{(loc.pathname.startsWith('/mail')) ? svgs.mailLogo : (loc.pathname.startsWith('/note') ? svgs.noteLogo : svgs.appLogo)}
 				</Link>

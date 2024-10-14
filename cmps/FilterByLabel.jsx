@@ -1,10 +1,10 @@
-export function FilterByLabel({ setMarkedFolder, onSelectLabel }) {
+export function FilterByLabel({ setMarkedFolder, onSelectLabel, openMenu }) {
     return (
         <section className="label-container">
-        <div className="flex space-between">
+        {openMenu && <div className="flex space-between">
             <h3>Labels</h3>
             <button className="add-label" onClick={() => console.log('New label added')}>+</button>
-        </div>
+        </div>}
 
         <ul className="label-list clean-list">
         <li>

@@ -18,9 +18,13 @@ function createEventEmitter() {
 
 export const eventBusService = createEventEmitter()
 
+export function toggleMenu() {
+    eventBusService.emit('toggleMenu')
+}
 export function emitSentMail(mail) {
     eventBusService.emit('sentMail', mail)
 }
+
 export function updateUnreadCount(count) {
     eventBusService.emit('unreadCount', count)
 }

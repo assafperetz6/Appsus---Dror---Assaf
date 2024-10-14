@@ -16,6 +16,7 @@ export function MailDashboard() {
 		onRemoveMail,
 		onRemoveLabel,
 		onLoadDraft,
+		onSaveAsNote,
 		onSetIsHover,
 		hoveredMailId,
 	} = useMailContext()
@@ -50,6 +51,7 @@ export function MailDashboard() {
 				onRemoveMail={onRemoveMail}
 				onRemoveLabel={onRemoveLabel}
 				onLoadDraft={onLoadDraft}
+				onSaveAsNote={onSaveAsNote}
 				onSetIsHover={onSetIsHover}
 				hoveredMailId={hoveredMailId}
 			/>

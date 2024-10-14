@@ -1,6 +1,6 @@
 const { useNavigate } = ReactRouterDOM
 
-export function MailPreview({ mail, onSetIsHover, hoveredMailId, currFolder, currLabel, onContextMenu, onChangeMailStatus, onRemoveMail, onRemoveLabel, onLoadDraft }) {
+export function MailPreview({ mail, onSetIsHover, hoveredMailId, currFolder, currLabel, onContextMenu, onChangeMailStatus, onRemoveMail, onRemoveLabel, onLoadDraft, onSaveAsNote }) {
 	const navigate = useNavigate()
 
 	function getSentTime(timeStamp) {		
@@ -71,6 +71,7 @@ export function MailPreview({ mail, onSetIsHover, hoveredMailId, currFolder, cur
 
 			{hoveredMailId === mail.id ? (
 				<td className="mail-actions">
+					<button className="save-as-note" onClick={(ev) => onSaveAsNote(ev, mail)}></button>
 					<button className="trash" onClick={(ev) => onRemoveMail(ev, mail.id)}></button>
 					<button
 						className={`${mail.isRead ? 'mail-read' : 'mail-unread'}`}

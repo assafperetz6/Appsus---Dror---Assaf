@@ -11,6 +11,7 @@ export function MailList({
 	onRemoveMail,
 	onRemoveLabel,
 	onLoadDraft,
+	onSaveAsNote,
 	hoveredMailId,
 	onSetIsHover
 }) {
@@ -83,6 +84,7 @@ export function MailList({
 							onRemoveMail={onRemoveMail}
 							onRemoveLabel={onRemoveLabel}
 							onLoadDraft={onLoadDraft}
+							onSaveAsNote={onSaveAsNote}
 							key={mail.id}
 						/>
 					))}

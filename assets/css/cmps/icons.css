@@ -22,6 +22,10 @@
     content: 'more_vert'
 }
 
+.save-as-note::before {
+    content: 'note_add';
+}
+
 .trash::before {
     content: 'delete'
 }

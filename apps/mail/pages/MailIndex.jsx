@@ -4,7 +4,7 @@ const { useLocation, useParams, useSearchParams, Outlet } = ReactRouterDOM
 import { mailService } from '../services/mail.service.js'
 import { MailContext } from '../services/mailContext.js'
 import { utilService, onToggle } from '../../../services/util.service.js'
-import { eventBusService, showSuccessMsg, showErrorMsg, updateUnreadCount, loadDraft } from '../../../services/event-bus.service.js'
+import { eventBusService, showSuccessMsg, showErrorMsg, updateUnreadCount, loadDraft, emitData } from '../../../services/event-bus.service.js'
 
 import { Loader } from '../../../cmps/Loader.jsx'
 import { MailContextMenu } from '../cmps/MailContextMenu.jsx'
@@ -188,6 +188,12 @@ export function MailIndex() {
 		return loadDraft(mailId)
 	}
 
+	function onSaveAsNote(ev, mail) {
+		ev.stopPropagation()
+		emitMail(mail)
+		showSuccessMsg('Your mail was saved to MeKeep')
+	}
+
 	if (!mails) return <Loader />
 
 	const dashboardProps = {
@@ -202,6 +208,7 @@ export function MailIndex() {
 		onRemoveMail,
 		onRemoveLabel,
 		onLoadDraft,
+		onSaveAsNote,
 		hoveredMailId,
 		onSetIsHover,
 	}

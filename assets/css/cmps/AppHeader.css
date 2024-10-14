@@ -177,6 +177,7 @@ button:hover {
         margin-inline: 0 20px;
         
         font-size: 1em;
+        color: var(--text-color);
     }
 
     input:focus-visible {

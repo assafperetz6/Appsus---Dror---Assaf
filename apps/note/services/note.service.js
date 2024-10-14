@@ -110,5 +110,7 @@ function _getTypeFromStatus(status){
 			return 'NoteImg'			
 		case 'todos':
 			return 'NoteTodos'			
+		case 'video':
+			return 'NoteVideo'			
 		}
 }

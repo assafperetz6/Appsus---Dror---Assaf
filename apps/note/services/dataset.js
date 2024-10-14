@@ -61,18 +61,18 @@ export const defaultNotes = [
             fontSize: '16px'
         },
     },
-    // {
-    //     id: utilService.makeId(),
-    //     createdAt: Date.now(),
-    //     type: 'NoteVideo',
-    //     pinnedAt: null,
-    //     title: 'This is a video noot',
-    //     labels: [],
-    //     info: {
-    //         url: 'https://www.youtube.com/watch?v=8cU3qrOikSU'
-    //     },
-    //     style: {
-    //         fontSize: '16px'
-    //     },
-    // },
+    {
+        id: utilService.makeId(),
+        createdAt: Date.now(),
+        type: 'NoteVideo',
+        pinnedAt: null,
+        title: 'This is a video noot',
+        labels: [],
+        info: {
+            url: 'https://www.youtube.com/watch?v=8cU3qrOikSU'
+        },
+        style: {
+            fontSize: '16px'
+        },
+    },
 ]

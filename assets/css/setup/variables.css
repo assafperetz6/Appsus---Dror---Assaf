@@ -37,7 +37,7 @@
     --active-nav: blue;
     --nav-press: purple;
     --menu-marked:#0d0d0d;
-    --menu-fill: 1;
+    --menu-fill: 0;
     --note-border-color: #dadada;
     
     --grey-2: #262629;
@@ -53,6 +53,14 @@
 
     .app-header{
         border-block-end: 1px solid #dadce0;
+    }
+
+    .dark-mode-toggle{
+        margin-inline-start: 20px;
+    }
+
+    .dark-mode-toggle button::before{
+        content: 'light_mode';
     }
 }
 
@@ -87,4 +95,9 @@
         border-block-end: 1px solid #606368;
         box-shadow: inset 0px -1px 0 #34363a;
     }
+
+    .dark-mode-toggle button::before{
+        content: 'dark_mode';
+    }
+
 }

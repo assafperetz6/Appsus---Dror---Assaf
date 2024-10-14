@@ -9,6 +9,7 @@ import { toggleMenu } from '../services/event-bus.service.js'
 import { AdvancedFilter } from './AdvancedFilter.jsx'
 import { Input } from './Inputs.jsx'
 import { svgs } from './Svgs.jsx'
+import { DarkModeToggle } from '../apps/note/cmps/DarkModeToggle.jsx'
 
 export function AppHeader() {
 	const [searchPrms, setSearchPrms] = useSearchParams()
@@ -44,6 +45,7 @@ export function AppHeader() {
 				<Link className="flex align-center logo" to="/">
 					{(loc.pathname.startsWith('/mail')) ? svgs.mailLogo : (loc.pathname.startsWith('/note') ? svgs.noteLogo : svgs.appLogoNoText)}
 				</Link>
+				{loc.pathname.startsWith('/note') && <DarkModeToggle />}
 			</section>
 
 			<div className="main-search-container">

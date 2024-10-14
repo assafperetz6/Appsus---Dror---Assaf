@@ -24,7 +24,7 @@ export function NoteIndex() {
     }, [filterBy])
 
     useEffect(() => {
-        document.body.classList.add('dark-mode')
+        document.body.classList.add('notes-style')
         const unsubscribe = eventBusService.on('save-edit' ,(note) => {
             noteService.save(note)
                 .then(noteService.query)
@@ -33,7 +33,7 @@ export function NoteIndex() {
         noteService.query(filterBy)
             .then(setNotes)
         return (() => {
-            document.body.classList.remove('dark-mode')
+            document.body.classList.remove('notes-style', 'dark-mode')
             unsubscribe()
         })
     }, [])
